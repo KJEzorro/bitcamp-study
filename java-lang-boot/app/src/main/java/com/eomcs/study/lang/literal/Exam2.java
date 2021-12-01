@@ -1,4 +1,4 @@
-// 리터럴: 숫자를 표현하는 다양한 방법
+// 리터럴: 숫자를 표현하는 다양한 방법 - 진수법
 
 package com.eomcs.study.lang.literal;
 

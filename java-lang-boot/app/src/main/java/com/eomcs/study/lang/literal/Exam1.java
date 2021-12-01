@@ -1,3 +1,5 @@
+// 리터럴 : 자바에서 값을 표현한 것
+
 package com.eomcs.study.lang.literal;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +29,9 @@ public class Exam1 {
   }
 
   @GetMapping("/test4")
-  public float test4() {
+  public double test4() {
     // 부동소수점을 표현하는 방법
-    return 3.14f;
+    return 3.14;
   }
 
   @GetMapping("/test5")
@@ -43,7 +45,4 @@ public class Exam1 {
     // 주소가 지정되지 않았음을 표현하는 방법
     return null;
   }
-
-
-
 }
