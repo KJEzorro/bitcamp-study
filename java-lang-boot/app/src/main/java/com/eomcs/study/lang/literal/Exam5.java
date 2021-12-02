@@ -32,4 +32,9 @@ public class Exam5 {
     //  대신 문자를 가리키는 코드임을 표시해야 한다.
   }
 
+  @GetMapping("/test5")
+  public String test5() {
+    return "문자5: " + '\u4eba' + '\u00a9' + '\u03c0' + '\u03a3'; // 키보드에서 입력 불가능한 특수 문자를 가리킬 때 주로 유니코드를 사용한다. 
+  }
+
 }
