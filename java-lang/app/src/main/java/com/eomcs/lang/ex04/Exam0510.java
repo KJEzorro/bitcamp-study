@@ -43,6 +43,7 @@ public class Exam0510 {
     // => JVM 실행 옵션에 다음을 추가하라!
     //        -Xmx메모리크기
     //    예) $ java -Xmx20000m ...
+    // 아니면 run configurations 에서 arguments 에서 VMargument를 Xmx-9g 로 설정
     System.out.println("종료!");
   }
 }
