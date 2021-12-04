@@ -17,7 +17,7 @@ public class Exam0951 {
 
     System.out.println(v1);
     System.out.println(v2);
-    System.out.println(v3);
+    System.out.println(v3 + 1);
     System.out.println(v33);
     System.out.println(v4);
     System.out.println(v44);

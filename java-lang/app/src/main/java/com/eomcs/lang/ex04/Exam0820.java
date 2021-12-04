@@ -32,6 +32,7 @@ public class Exam0820 {
       // 제거되기 때문에, 
       // 다음과 같이 같은 이름의 변수를 선언할 수 있다.
       int b = 400;
+      System.out.println(b);
     }
   }
 }

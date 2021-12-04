@@ -56,10 +56,10 @@ package com.eomcs.lang.ex03;
 
 public class Exam0420 {
   public static void main(String[] args) {
-    
+
     //## 문자 'A'의 문자 코드를 직접 사용하여 문자를 출력하기
     //유니코드 문자집합에서 문자 'A'의 문자 코드는 65 이다.
-    
+
     //println()에 숫자를 그냥 전달하면 일반 숫자인줄 알고 그대로 출력한다.
     System.out.println(65);
 
@@ -73,10 +73,10 @@ public class Exam0420 {
 
     //한글 '가'를 문자 코드를 이용하여 출력하기
     System.out.println((char)0xAC00);
-    
+
     //'가' 다음 문자 출력하기
     System.out.println((char)(0xAC00 + 1));
-    
+
     //영어 대문자 모두 출력하기
     //첫 번째 알파벳의 코드 값만 안다면 + 연산자를 이용하여 출력할 수 있다.
     for (int i = 0; i < 26; i++) {
