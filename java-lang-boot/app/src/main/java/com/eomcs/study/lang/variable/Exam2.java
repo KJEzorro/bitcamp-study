@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("lang.variable.exam2")   // 클래스 이름이 같은 경우 충돌 방지(클래스이름표 마음대로 해도된다)
-@RequestMapping("/lang/variable/exam2")  // 클래스 실행 요청 경로명
+@RestController("lang.variable.exam2")   // 클래스 이름이 같은 경우 충돌 방지(클래스이름표, 마음대로 해도된다 스프링부트가 클래스를 구분하기 위해 붙이는 이름)
+@RequestMapping("/lang/variable/exam2")  // 클래스 실행 요청 경로명 (웹브라우저에서 요청하는 이름이다)
 public class Exam2 {
 
   // 여러 개의 값을 받는 방법 : 배열 사용 전
