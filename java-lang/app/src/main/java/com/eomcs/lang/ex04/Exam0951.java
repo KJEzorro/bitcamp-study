@@ -5,15 +5,15 @@ package com.eomcs.lang.ex04;
 public class Exam0951 {
   public static void main(String[] args) {
 
-    boolean v1 = Boolean.valueOf("true"); 
+    boolean v1 = Boolean.valueOf("true"); // 문자열 ==> boolean
 
-    char v2 = "가".charAt(0);
+    char v2 = "가".charAt(0);  // 문자열 ==> char
 
-    int v3 = Integer.valueOf("123");
-    int v33 = Integer.parseInt("123");
+    int v3 = Integer.valueOf("123");  // 문자열 ==> int
+    int v33 = Integer.parseInt("123");  // 문자열 ==> int
 
-    float v4 = Float.valueOf("3.14f");
-    float v44 = Float.parseFloat("3.14f");
+    float v4 = Float.valueOf("3.14f");  // 문자열 ==> float
+    float v44 = Float.parseFloat("3.14f");  // 문자열 ==> float
 
     System.out.println(v1);
     System.out.println(v2);
