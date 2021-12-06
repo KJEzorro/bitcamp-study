@@ -6,7 +6,7 @@ package com.eomcs.lang.ex01;
 //- 클래스 파일의 이름은 클래스 블록의 이름과 같다.
 //
 
-class Exam0110 {          }
+class Exam0110{ }
 
 //## 실습
 //1) 컴파일하기
