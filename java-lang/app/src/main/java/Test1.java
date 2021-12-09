@@ -8,6 +8,9 @@ public class Test1 {
 
     s = i + (int)i2;
     System.out.println(s);
+    System.out.println(s);
+    System.out.println(s);
+    System.out.println(s);
 
 
   }
