@@ -25,6 +25,12 @@ public class Exam0141 {
     System.out.println(r);                         
 
     System.out.println(12 + 2.4f);
+
+    // 물론 두개의 정수 값 중 한 개만 float으로 형변환해도 된다
+    // 왜?
+    // => 연산을 수행할 때 나머지 변수가 암시적 형변환이 이루어지기 때문이다.
+    r = i / (float)j;
+    System.out.println(r);
   }
 }
 

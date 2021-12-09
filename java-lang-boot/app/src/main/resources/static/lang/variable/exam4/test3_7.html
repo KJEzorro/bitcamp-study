@@ -18,9 +18,11 @@
 var xBtn = document.querySelector("#x-btn");
 
 xBtn.addEventListener("click", function() {
+  // 별도의 요청 작업을 실행한다. (밑에 코드)
   var xhr = new XMLHttpRequest();
-  xhr.onload = function() {
-    console.log(xhr.responseText);
+  
+  xhr.onload = function() { // 콜백함수 (웹브라우저에서 호출하는 함수)
+    console.log("dd" + xhr.responseText);
   };
   xhr.open("GET", "/lang/variable/exam4/test3", true);
   xhr.send();

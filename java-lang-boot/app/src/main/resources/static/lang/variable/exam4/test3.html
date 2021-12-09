@@ -6,35 +6,39 @@
 </head>
 <body>
 
-  <h1>배열 다루기</h1>
+<h1>배열 다루기</h1>
+<button type="button" id="x-btn">배열 가져오기</button>
+<ul id="x-namelist">
+</ul>
 
-  <button type="button" id="x-btn">배열 가져오기</button>
-  <ul id="x-namelist">
-  </ul>
+<script>
+var xNamelist = document.querySelector("#x-namelist");
+var xBtn = document.querySelector("#x-btn");
 
-  <script>
-      var xNamelist = document.querySelector("#x-namelist")
-      var xBtn = document.querySelector("#x-btn")
-      var xfff = document
-      xBtn.addEventListener("click", function() {
-        var xhr = new XMLHttpRequest()
-        xhr.onload = function() {
-          // 서버에서 받은 JSON 형식의 배열을 자바스크립트 배열로 변환한다.
-          var names = JSON.parse(xhr.responseText)
-          for (var name of names) {
-            var li = document.createElement("li") // <li></li>
-            li.innerHTML = name // <li>홍길동</li>
-            xNamelist.appendChild(li)
-          }
-        }
-        xhr.open("GET", "/lang/variable/exam4/test3", true)
-        xhr.send()
-      })
-    </script>
-
+xBtn.addEventListener("click", function() {
+  // 현재 요청한 자원의 경로를 기준으로 상대 경로를 지정하는 것이 유지보수에 더 좋다.
+  // => 절대 경로: /로 시작하는 경우
+  //    상대 경로: /로 시작하지 않는 경우
+  // => 상대경로일 경우 
+  //    요청하는 실제 경로는 현재 자원의 경로를 기준으로 계산한다. 
+  fetch("test3")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(names) {
+      names.forEach(function(name) {
+        var li = document.createElement("li");
+        li.innerHTML = name;
+        xNamelist.appendChild(li);
+      });
+    });
+});
+</script>
 
 </body>
 </html>
+
+
 
 
 
