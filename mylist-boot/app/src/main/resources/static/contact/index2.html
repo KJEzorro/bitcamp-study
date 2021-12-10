@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>연락처</title>
+</head>
+
+<body>
+  <h1>연락처</h1>
+  <table id="x-contact-tbl" border="5">
+    <thead>
+      <tr>
+        <th>이름</th>
+        <th>이메일</th>
+        <th>전화</th>
+        <th>회사</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+
+
+    var tbody = document.querySelector("#x-contact-tbl tbody")
+
+    fetch("/contact/list2")
+    .then(function(response) {
+      return response.json()
+    })
+    .then(function(arr) {
+      console.log(arr);
+      for (var str of arr) {
+        var contact = str.split(",")
+        var tr = document.createElement("tr")
+        tr.innerHTML = `
+        <td>${contact[0]}</td>
+        <td>${contact[1]}</td>
+        <td>${contact[2]}</td>
+        <td>${contact[3]}</td>`
+        tbody.appendChild(tr)
+      }
+
+    })
+
+  </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+<!--  -->

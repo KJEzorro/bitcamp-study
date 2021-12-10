@@ -16,7 +16,9 @@ public class Exam0432 {
       }
       System.out.println("-------------------------");
     }
+    System.out.println("loop 밖");
   }
+
 }
 
 
