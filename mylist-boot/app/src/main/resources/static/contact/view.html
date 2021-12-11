@@ -47,7 +47,7 @@
       .then(function(result) {
         if (result == "") {
           alert("해당 이메일의 연락처를 찾을 수 없습니다.")
-          location.href= "index.html"
+          location.href = "index.html"
         }
         var contact = result.split(",")
         xName.value = contact[0]

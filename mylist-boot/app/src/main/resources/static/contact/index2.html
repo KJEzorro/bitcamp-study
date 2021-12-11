@@ -25,30 +25,27 @@
   </table>
 
   <script>
-
-
     var tbody = document.querySelector("#x-contact-tbl tbody")
 
     fetch("/contact/list2")
-    .then(function(response) {
-      // response.json() = json데이터를 js객체로 변환
-      return response.json()
-    })
-    .then(function(arr) {
-      console.log(arr);
-      for (var str of arr) {
-        var contact = str.split(",")
-        var tr = document.createElement("tr")
-        tr.innerHTML = `
-        <td>${contact[0]}</td>
+      .then(function(response) {
+        // response.json() = json데이터를 js객체로 변환
+        return response.json()
+      })
+      .then(function(arr) {
+        for (var str of arr) {
+          console.log(str)
+          var contact = str.split(",")
+          var tr = document.createElement("tr")
+          tr.innerHTML = `
+        <td><a href="view2.html?email=${contact[1]}">${contact[0]}</a></td>
         <td>${contact[1]}</td>
         <td>${contact[2]}</td>
         <td>${contact[3]}</td>`
-        tbody.appendChild(tr)
-      }
+          tbody.appendChild(tr)
+        }
 
-    })
-
+      })
   </script>
 
 </body>
