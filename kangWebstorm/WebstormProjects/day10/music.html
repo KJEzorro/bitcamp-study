@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>MP3 Player</h1>
+
+    <ul>
+        <li><a href="mp3/aaa.mp3" target="zeroFrame">AAA</a></li>
+        <li><a href="mp3/bbb.mp3" target="zeroFrame">BBB</a></li>
+        <li><a href="mp3/ccc.mp3" target="zeroFrame">CCC</a></li>
+        <li>
+            <form action="mp3/bbb.mp3" target="zeroFrame">
+                <button type="submit">SUBMIT</button>
+            </form>
+        </li>
+    </ul>
+
+    <style>
+        iframe {
+            width: 100vw;
+            height: 30vh;
+        }
+    </style>
+
+<iframe name="zeroFrame"></iframe>
+</body>
+</html>

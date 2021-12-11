@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<script>
+
+    // jquery를 쓸때 가장 기본 코드
+    // juqery를 이용해서 내가 스크립트태그를 어디든 상관없이 쓸 수 있다. (이방법을쓰면)
+    // $(document).ready 의 의미-> document의 dom이 끝나면(등록이 되면 이미 h1태그 dom처리),
+    //                            그다음 함수(콜백(이벤트다)) 이거를 해줘.
+    // $(document).ready(function () {
+
+        // $("#btn").on("click", (e) => {
+            // alert("click")
+            // 굉장히 안좋은 코드, 이렇게 써서 jquery가 느리다는 것이다.
+            // jquery는 가능하면 매번 쓰지마라. 필요할때 하나만 만들어서 재사용하는 방법으로 써야한다.
+            // $("#result").append("<li>AAA</li>")
+        // })
+
+    // })
+
+
+
+    $(document).ready(function () {
+        // 이렇게 써야 성능면에서 좋다.
+        // 위처럼 하는게 아닌 아래처럼 result라는 변수를 하나 설정해줘야 성능면에서 좋다.
+        // 스크립트태그 하나당 도큐먼트레디를 한번씩 써주는게 낭비가 아니다.
+        const result = $('#result')
+        let count = 0
+
+        $('#btn').on("click", (e) => {
+            console.log(e)
+            // alert("click")
+            // result.append(`<li>AAA  ${count++}</li>`)
+        })
+
+        // 이벤트위임
+        $("#result").on("click","li", function (e){
+            $(this).remove()
+        })
+    })
+
+
+
+</script>
+
+<button id="btn">CLICK</button>
+
+<ul id="result">
+
+</ul>
+
+</body>
+</html>

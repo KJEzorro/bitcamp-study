@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Homepage - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    </head>
+    <body>
+
+    <style>
+        .container{
+            display: flex;
+        }
+        .menuDiv {
+            width: 18vw;
+            list-style: none;
+
+        }
+        .menuResult {
+            margin-right: auto;
+            list-style: none;
+        }
+
+        .orderDiv {
+            width: 94vw;
+            list-style: none;
+
+        }
+        .head {
+            height: 100%;
+        }
+
+    </style>
+    <header class="bg-dark head">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">COFFEE & BURGER</h1>
+            </div>
+        </div>
+    </header>
+
+
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5" id="tabs">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <li><h1>MENU</h1></li>
+                            <li class="nav-item"><a class="nav-link active" onclick="changeData('http://localhost:5555/confirm/coffee.json')"
+                                                    aria-current="page" data-url="http://localhost:5555/confirm/coffee.json">COFFEE</a></li>
+                            <li class="nav-item"><a class="nav-link active" onclick="changeData('http://localhost:5555/confirm/burger.json')"
+                                                    aria-current="page" data-url="http://localhost:5555/confirm/burger.json">BURGER</a></li>
+                        </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+
+
+        <!-- Section-->
+        <section class="py-5 container">
+            <div class="px-4 px-lg-5 mt-5">
+                <div id=menuResult class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
+
+                </div>
+            </div>
+            <div class="orderDiv">
+
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#tabs").tabs()
+
+            $("#tabs a").on("click", function (e){
+                e.preventDefault()
+                e.stopPropagation()
+                console.log(e.target)
+                //e.target.getAttribute("data-url")
+                const url = $(e.target).data("url")
+
+                $.getJSON(url,function(arr){
+                })//getjson
+
+            })//click
+
+        })
+    </script>
+
+    <script src="js/ex4.js"></script>
+    <script>
+
+
+        const orders=[]
+
+        function changeData(url) {
+            console.log("url")
+            console.log(url)
+
+            storeService.loadData(url, (arr) => {
+                console.log("callback..............")
+                console.log(arr)
+                makeCard(arr)
+                selectMenu(arr)
+            })
+        }
+
+
+        function makeCard(arr) {
+
+            console.log("-----------------arr-------------------")
+            console.log(arr)
+            // if(arr.length < 0){
+            //     return}
+            const menuDivEle = document.querySelector("#menuResult")
+            let str = ''
+            for (let i = 0; i < arr.length; i++) {
+
+                // console.log("-----------------arr[i]-----------------")
+                // console.log(arr[i])
+
+                str += `<li data-idx="${i}" class="menuDiv">
+                        <div class="card">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="${arr[i].picture}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">${arr[i].name}</h5>
+                                    <!-- Product price-->
+                                    ${arr[i].price}
+                                </div>
+                            </div>
+                        </div>
+                    </li>`
+
+            }
+            console.log("--------------str---------------------")
+            console.log(str)
+            menuDivEle.innerHTML = str
+
+        }
+
+        function selectMenu(arr) {
+            document.querySelector("#menuResult").addEventListener("click", function (e) {
+                e.preventDefault()
+                e.stopPropagation()
+
+
+                const target = e.target
+                console.log("--------------target-----------------")
+                console.log(target)
+
+                const liEle = target.closest("li")
+                const idx = liEle.getAttribute("data-idx")
+                // console.log(idx)
+                const menu = arr[liEle.getAttribute("data-idx")]
+                // console.log("------------------menu=====================")
+                // console.log(menu)
+                addCart(menu)
+
+
+            })
+        }
+
+        function addCart(menu){
+
+            orders.push({...menu, qty:1})
+
+            console.log("-----------------order check-------------------")
+            console.log(orders)
+
+            let str =''
+            let sum = 0
+            for (let i = 0; i < orders.length; i++) {
+
+                str += `<li>${orders[i].name} ${orders[i].qty}개    ${orders[i].price}</li>`
+                sum+= orders[i].price
+            }
+            str += `<h1>${sum} </h1>`
+            document.querySelector(".orderDiv").innerHTML = str
+
+
+        }
+    </script>
+    </body>
+</html>

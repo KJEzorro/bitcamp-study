@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<script>
+    $(document).ready(function() {
+
+        const result = $('#result')
+        let count = 0
+
+        //jquery는 이벤트 처리
+
+        // 1. 동적인 요소에도 이벤트를 걸수 있다.
+        // 2. e 는 순수한 이벤트 객체가 아니라 쌓여있다. -> originalEvent
+        // 3. e.target으로 꺼낸 객체는 DOM객체 (jquery객체 아님)
+
+        $("#btn").on("click", (e)=> {
+            console.log(e)
+            //alert("click")
+            result.append(`<li>AAA  ${count++}</li>`)
+        })
+
+        $("#result").on("click" ,"li", function(e) {
+            const target = e.target
+            $(target).remove()
+        })
+    })
+</script>
+
+<button id="btn">CLICK</button>
+
+<ul id="result">
+
+</ul>
+
+<button id="testBtn">Test</button>
+<script>
+    document.querySelector("#testBtn").addEventListener("click", function(e){
+        console.log(e)
+    }, false)
+</script>
+</body>
+</html>

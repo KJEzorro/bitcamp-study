@@ -1,0 +1,107 @@
+웹페이지 안에 웹페이지 넣는 태그
+<iframe>
+name 속성 => iframe요소의 이름을 명시
+
+
+
+<A>태그의 target 속성 - 문서가 열리는 위치를 지정해준다.
+_blank => 새 창을 띄운다
+프레임이름 => <A>태그의 속성 name으로 명시된 프레임
+
+
+
+<form> 태그는 사용자로부터 입력을 받을 수 있는
+HTLM 입력 폼(form)을 정의할 때 사용합니다.  (양식지)
+
+action 속성 =>
+폼 데이터가 서버로 제출될 때 해당 데이터가 도착할 URL을 명시함.
+(어디에 제출해주세요)
+
+
+------------------------------------------------------------------------
+
+jquery의 selector의 결과와 document.queryselector의 결과는 다르다.
+jquery는 싸여있다.
+왜 싸여있냐? 편하게 쓸 수 있는 기능들을 제공하기 위해서.
+ex) addClass, hide, show 등 을 편하게 쓰기 위해서.
+
+orignal을 얻어오고 싶다면 get(0)을 써라.
+jquery는 하나던 여러개던 신경쓰지 않고 다 한번에 걸 수 있다.
+
+
+
+
+
+jquery 쓰는 방법
+$() -> 많이 쓰인다.
+
+jquery가 document.queryselector을 쓴다.
+
+
+jquery 스크립트 태그의 위치 중요하다
+
+
+jquery 한번 싸여서 나온다.
+
+jquery cdn -> jquery 링크를 딸 수 있다.
+보통 minified버전을 많이 쓴다.
+
+jquery 이벤트 위임
+
+브라우저를 플랫폼으로 본다.
+니가 브라우저 뭘 쓰던간에 자바스크립트를 편하게 쓸 수 있게끔
+해주는 라이브러리다.
+
+jquery는 기본적으로 함수이기 때문에
+계속 사용하면 느려진다.
+
+
+jquery는 이벤트처리 (정리)
+- 기본적으로 함수다.
+1. 동적인 요소에도 이벤트를 걸 수 있다.
+2. e(파라미터)는 순수한 이벤트 객체가 아니라 싸여있다. -> originalEvent
+3. e.target으로 꺼낸 객체는 dom객체(jquery객체 아님)
+
+dom조작 편하게 할 수 있다.
+이펙트/애니메이션
+플러그인
+
+jquery
+.parents()
+.closest()
+
+
+
+
+
+
+
+
+bootstrap card 기억하기
+
+
+adminlte bootstrap
+css grid
+
+
+
+
+
+
+jquery animate
+
+- js를 이용 -> 1초 -> for............ -> ele의 좌표 -> cpu를 이용 -> jquery animate
+- css3를 이용 -> css변화(transform)에 시간(duration)지정 -> 준 시칸만큼 서서히 변화 -> gpu를 이용
+
+
+
+
+
+
+
+과제
+bootstrap card
+
+
+
+ajax 화면에 깜빡임이 없는데 데이터를 받아오는

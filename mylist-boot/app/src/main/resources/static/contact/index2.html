@@ -8,6 +8,7 @@
 
 <body>
   <h1>연락처</h1>
+  <a href="form2.html">새 연락처</a>
   <table id="x-contact-tbl" border="5">
     <thead>
       <tr>
@@ -30,6 +31,7 @@
 
     fetch("/contact/list2")
     .then(function(response) {
+      // response.json() = json데이터를 js객체로 변환
       return response.json()
     })
     .then(function(arr) {

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<style>
+
+    body {
+        overflow: hidden;
+    }
+
+    .container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .cardImg {
+        width: 300px;
+        position: relative;
+    }
+</style>
+
+<div class="container">
+    <div class="cardImg">
+        <img src="img/j03.jpg">
+        <button class="btn">MOVE</button>
+    </div>
+    <div class="cardImg">
+        <img src="img/j03.jpg">
+        <button class="btn">MOVE</button>
+    </div>
+    <div class="cardImg">
+        <img src="img/j03.jpg">
+        <button class="btn">MOVE</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $(".btn").on("click", function(e){
+
+            const cardImg = $(e.target).closest(".cardImg")
+
+            cardImg.animate({
+                left: "+=100vw",
+                'opacity': "0.1"
+            }, 1000, function() {
+                cardImg.animate({
+                    left: "-=100vw",
+                    'opacity': "1"
+                },1000)
+            })
+
+        })
+    })
+</script>
+
+</body>
+</html>

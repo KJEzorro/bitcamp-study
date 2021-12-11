@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--<style>-->
+<!--    .red {-->
+<!--        color: red;-->
+<!--        width: 300px;-->
+<!--        height: 20vh;-->
+<!--        background-color: gray;-->
+<!--    }-->
+<!--</style>-->
+
+<!--<h1>AAA</h1>-->
+
+<!--<a href="mp3/bbb.mp3">BBBBBBBBBBBBBBBBBBBBBBB</a>-->
+<!--<a href="mp3/bbb.mp3">BBBBBBBBBBBBBBBBBBBBBBB</a>-->
+<!--<a href="mp3/bbb.mp3">BBBBBBBBBBBBBBBBBBBBBBB</a>-->
+<!--<a href="mp3/bbb.mp3">BBBBBBBBBBBBBBBBBBBBBBB</a>-->
+
+
+
+
+
+<style>
+    .red {
+        color: red;
+        width: 300px;
+        background-color: gray;
+        height: 20vh;
+    }
+</style>
+
+
+
+
+
+
+
+
+<h1>AAA</h1>
+<h1>BBB</h1>
+<h1>CCC</h1>
+
+<a href="mp3/aaa.mp3">AAAAAAAAAAAAAAAAAAAA</a>
+<a href="mp3/aaa.mp3">AAAAAAAAAAAAAAAAAAAA</a>
+<a href="mp3/aaa.mp3">AAAAAAAAAAAAAAAAAAAA</a>
+<a href="mp3/aaa.mp3">AAAAAAAAAAAAAAAAAAAA</a>
+
+
+
+
+<script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+
+<script>
+
+    // 이렇게 하면 h1 태그에 class red를 전체에 다 먹일 수 있다.
+    // h1태그마다 class 안먹여도 된다.
+
+    // $("h1").addClass("red")
+
+
+    // 이벤트 설정 하는법 => on() , false 안줘도 된다.
+
+    // $("h1").on("click", (e) => {
+    //     alert("AAA")
+    // })
+
+
+    // aaa와 bbb는 같다고 인터넷이나 많이들 알고 있지만
+    // 전혀 다르다.
+    const aaa = document.querySelector("h1")
+    // aaa.innerHTML = "BBBB"
+
+    // bbb를 콘솔에서 찍어보자.
+    // jquery를 실행하면 한번 싸여서 나온다.
+    // jquery를 실행하면 나오는건 순수dom이 아니라 실제 ele를 싸고 잇는
+    // 객체를 반환한다.
+    const bbb = $("h1")
+    // bbb.innerHTML = "BBBB" -> 이렇게 쓰면 안나온다.
+
+    // 위처럼 쓰고싶다면 아래처럼 써야한다.
+    // bbb.get(0).innerHTML = "BBBB"
+    // bbb[0].innerHTML = "BBB"
+
+
+    bbb.html("BBBB")
+    // html() 안에 파라미터 없으면 getter, 있으면 setter
+    $("a").attr("href", "mp3/ccc.mp3").addClass("red").hide("slow")
+
+
+    // $("a").attr("href", 여기에 아무 파라미터도 없으면 getter, 있으면 setter)
+    // $("a").attr("href", "mp3/aaa.mp3").addClass("red").hide('slow')
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    // const aaa = document.querySelector("h1")
+    // aaa.innerHTML = "bbbb"
+
+    // const bbb = $("h1")
+    // bbb.get(0).innerHTML = "bbbb"
+
+    // bbb[0].innerHTML = "bbbb"
+    // /bbb.html("bbdgfb")
+
+    // html() 안에 파라미터 없으면 getter, 있으면 setter
+    // console.log(bbb.html())
+
+    // $("a").attr("href", 여기에 아무 파라미터도 없으면 getter, 있으면 setter)
+    // $("a").attr("href", "mp3/aaa.mp3").addClass("red").hide('slow')
+
+</script>
+
+
+
+</body>
+</html>
