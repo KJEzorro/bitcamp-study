@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<select name="category">
+    <option value="-1" >---</option>
+    <option value="0" >한식</option>
+    <option value="1">일식</option>
+    <option value="2">프렌차이즈</option>
+</select>
+
+<select name="stores">
+</select>
+
+<ul class="menu">
+
+</ul>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="store.js"></script>
+
+<script>
+    $(document).ready(function(){
+
+        function makeMenus(menu){
+
+            const menuArr = menu.split(",")
+
+            let str =''
+            for (let i = 0; i < menuArr.length; i++) {
+                str += `<li>${menuArr[i]}</li>`
+            }
+            $(".menu").html(str)
+        }
+
+        function makeStores(arr){
+            let str ='<option>---</option>'
+
+            for (let i = 0; i < arr.length ; i++) {
+                const {sno,sname} = arr[i]
+                str += `<option value="${sno}">${sname}</option>`
+            }
+            $("select[name='stores']").html(str)
+        }
+
+        $("select[name='category']").on("change",function(e){
+            const idx = e.target.value
+            console.log(idx)
+
+            if(idx < 0){
+                return
+            }
+            $(".menu").html('')
+            storeService.loadJson(idx, makeStores)
+
+        })
+
+        $("select[name='stores']").on("change",function(e){
+            const value = e.target.value
+            const store = storeService.getStore(value)
+            console.log(store)
+            makeMenus(store.menu)
+        })
+    })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .panel {
+
+        width: 100vw;
+        height: 50vh;
+        background-color: #31d2f2;
+    }
+
+    .menuDiv {
+        position: absolute;
+        top:0;
+        z-index: 100;
+    }
+
+
+</style>
+
+<div class="menuDiv">
+    <a href="#addPanel">ADD</a>
+    <a href="#listPanel">LIST</a>
+    <a href="#readPanel">READ</a>
+</div>
+
+<div class="panel" id="addPanel">
+    <h1>ADD</h1>
+    <!--제목/내용/완료여부/날짜 -->
+    <div>
+        <label>제목</label>
+        <input type="text" name="title" size="50" value="새로운 할일">
+    </div>
+    <div>
+        <label>내용</label>
+        <textarea name="content" cols="60" rows="5">할 일의 내용은....</textarea>
+    </div>
+    <div>
+        <label>날짜</label>
+        <input type="date" name="dueDate" size="50" value="2021-11-16">
+    </div>
+    <div>
+        <label>저장</label>
+        <button onclick="saveTodo()">Save</button>
+    </div>
+</div>
+<div class="panel" id="listPanel">
+    <style>
+        table {
+            border: 1px dashed black;
+        }
+
+        table td:first-child {
+            width: 10vw;
+        }
+        table td:nth-child(2) {
+            width: 10vw;
+        }
+        table td:nth-child(3) {
+            width: 60vw;
+        }
+        table td:nth-child(4) {
+            width: 20vw;
+        }
+
+    </style>
+    <h1>LIST</h1>
+    <table>
+        <thead>
+            <td onclick="checkAll()">전체선택</td>
+            <td>번호</td>
+            <td>제목</td>
+            <td>날짜</td>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div class="panel" id="readPanel">
+    <h1>READ</h1>
+</div>
+
+
+<script src="todo2.js"></script>
+<script>
+  const todoService = outer()
+
+  function saveTodo() {
+
+      const titleEle = document.querySelector("input[name='title']")
+      const contentEle = document.querySelector("textarea[name='content']")
+      const dueDateEle = document.querySelector("input[name='dueDate']")
+      console.log(titleEle,contentEle,dueDateEle)
+
+      const title = titleEle.value
+      const content = contentEle.value
+      const dueDate = dueDateEle.value
+      const complete = false
+
+      console.log(title, content, dueDate)
+
+      todoService.add({title,content,dueDate,complete})
+
+      showList()
+
+  }
+
+
+
+  function showList() {
+
+      const todoArr = todoService.getAll()
+
+      let str =''
+
+      for (let i = 0; i < todoArr.length ; i++) {
+          const {idx,title,dueDate,complete} = todoArr[i]
+
+          str += `<tr>
+                    <td><input type="checkbox" name="complete" ${complete?'checked':''}></td>
+                    <td>${idx}</td>
+                    <td>${title}<button onclick="deleteTodo(${idx})">DEL</button></td>
+                    <td>${dueDate}</td>
+                </tr>`
+      }
+      console.log(str)
+      document.querySelector("tbody").innerHTML = str
+  }
+
+  function checkAll() {
+      todoService.changeAll()
+      showList()
+  }
+
+  function deleteTodo(index) {
+      confirm("deleteTodo?")
+
+      todoService.removeTodo(index)
+      showList()
+
+  }
+
+
+
+</script>
+
+
+</body>
+</html>

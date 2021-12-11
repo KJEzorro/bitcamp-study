@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<select name="category">
+    <option  >---</option>
+    <option value="http://192.168.0.195:5555/w22/1team.json">한식</option>
+    <option value="http://192.168.0.215:5555/w22/2team.json">일식</option>
+    <option value="http://192.168.0.188:5555/w22/3team.json">프렌차이즈</option>
+</select>
+
+<select name="stores">
+</select>
+<ul class="details">
+
+</ul>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(e){
+
+        let storesArray = []
+
+        $("select[name='category']").on("change",function(e){
+            const url = $("select[name='category'] option:selected").val()
+
+            if(!url){
+                return
+            }
+            $.getJSON(url, function(arr){
+                console.log(arr)
+                storesArray = arr
+
+                let str ='<option>-----</option>'
+                for (let i = 0; i < arr.length ; i++) {
+                    const {sno,sname} = arr[i]
+                    console.log(sno, sname)
+                    str += `<option value="${sno}">${sname}</option>`
+                }//end for
+                $("select[name='stores']").html(str)
+            })
+        })
+
+        $("select[name='stores']").on("change", function (e){
+            const sno = e.target.value
+
+            const filterResult = storesArray.filter(store => store.sno === sno)[0]
+
+            const menus = filterResult.menu.split(",")
+
+            console.log(menus)
+
+            let str = ''
+            for (let i = 0; i < menus.length; i++) {
+                str += `<li>${menus[i]}</li>`
+                console.log(str)
+            }
+            $("ul[class='details']").html(str)
+        })
+
+    })//ready
+
+</script>
+
+</body>
+</html>

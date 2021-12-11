@@ -1,0 +1,9 @@
+일식
+
+{sno: j1 , sname: 가게이름
+
+
+
+// 아래 방식을 위의 한줄로 줄여 쓴것.
+                    // const obj = arr[i]
+                    // const sno = obj.sno

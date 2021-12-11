@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>인포윈도우 생성하기</title>
+
+</head>
+<body>
+<div id="map" style="width:100%;height:350px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c580cafc2bcd97b4d03f790417f87dec"></script>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(37.549739, 126.914483), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    </script>
+<div>
+    <button onclick="loadData('http://localhost:5555/day8/1team.json')">1팀</button>
+    <button onclick="loadData('http://localhost:5555/day8/2team.json')">2팀</button>
+    <button onclick="loadData('http://localhost:5555/day8/3team.json')">3팀</button>
+</div>
+<ul class="storeList">
+
+</ul>
+
+
+
+<script>
+
+    // 지도에 클릭 이벤트를 등록합니다
+    // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+
+        // 클릭한 위도, 경도 정보를 가져옵니다
+        var latlng = mouseEvent.latLng;
+
+        var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+        message += '경도는 ' + latlng.getLng() + ' 입니다';
+
+        var resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = message;
+
+    });
+
+
+    let markerArr = []
+    function loadData(serverInfo) {
+
+        console.log("loadData: " + serverInfo)
+
+        fetch(serverInfo)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                showMarkers(data)
+                makeList(data)
+
+            })
+    }
+
+    function showMarkers(stores) {
+
+        // 기존 마커들은 지워야 한다.
+        for (let i = 0; i < markerArr.length; i++) {
+            markerArr[i].setMap(null)
+        }
+
+        for (let i = 0; i < stores.length; i++) {
+            const store = stores[i]
+            const latLng = new kakao.maps.LatLng(store.lat, store.lng)
+            const marker = new kakao.maps.Marker({
+                map:map,
+                position:latLng,
+                title: store.name
+            })
+            markerArr.push(marker)
+        } // end for
+    }
+
+
+    function makeList(arr){
+        const ulEle = document.querySelector(".storeList")
+        let str = ''
+
+        for (let i = 0; i < arr.length ; i++) {
+            console.log(arr[i])
+            str += `<li data-name="${arr[i].name}" data-lat="${arr[i].lat}" data-lng="${arr[i].lng}" >${arr[i].name}</li>`
+        }//end for
+
+        ulEle.innerHTML = str
+    }
+
+
+    let oneStore = {}
+    document.querySelector(".storeList").addEventListener("click", (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+
+        const target = e.target
+
+        if(target.tagName !== 'LI'){
+            return
+        }
+
+        console.log(target)
+        const name = target.getAttribute("data-name")
+        const lat = target.getAttribute("data-lat")
+        const lng = target.getAttribute("data-lng")
+        console.log(name, lat, lng)
+        oneStore = {name, lat, lng}
+        showMarker(oneStore)
+        infoWindow(oneStore)
+
+    },false)
+
+    function showMarker(store) {
+
+        // 기존 마커들은 지워야 한다.
+        for (let i = 0; i < markerArr.length; i++) {
+            markerArr[i].setMap(null)
+        }
+
+        const latLng = new kakao.maps.LatLng(store.lat, store.lng)
+        const marker = new kakao.maps.Marker({
+            map:map,
+            position:latLng,
+            title: store.name
+        })
+        markerArr.push(marker)
+    }
+
+
+</script>

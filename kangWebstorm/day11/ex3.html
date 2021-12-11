@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+</head>
+<body>
+
+<div id="tabs">
+    <ul>
+        <li><a href="#result" data-url="http://localhost:5555/day11/1team.json">한식</a></li>
+        <li><a href="#result" data-url="http://localhost:5555/day11/2team.json">일식</a></li>
+        <li><a href="#result" data-url="http://localhost:5555/day11/3team.json">프렌차이즈</a></li>
+    </ul>
+    <div id="result">
+        <h1>RESULT DIV</h1>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#tabs").tabs()
+
+        $("#tabs a").on("click", function (e){
+            e.preventDefault()
+            e.stopPropagation()
+            console.log(e.target)
+            //e.target.getAttribute("data-url")
+            const url = $(e.target).data("url")
+
+            $.getJSON(url,function(arr){
+                console.log(arr)
+            })//getjson
+
+        })//click
+
+    })
+
+</script>
+
+
+</body>
+</html>

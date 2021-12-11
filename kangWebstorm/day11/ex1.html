@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .node {
+        width: 200px;
+        background-color: green;
+        /*height: 50px;*/
+        padding-left: 50px;
+        text-decoration: underline;
+
+    }
+</style>
+<div class="container">
+
+    <div class="node">
+        <div>ROOT</div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+
+        let count = 0
+
+        $(".container").on("click", ".node",function(e){
+
+            console.log("-----------------------------")
+            e.preventDefault()
+            e.stopPropagation()
+
+            const targetNode = $(e.target)
+
+            targetNode.append(`<div class="node"><div>${count++}<button>x</button></div></div>`)
+
+        });
+
+        $(".container").on("click", ".node button", function (e){
+            e.stopPropagation()
+            e.preventDefault()
+
+            const target = $(e.target.closest(".node"))
+
+            const children = target.find(".node")
+
+            if(children.length > 0){
+                alert("삭제 불가")
+                return
+            }
+
+            target.remove()
+
+
+        })
+
+    })
+</script>
+
+</body>
+</html>

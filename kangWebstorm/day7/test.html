@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    div {
+        margin: 50px;
+        padding: 50px;
+    }
+    .d1 {
+        background-color: yellow;
+    }
+    .d2 {
+        background-color: red;
+    }
+    .d3 {
+        background-color: green;
+    }
+</style>
+
+<div class="d1">
+    <div class="d2">
+        <div class="d3">
+            <a class="btn" href="https://www.naver.com">네이버</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelector(".d1").addEventListener("click", function(e) {
+        alert("D1")
+    }, false)
+
+    document.querySelector(".d2").addEventListener("click", function(e) {
+        alert("D2")
+    }, false)
+
+    document.querySelector(".d3").addEventListener("click", function(e) {
+        alert("D3")
+    }, false)
+
+    document.querySelector(".btn").addEventListener("click", function(e) {
+        e.stopPropagation() //이벤트 전파를 막는다
+        e.preventDefault() //기본 동작을 막는다.
+        alert("BTN")
+    }, false)
+
+</script>
+
+</body>
+</html>

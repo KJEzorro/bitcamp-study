@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+  }
+
+  .row {
+    width: 100vw;
+  }
+
+  .header {
+    background-color: yellow;
+    height: 10vh;
+  }
+
+  .main {
+    background-color: coral;
+    height: 80vh;
+    display: flex;
+
+  }
+
+
+  .main .menuDiv {
+    background-color: greenyellow;
+    width: 50vw;
+    overflow: auto;
+    scrollbar-width: none;
+
+
+  }
+
+  .menuList {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+
+  .mdiv {
+    width: 130px;
+    height: 200px;
+    border: 1px solid skyblue;
+    margin: 20px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .mdiv img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .pop {
+    background-color: white;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: center;
+    transform: scale(0.5);
+
+  }
+  .pop img {
+
+  }
+
+  .show {
+    z-index: 1000;
+  }
+
+  .hide {
+    z-index: -1000;
+  }
+
+
+
+</style>
+
+<div class="pop hide">
+  <img src="img/c02.jpg"/>
+  <h3>ADD CART</h3>
+</div>
+
+
+<div class="container">
+
+  <div class="row header">
+
+  </div>
+  <div class="row main">
+    <div class="menuDiv">
+      <h1>MENU</h1>
+
+      <ul class="menuList">
+
+      </ul>
+
+    </div>
+    <div class="orderDiv">
+      <h1>ORDER</h1>
+      <ul class="orderList">
+
+      </ul>
+    </div>
+  </div>
+
+</div>
+<script>
+
+  const orders = []
+
+  const menus = [
+    {name:'콜드브루', price:4500, picture:'img/c02.jpg'},
+    {name:'토피넛라떼', price:4500, picture:'img/c03.jpg'},
+    {name:'믹스커피', price:1000, picture:'img/c05.jpg'},
+    {name:'자몽주스', price:6500, picture:'img/j01.jpg'},
+    {name:'망고주스', price:9500, picture:'img/j02.jpg'},
+    {name:'포도주스', price:4000, picture:'img/j03.jpg'},
+    {name:'키위주스', price:5500, picture:'img/j04.jpg'},
+    {name:'갈배', price:1000, picture:'img/j05.jpg'},
+    {name:'딸기케이크', price:5000, picture:'img/k01.jpg'},
+    {name:'더블치즈케이크', price:4000, picture:'img/k03.jpg'},
+    {name:'한라봉케이크', price:5500, picture:'img/k05.jpg'},
+  ]
+
+  const menuList = document.querySelector(".menuList")
+  let str = ''
+
+  for (let i = 0; i < menus.length; i++) {
+    const menu = menus[i]
+    str += `<li data-idx="${i}" >
+                    <div class="mdiv">
+                        <img src="${menu.picture}">
+                        <div>${menu.name}</div>
+                        <div>${menu.price}</div>
+                    </div>
+                </li>`
+
+    menuList.innerHTML= str
+  }
+
+  menuList.addEventListener("click",(e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    const target = e.target
+    const liEle = target.closest("li")
+    const idx = liEle.getAttribute("data-idx")
+
+    const menu = menus[idx]
+    console.log(menu)
+
+    addCart(menu)
+
+  }, false)
+
+  const orderDiv = document.querySelector(".orderDiv")
+
+  function addCart(menu) {
+
+    // const result = orders.filter(oi => oi.name === menu.name)
+    // if (!result){
+    //     orders.push(result)
+    // }else{
+
+    orders.push({...menu, qty:1})
+    // }
+    console.log(orders)
+
+
+
+    let str =''
+    let sum = 0
+    for (let i = 0; i < orders.length; i++) {
+
+      str += `<li>${orders[i].name} ${orders[i].qty}개============${orders[i].price}</li>`
+      sum+= orders[i].price
+    }
+    str += `<h1>${sum} </h1>`
+    document.querySelector(".orderDiv").innerHTML = str
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
+          const target = e.target
+          const selctMenu = target.closest("li")
+          const getNum = selctMenu.getAttribute("data-idx")
+          const getName = selctMenu.getAttribute("data-name")
+          const getPicture = selctMenu.getAttribute("data-picture")
+          /!*console.log(getNum,getName,getPicture)*!/
+
+          const order=[{getNum,getName,getPicture}]
+
+
+          orders.push(order)
+
+          console.log(orders)
+
+
+
+      },false)
+  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*  const menuList = document.querySelector(".menuList")
+    let str =''
+    for (let i = 0; i < menus.length; i++) {
+        const menu = menus[i]
+        str += `
+                <li data-idx="${i}">
+                    <div class="mdiv">
+                        <img src="${menu.picture}">
+                        <div>${menu.name}</div>
+                        <div>${menu.price}</div>
+                    </div>
+                </li>`
+    }
+    menuList.innerHTML = str
+
+    menuList.addEventListener("click", (e)=> {
+
+        const target = e.target
+        const liEle = target.closest("li")
+
+        const idx = liEle.getAttribute("data-idx")
+        console.log("IDX: " + idx)
+
+        const targetMenu = menus[idx]
+        const targetPicture = targetMenu.picture
+        popEle.querySelector("img").setAttribute("src", targetPicture)
+        popEle.querySelector("h3").setAttribute("data-idx", idx)
+        popEle.setAttribute("class", "pop show")
+    },false)
+
+    popEle.addEventListener("click", () => {
+        popEle.setAttribute("class", "pop hide")
+    },false)
+
+
+    document.querySelector(".pop h3").addEventListener("click", e => {
+        e.stopPropagation()
+        e.preventDefault()
+        const target = e.target
+        const menu = menus[target.getAttribute("data-idx")]
+        console.log(menu)
+
+        addCart(menu)
+
+    }, false)
+
+
+
+    function addCart(menu){
+
+        const result = orders.filter(oi => oi.name === menu.name)
+
+        console.log("-------check result-----------")
+        console.log(result)
+
+        if(result.length > 0){
+            result[0].qty += 1
+
+        }else {
+            orders.push({...menu, qty:1})
+        }
+
+        console.log(orders)
+        showOrderItems()
+    }
+
+
+
+    function showOrderItems() {
+        const orderListEle = document.querySelector(".orderList")
+
+        let str = ''
+        let sum = 0
+        for (let i = 0; i < orders.length ; i++) {
+            const orderItem = orders[i]
+            str += `<li>${orderItem.name} ============= ${orderItem.qty} =========== ${orderItem.price * orderItem.qty} </li>`
+            sum += orderItem.price * orderItem.qty
+        }
+        str += `<hr/><h1>${sum}</h1>`
+        orderListEle.innerHTML = str
+
+    }
+*/
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

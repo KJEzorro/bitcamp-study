@@ -1,0 +1,147 @@
+'http://localhost:5555/day8/1team.json'
+
+
+
+
+
+중요 메소드
+getAttribute 속성 가져오기
+setAttribute 속성 추가
+
+JSON: JSON.stringify()  JSON.parse()
+
+
+node.js = 서버
+
+
+동기 < - > 비동기
+
+동기화된 프로그래밍
+서버를 통해서 데이터를 가져온다 (원래는, 서버가 없으므로 가정한다.)
+지금까지 우리가 짯던 프로그램이 동기화된 프로그램이다.
+data = 서버호출()
+data = json 문자열
+=> js 객체 변환(배열)
+=> 예를 들어 showMarker() 로 뿌려주기.
+
+트루먼쇼 ( 트루먼이 있을때는 모든 사람들이 움직이고 활동하지만, 트루먼이 잠들었을 때에는 아무 움직임도 없고 활동도 하지 않는다)
+
+하나가 동작할때에는 나머지는 동작하지 않는?
+
+
+
+
+비동기화된 프로그래밍
+
+콜백으로 처리한다.
+
+이벤트처리 = 비동기 처리 형식
+
+콜백 지옥
+
+데이터 처리를 하는동안 브라우저가 쉴 수 없으니 비동기화를 통해 처리를 하는동안 브라우저도 동작을 하는 ????????
+
+
+
+체크리스트
+
+f12 -> network -> 새로고침 -> all -> headers
+content-type: application/json
+
+
+
+
+
+
+
+
+버튼 클릭을 한다 -> json데이터 가져온다 (3초에 시간이 걸린다는 가정) -> 콜백 지정(다 가지고오면 이런걸 해줘)
+-> 지도 뿌리고 이런걸 해줘
+
+비동기처리 호출 방법들
+js 비동기처리호출 -> fetch api 제공됨
+jquery -> 비동기처리
+library -> axios 라이브러리 -> 비동기처리
+
+
+xml = json => 둘 다 순수한 데이터다.
+
+ajax (사실 새로운 기술이 아닌 패턴이다)
+Ajax란 Asynchronous JavaScript and XML
+
+Asynchronous = 비동기화
+
+브라우저가 깜빡거리지 않고 js를 통해 서버랑 데이터를 교환하는 ? 통신하는?
+
+구글지도, gmail, 자동완성 등이 대표적으로 ajax를 통해 만들어진 것들이다.
+
+ajax cors 에러
+
+
+
+on 이라는 단어가 나오면 무조건 이벤트이다.
+
+window.onload
+
+
+
+
+
+Fetch API
+axios
+
+
+
+
+
+
+태그 데이터속성
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c580cafc2bcd97b4d03f790417f87dec"></script>
+
+
+과제1 o
+과제2 목록 클릭하면 지도에
+     클릭한 목록
+     마커만 나오게 하기
+과제3 json파일
+     thumb
+     속성추가 가게마다 -> 이미지경로
+과제4 인포윈도우 적용
+
+
+var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition = new kakao.maps.LatLng(33.450701, 126.570667), //인포윈도우 표시 위치입니다
+    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+// 인포윈도우를 생성하고 지도에 표시합니다
+var infowindow = new kakao.maps.InfoWindow({
+    map: map, // 인포윈도우가 표시될 지도
+    position : iwPosition,
+    content : iwContent,
+    removable : iwRemoveable
+});
+
+

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>지도 생성하기</title>
+
+</head>
+<body>
+<!-- 지도를 표시할 div 입니다 -->
+<div id="map" style="width:100vw;height:50vh;"></div> <!-- 이렇게 스타일 먹이면 제일 쌔게 먹는다. -->
+<div id="result"></div>
+
+<style>
+
+    .menuDiv {
+        display: flex;
+        margin: 50px;
+        justify-content: space-between;
+
+    }
+
+    .menuDiv > a {
+        text-decoration: none;
+        background-color: blue;
+        color: white;
+        font-size: large;
+        border-radius: 3px;
+        padding: 10px;
+    }
+
+
+
+</style>
+
+<div class="menuDiv">
+    <a href="전체">전체</a>
+    <a href="카레">카레</a>
+    <a href="일식">일식</a>
+</div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c580cafc2bcd97b4d03f790417f87dec"></script>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(37.5497390729181, 126.91452727421024), // 지도의 중심좌표
+            level: 4 // 지도의 확대 레벨
+        };
+
+    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+</script>
+
+<script>
+
+    // 지도에 클릭 이벤트를 등록합니다
+    // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+
+        // 클릭한 위도, 경도 정보를 가져옵니다
+        var latlng = mouseEvent.latLng;
+
+        var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+        message += '경도는 ' + latlng.getLng() + ' 입니다';
+
+        var resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = message;
+
+    });
+
+
+    const markerArr = []
+
+    function showMarkers(stores) {
+
+        // 기존 마커들은 지워야 한다.
+        for (let i = 0; i < markerArr.length; i++) {
+            markerArr[i].setMap(null)
+        }
+
+        for (let i = 0; i < stores.length; i++) {
+            const store = stores[i]
+            const latLng = new kakao.maps.LatLng(store.lat, store.lng)
+            const marker = new kakao.maps.Marker({
+                map:map,
+                position:latLng,
+                title: store.name
+            })
+            markerArr.push(marker)
+        } // end for
+    }
+
+    const arr = [
+        {name:'지로우라멘' , lat:37.5536583 , lng:126.9229494  , menu:'일식'},
+        {name:'오복수산' ,   lat:37.5376784 , lng:127.0018967  , menu:'일식'},
+        {name:'스시코테이' , lat:37.5276863 , lng:127.031121 , menu:'일식'},
+        {name:'호별관' ,    lat:37.5095451 , lng:127.03487724  , menu:'일식'},
+        {name:'타지팰리스' , lat:37.54450731 , lng:126.9915116  , menu:'카레'},
+        {name:'죠티인도' ,   lat:37.5550446 , lng:126.9379293  , menu:'카레'},
+        {name:'예티 인도' , lat:37.5655634 , lng:126.9233787 , menu:'카레'}
+    ]
+    // 바깥쪽 div에서 버튼 이벤트 한번에 처리하기
+    document.querySelector(".menuDiv").addEventListener("click", (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        const target = e.target
+
+        // 원하는 태그에만 이벤트 거는법.
+        if(target.tagName !== 'A') {
+            return
+        }
+        console.log("A태그 클릭")
+        const keyword = target.getAttribute("href")
+
+        if (keyword !== '전체'){
+            const result = arr.filter(s => s.menu === keyword)
+
+            showMarkers(result)
+
+        }else {
+            showMarkers(arr)
+        }
+
+    }, false)
+
+</script>
+
+
+</body>
+</html>

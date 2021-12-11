@@ -1,0 +1,71 @@
+과제.
+카카오 지도 api -> 회원가입 해놓기 o
+
+웹프로그래밍기초 책
+191p o
+
+
+querySelector() 개념 o
+innerHTML 개념 o
+
+
+
+
+
+메모리를 차지하면 객체다.
+
+tag = <> => 객체
+태그하나 = 객체를 의미
+
+html + css + js => html파일
+html = 데이터 (model)
+css  = 스타일 (view)
+js   = 동작 (controller)
+===> mvc 구조
+
+브라우저 내에도 mvc 구조다.'
+
+
+브라우저내에서 js ->
+일반적인 태그 ex) <h1>, <div> ...
+style 태그
+<script>
+<script> 의 위치가 중요하다 -> 문서에 아래쪽에 있는게 좋다 -> dom처리에 유리
+but, 처리를 하면 어느위치든 괜찮다.
+
+dom처리가 끝나면 ... 이벤트 처리
+
+<script> 쓰는 방식
+1. <script src= ...> -> js파일 -> 문자열 -> 문 -> 실행 (js는 2번 실행한다)
+
+2. <script></script>
+
+event
+eventhandler
+eventlistener
+처리기
+=> ~를 해주세요 -> 등록 -> 이벤트루프(single thread)
+
+등록 => 콜백함수 (dont call me, i'll call you)
+
+누가? -> 발생주체 get메소드(docment의 get메소드)
+어떤? -> https://www.w3schools.com/ (마우스, 키보드, 브라우저 이벤트등)
+어떻게? -> 콜백함수
+
+이벤트처리 (실습한 표준코드 말고도 리액트의 이벤트 처리 방식 등 여러가지가 있다)
+
+
+addEventListener("click", (이벤트 정보(파라미터, 없어도된다. 어떤이벤트인지 알려주는것)) -> dom레벨2
+
+
+
+태그 =>
+1. id 속성 -> 비추 -> unique해야한다 -> html 동일한 id를 하면 문제 o
+2. name 속성 -> 비추 -> 여러개 쓸 수 있다 -> 값 1개밖에 못준다.
+3. class 속성 -> 추천 -> 여러개 쓸 수 있다 -> 값도 여러개 쓸 수 있다.
+
+id로 찾을때는 #
+css로 찾을때는 .
+
+
+document.querySelector(null 아니면 하나만 가져온다. (ex) "".btn")

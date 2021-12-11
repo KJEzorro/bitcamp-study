@@ -1,0 +1,25 @@
+java 배열에서 가장 중요한 개념이다.
+
+int[][] arr = {{1,2},{3,4}};
+
+sop(arr);
+sop(arr[0]);
+
+int[] temp = arr[0];
+
+sop(arr[0][0]);  // 1
+sop(temp[0])     // 1
+
+
+nullpointerException은 .과 []에서만 발생한다.
+
+
+[
+    {name: 'A' , xpos: 3 , ypos: 10 },  // 객체 리터럴이라 표현
+]
+
+// target과 pointArrElement의 거리 계산
+    const distance = Math.sqrt(Math.pow(pointArrElement.xpos - target.xpos,2) +
+        Math.pow(pointArrElement.ypos - target.ypos,2))
+
+
