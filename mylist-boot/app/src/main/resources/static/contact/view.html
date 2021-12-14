@@ -7,78 +7,93 @@
 </head>
 
 <body>
-  <h1>연락처 상세정보</h1>
+  <h1>연락처 상세</h1>
   <form>
-    이름: <input id="x-name" type="text"><br>
-    이메일: <input id="x-email" type="email"><br>
-    전화: <input id="x-tel" type="tel"><br>
-    회사: <input id="x-company" type="text"><br>
+    이메일*: <input id="x-email" type="email" readonly><br>
+    이름*: <input id="x-name" type="text"><br>
+    전화*: <input id="x-tel" type="text"><br>
+    회사명: <input id="x-company" type="text"><br>
+    별표(*) 항목은 필수 입력입니다.<br>
     <button id="x-update-btn" type="button">변경</button>
+    <button id="x-delete-btn" type="button">삭제</button>
     <button id="x-cancel-btn" type="button">취소</button>
   </form>
 
   <script>
-    // 요청 유효성 검사
-    if (location.href.indexOf('?') == -1) {
-      alert("요청이 올바르지 않습니다.")
-      location.href = "index.html"
-    }
-    // URL에서 쿼리스트링을 추출하여 파라미터의 이름과 값을 분리한다.
-    var params = new URLSearchParams(location.href.split('?')[1])
+    // 1) URL에서 쿼리 스트링(query string)을 추출한다.
+    var arr = location.href.split("?")
+    console.log(arr);
 
-    // 쿼리스트링에서 이메일값을 추출한다.
-    var email = params.get("email")
-    if (email == null) {
-      alert("이메일이 없습니다.")
-      location.href = "index.html"
+    if (arr.length == 1) {
+      alert("요청 형식이 올바르지 않습니다.")
+      throw "URL 형식 오류"
     }
+
+    var qs = arr[1]
+    console.log(qs);
+
+    // 2) 쿼리 스트링에서 email 값을 추출한다.
+    var params = new URLSearchParams(qs)
+    var email = params.get("email")
+
+    if (email == null) {
+      alert("이메일 값이 없습니다.")
+      throw "파라미터 오류"
+    }
+    console.log(email);
 
     var xName = document.querySelector("#x-name")
     var xEmail = document.querySelector("#x-email")
     var xTel = document.querySelector("#x-tel")
     var xCompany = document.querySelector("#x-company")
 
-    // 이메일을 가지고 연락처 상세정보를 가져와서 입력폼에 넣는다.
+    //3) 서버에서 데이터 가져오기
     fetch(`/contact/get?email=${email}`)
       .then(function(response) {
         return response.text()
-
       })
-      .then(function(result) {
-        if (result == "") {
-          alert("해당 이메일의 연락처를 찾을 수 없습니다.")
-          location.href = "index.html"
-        }
-        var contact = result.split(",")
-        xName.value = contact[0]
-        xEmail.value = contact[1]
-        xTel.value = contact[2]
-        xCompany.value = contact[3]
+      .then(function(contact) {
+        var values = contact.split(",")
+
+        // 4) 연락처 상세 정보를  화면에 출력한다.
+        xName.value = values[0]
+        xEmail.value = values[1]
+        xTel.value = values[2]
+        xCompany.value = values[3]
       })
 
 
     document.querySelector("#x-update-btn").onclick = function() {
-      fetch(`/contact/add?name=${xName.value}&email=${xEmail.value}&tel=${xTel.value}&company=${xCompany.value}`)
+      if (xName.value == "" || xTel.value == "") {
+        alert("필수 입력 항목이 비어있습니다.")
+        return
+      }
+
+      fetch(`/contact/update?name=${xName.value}&email=${xEmail.value}&tel=${xTel.value}&company=${xCompany.value}`)
         .then(function(response) {
-
-          // 서버에서 보낸 데이터를 그냥 그대로 텍스트로 리턴함. JSON 문자열로 인식해서 파싱하는 일을 하지 말라.
-          return response.text()
-
+          return response.text() // json 형식 문자열 => js 문자열 객체로 변환
         })
-        .then(function(result) {
-          console.log(result);
+        .then(function(text) {
+          console.log(text);
           location.href = "index.html"
         })
 
-
+    }
+    document.querySelector("#x-cancel-btn").onclick = function() {
+      location.href = "index.html"
     }
 
-    document.querySelector("#x-cancel-btn").onclick = function() {
-      window.location.href = "index.html"
+    document.querySelector("#x-delete-btn").onclick = function() {
+      fetch(`/contact/delete?email=${email}`)
+        .then(function(response) {
+          return response.json()
+        })
+        .then(function(result) {
+          console.log(result)
+          location.href = "index.html"
+        })
     }
   </script>
-
-
 </body>
 
 </html>

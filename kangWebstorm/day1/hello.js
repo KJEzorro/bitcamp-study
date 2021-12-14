@@ -11,7 +11,6 @@ const condition1 = (num === 0 && answer === "E")
 const condition2 = (num === 1 && answer === "0")
 
 const result = condition1 || condition2 ? "정답":"오답"
-
 console.log(`최종결과는 ${result}`)
 
 
@@ -25,4 +24,3 @@ console.log(`최종결과는 ${result}`)
 
 // == 동등 연산자 -> 값만 비교
 // === 일치 연산자 -> 값 + 타입까지 비교
-
