@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>exam</title>
+  <script>
+
+  // 스크립트태그는 헤드태그 안쪽 or 바디태그 안에만 있어야 한다.
+  // 스크립트태그순서는 무조건 위에서 아래로 실행한다.
+  // 실행 중 오류가 발생하면 오류가 발생한 태그 자체를 벗어나므로 if() {} 가 오류가 나면
+  // 바로 밑에 있는 출력1 을 출력하지않고 출력1이 속해있는 스크립트태그를 나간다.
+  if () {}
+  console.log("출력1");
+  </script>
+</head>
+
+<body>
+  <script>
+  console.log("출력2");
+  </script>
+
+  <h1>요점 정리 - 1.script 태그</h1>
+
+  <script>
+  console.log("출력3");
+  </script>
+</body>
+
+</html>
