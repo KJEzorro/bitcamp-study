@@ -14,15 +14,29 @@
     // 대괄호를 사용하여 배열을 만들 수 있다.
     // => 다른 타입의 값을 섞어 넣을 수 있다.
     var arr = ["aaa", "bbb", true, 100, new Object(), function() {}];
+    var arrf = [
+      function f1() {
+        let hi = "안녕하세요"
+        return hi
+      },
+      function f2(a, b) {
+        return a + b
+      },
+      "bbb"
+    ]
 
-    console.log(arr.length);
-    console.log(arr);
-    console.log("-------------------");
+    console.log(arrf);
+    console.log(arrf[1](3, 5));
+    console.log(arrf[0]);
 
-    // 마찬가지로 언제든 임의의 위치에 값을 추가할 수 있다.
-    arr[8] = false;
-    console.log(arr.length);
-    console.log(arr);
+    // console.log(arr.length);
+    // console.log(arr);
+    // console.log("-------------------");
+    //
+    // // 마찬가지로 언제든 임의의 위치에 값을 추가할 수 있다.
+    // arr[8] = false;
+    // console.log(arr.length);
+    // console.log(arr);
   </script>
 </body>
 
