@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+
+
+  <script type="text/javascript">
+    var map = new Map()
+    map.set("name", "김주은")
+    map.set("age", 31)
+    map.set("address", "서대문구")
+    map.set("hobby", "축구")
+    console.log(map);
+    console.log("-----------------------------");
+
+    console.log(map.get("name"))
+    var {name, address} = map
+    console.log(name);
+
+
+console.log("=========================================");
+    for (entry of map) {
+      console.log(entry);
+    }
+
+  </script>
+
+</body>
+
+</html>
