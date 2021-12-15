@@ -15,30 +15,25 @@ obj.age = 20;
 obj.tel = "1111-1111";
 obj.working = true;
 
-// 객체에서 특정 프로퍼티 값을 분리하여 받은 후에 
-// 나머지 값을 별도의 객체에 담아서 받고 싶다면 
+console.log(obj.name);
+console.log(obj.age);
+console.log(obj.tel);
+console.log(obj.working);
+console.log("---------------------");
+// 객체에서 특정 프로퍼티 값을 분리하여 받은 후에
+// 나머지 값을 별도의 객체에 담아서 받고 싶다면
 // {변수1, 변수2, ...나머지값받을변수}
 var {age, tel, ...other} = obj;
+console.log("age");
 console.log(age);
+console.log("tel");
 console.log(tel);
+console.log("other");
 console.log(other);
+console.log("other.name");
 console.log(other.name);
+console.log("other.working");
 console.log(other.working);
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
