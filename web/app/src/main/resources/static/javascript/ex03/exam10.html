@@ -14,7 +14,7 @@
     //
 
     // 함수 안에서 함수를 만들어 리턴할 수 있다.
-    function interestCalculator(type) {
+    function createInterestCalculator(type) {
       switch (type) {
         case "보통예금":
           return function(money, month) {
@@ -31,11 +31,13 @@
       }
     }
 
-    // interestCalculator() 함수가 리턴하는 것은 내부에서 정의한 함수의 주소이다.
+    // creatInterestCalculator() 함수가 리턴하는 것은 내부에서 정의한 함수의 주소이다.
     // => 이렇게 함수 안에서 정의한 함수를 '클로저(closure)'라 부른다.
-    var fn = interestCalculator("보통예금");
+    var fn = createInterestCalculator("보통예금");
+    var fn2 = createInterestCalculator("정기예금");
 
-    console.log("100억 7달 =", fn(10000000000, 7));
+    console.log("100억 7달 보통=", fn(10000000000, 7));
+    console.log("100억 7달 정기=", fn2(10000000000, 7));
   </script>
 
 </body>
