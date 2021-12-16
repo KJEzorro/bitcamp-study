@@ -53,6 +53,16 @@
 		f4(100, 200, 300, 400)
 		console.log("----------------");
 
+		function f5(a) {
+			// arguments 내장 변수는 Array() 초기화시킨 배열 객체가 아니기 때문에
+			// forEach()라는 함수가 없다.
+			arguments.forEach(function(value) {
+				console.log(value);
+			})
+		}
+		f5(100, 200, 300, 400)
+		console.log("----------------");
+
 		// 주의!
 		// => 자바스크립트는 파라미터의 개수와 상관없이 아규먼트를 넘길 수 있기 때문에
 		//    자바의 오버로딩 문법이 자바스크립트에서는 없다.
