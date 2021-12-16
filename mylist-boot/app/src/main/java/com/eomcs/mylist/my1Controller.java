@@ -21,8 +21,7 @@ public class my1Controller {
 
   @RequestMapping("/my1/add")
   public Object add(String category, String name, String menu, String tel) {
-    String rest = category + "," + name + "," + menu + "," + tel;
-    resInfo[size++] = rest; 
+    resInfo[size++] = createCSV(category, name, menu, tel); 
     return size;
 
   }
@@ -39,10 +38,9 @@ public class my1Controller {
 
   @RequestMapping("/my1/update")
   public Object update(String category, String name, String menu, String tel) {
-    String rest = category + "," + name + "," + menu + "," + tel;
     for (int i=0; i < size; i++) {
       if (resInfo[i].split(",")[3].equals(tel)) {
-        resInfo[i] = rest;
+        resInfo[i] = createCSV(category, name, menu, tel);
         return 1;
       } // if end
     } // for end
@@ -62,4 +60,16 @@ public class my1Controller {
     } // i for end
     return 0;
   }
-}
+
+  String createCSV(String category, String name, String menu, String tel) {
+    return category + "," + name + "," + menu + "," + tel;
+  }
+
+  int indexOf(String tel) {
+    for (int i=0; i < size; i++) {
+      if (resInfo[i].split(",")[3].equals(tel) {
+        return i;
+      }
+    }
+    return -1;
+  }

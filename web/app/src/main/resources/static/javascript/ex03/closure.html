@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <script>
+    // 클로져 관련 일어나기 쉬운 실수,
+    // 클로져를 구현하는 과정에서 발생하기 쉬운 실수 하나를 설명한다.
+
+    var arr = []
+    for (var i = 0; i < 5; i++) {
+      arr[i] = function() {
+        console.log(i);
+        console.log("--------------");
+      }
+    }
+    for (var index in arr) {
+      console.log(arr[index]());
+    }
+    //////////////////////////////////////////////////////////////////////
+
+    // 위 코드는 아래 코드로 변경해야 한다.
+    console.log("/////////////////////////////////////////////");
+    var arr = []
+    for (var i = 0; i < 5; i++) {
+      arr[i] = function(id) {  // 파라미터 id는 i를 받는다.
+        return function() {    // 리턴된 내부함수가 arr[i]에 담기게 된다.
+          return id;
+        }
+      }(i);
+    }
+    for (var index in arr) {
+      console.log(arr[index]());
+    }
+
+/*
+  1. 문제가 되는 케이스
+
+  [코드 원본]
+
+  var arr = []
+  for(var i = 0; i < 5; i++){
+  arr[i] = function(){
+  return i;
+  }
+  }
+
+  for(var index in arr) {
+  console.log(arr[index]());
+  }
+
+  [ 위의 원본에서 반복을 벗겨낸, 사실 상 동일한 코드 ]
+
+  var arr = [ ] ;
+
+  var i = 0 ;
+
+  arr[i] = function() { return i }; // 이 시점에서 arr속의 i 는 0 입니다.
+  i = i + 1; // i 는 1이 됩니다.
+
+  arr[i] = function() { return i }; // 이 시점에서 arr속의 i 는 1 입니다.
+  i = i + 1; // i 는 2가 됩니다.
+
+  arr[i] = function() { return i }; // 이 시점에서 arr속의 i 는 2 입니다.
+  i = i + 1; // i는 3이 됩니다.
+
+  arr[i] = function() { return i }; // 이 시점에서 arr속의 i 는 3 입니다.
+  i = i + 1; // i는 4가 됩니다.
+
+  arr[i] = function() { return i }; // 이 시점에서 arr의 i 는 4 입니다.
+  i = i + 1; // 바로 이 문장 때문입니다. 반복문에서는 4번째 반복을 마친 후 i++을 한번 더 실행해서 그 다음 조건을 체크 할 때 i가 5보다 작음을 판단하게 되는데 이 코드로써 i 는 5가 됩니다. 계속 보시죠.
+
+  // for(var index in arr) 이라는 문법은 기본적으로 index에 arr의 길이만큼을 0에서 부터 대입시킵니다. 즉, 우리 arr의 길이는 5개니까 index에는 순차적으로 0 1 2 3 4 가 대입이 되겠죠. 그래서 반복문을 벗겨내면요,
+
+  console.log(arr[0]()); // 5
+  console.log(arr[1]()); // 5
+  console.log(arr[2]()); // 5
+  console.log(arr[3]()); // 5
+  console.log(arr[4]()); // 5
+
+  // 이렇게 되는데요, 이 과정에서 각각 함수를 호출할 때(arr[0]() ~ arr[4])처럼)는 function() {return i}에서 그 i는 그냥 단순히 var i라는 전역변수를 참조하게 됩니다. 그래서 위에서 마지막으로 증가한 값인 가장 최신의 i값인 5가 5번 출력되는 것이죠.
+
+  # 참고로, 제가 확인해보니 이런 식으로 사용할 때는 배열을 쓰면 구글 개발자 도구가 버그를 뱉더군요. 그래서 var arr = [ ] 이 아니라 var arr = { }라 해줘야 버그가 안나더라고요.
+  # 아참 var도 요즘 안씁니다. ( let 에 대해 구글링해서 공부해주세요, block scope와 global scope, function scope 개념 잡으시는 거 선택이 아니라 필수에염)
+
+  2. 클로저가 적용된 코드.
+
+  [ 코드 원본 ]
+
+  var arr = [ ]
+  for(var i = 0; i < 5; i++){
+  arr[i] = function(id) {
+  return function(){
+  return id;
+  }
+  }(i);
+  }
+  for(var index in arr) {
+  console.log(arr[index]());
+  }
+
+  [ 위의 원본에서 반복을 벗겨낸 코드 ]
+
+  위의 설명을 통해 똑같이 유추할 수 있는 부분은 설명을 생략합니다.
+
+  var arr = [ ]
+
+  var i = 0 ;
+
+  arr[i] = function(id){
+  return function( ){
+  return id;
+  }
+  }(i); // 가독성을 위해 이거만 들여쓰기를 할게요. 자자 이게 1번의 문제가 되는 코드와의 차이점은 외부함수와 내부함수를 적용해서 함수안에 함수를 만든 점과, IIFE(https://sseambong.tistory.com/250 , 참고하세요 읽는데 얼마 안걸림)라는 개념을 적용하여서 함수를 즉시 호출하는 방식을 썼다는 점 입니다. 여기서 id를 주목해주세요. i라는 매개변수를 function(id)가 받습니다. 그와 동시에 그 밑에 바로 var id = 전달받은 i라는 값; 라는 문장이 추가 된다고 보셔도 좋아요. ( 더 자세한 메커니즘을 알고 싶다면 '함수 매개변수 전달 과정에서 메모리 복사와 참조' 라는 주제로 공부해보시는 걸 추천합니다. ) 그러면 사실상 함수안에 지역변수를 만든 꼴이 되는거죠 !! 이로써 코드 마지막에 arr[i]()라는 함수는 전역변수인 var i를 리턴하는 함수가 아니라 var id라는 지역변수를 리턴하는 함수가 된 것 이겠죠.
+
+  i = i +1;
+
+  arr[i] = function(id){ return function( ){ return id; }}(i); // var id는 1
+  i = i +1;
+
+  arr[i] = function(id){ return function( ){ return id; }}(i); // var id는 2
+  i = i +1;
+
+  arr[i] = function(id){ return function( ){ return id; }}(i); // var id는 3
+  i = i +1;
+
+  arr[i] = function(id){ return function( ){ return id; }}(i); // var id는 4
+  i = i +1; // 아까와의 차이점 이제 아시겠죠? 여전히 이 i는 5겠지만 앞으로 출력할 내용에는 전혀 영향을 미치지 않습니다.
+
+  console.log(arr[0]()); // 0
+  console.log(arr[1]()); // 1
+  console.log(arr[2]()); // 2
+  console.log(arr[3]()); // 3
+  console.log(arr[4]()); // 4
+
+  감사합니다. 조금이라도 도움이 되었으면 좋겠습니다. 본인이 이해가 안간다면 더 많은 시간을 투자해서 알아내야 한다고 생각합니다. 어떨 때는 되고 어떻때는 안되고 하는 것을 파악하는 게 프로그래밍 고수로 가는 정도이자 가장 빠른 길로 믿고서 열심히 공부합시다!!
+ */
+  </script>
+</body>
+
+</html>
