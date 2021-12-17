@@ -9,7 +9,11 @@ public class Exam0280 {
     //
     // 1) 메서드의 리턴 값을 변수로 받을 때
     int result = plus(2, 3);
+    System.out.println(result);
+    System.out.println("-----------------------1");
     result = plus(result, 4); // result 변수가 넘어가는 것이 아니라 result 변수의 값이 넘어 간다.
+    System.out.println(result);
+    System.out.println("-----------------------2");
     result = plus(result, 5);
     System.out.println(result);
 

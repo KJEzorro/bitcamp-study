@@ -1,7 +1,8 @@
 package com.eomcs.lang.ex07;
 
 //# 메서드 : call by value
-//
+// primitive data type : 읽기만 가능.
+
 public class Exam0310 {
 
   static void swap(int a, int b) {
@@ -22,12 +23,12 @@ public class Exam0310 {
     //    이 변수는 main()에 있는 변수와 다른 변수이다.
     swap(a, b);
     System.out.printf("main(): a=%d, b=%d\n", a, b);
-  }
+  } 
 }
 
 // call by value
 // => 아규먼트가 primitive data type인 경우,
-//    메서드를 호출할 때 값을 넘긴다.
+//    메서드를 호출할 때 '값'을 넘긴다.
 // => 자바에서는 primitive data type에 대해서 
 //    메모리(변수) 주소를 넘기는 방법이 없다.
 // 

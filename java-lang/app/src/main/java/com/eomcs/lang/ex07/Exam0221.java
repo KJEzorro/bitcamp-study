@@ -9,7 +9,9 @@ public class Exam0221 {
   }
 
   static void hello(String name, int age, String hobby, String ads) {
-    System.out.printf("안녕하세요 제 이름은 %s입니다. 나이는 %d, 취미는 %s, 사는곳은 %s입니다.\n",name, age, hobby, ads);
+    System.out.printf("안녕하세요 제 이름은 %s입니다. "
+        + "나이는 %d, 취미는 %s, 사는곳은 %s입니다.\n",
+        name, age, hobby, ads);
   }
 
   public static void main(String[] args) {

@@ -7,12 +7,24 @@ public class Exam0271 {
   static void m2(int a, String... names) {} // OK!
 
   // 배열 파라미터는 여러 개 선언할 수 있다.
-  static void x1(String[] names, String[] emails) {}
+  static void x1(String[] names, String[] emails) {
+    for (int i = 0; i < names.length; i++) {
+      System.out.println(names[i]);
+      System.out.println(emails[i]);
+    }
+  }
 
   // 배열 파리미터는 순서에 상관 없다.
   static void x2(String[] names, int a) {}
 
   public static void main(String[] args) {
+    String[] arr1 = {"aaa","bbb","ccc"};
+    String[] arr2 = {"aaa1","bbb2","ccc3"};
+    String[] arr3 = {"aaa","bbb","ccc"};
+    String[] arr4 = {"aaa","bbb","ccc"};
+
+    x1(arr1, arr2);
+
     // 컴파일 확인하라!
   }
 }
