@@ -16,7 +16,7 @@ public class Exam0220 {
     //    System.out.println(age + "살 " + name + "님 반갑습니다.");
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) {  // program entry point
 
     System.out.println("main()11111");
 
