@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h1>새 연락처</h1>
+<h1>연락처 상세</h1>
 
 <form>
 이름*: <input id="x-name" type="text"><br>
@@ -14,7 +14,7 @@
 전화*: <input id="x-tel" type="text"><br>
 회사: <input id="x-company" type="text"><br>
 별표(*) 항목은 필수 입력입니다.<br>
-<button id="x-add-btn" type="button">등록</button>
+<button id="x-update-btn" type="button">변경</button>
 <button id="x-cancel-btn" type="button">취소</button>
 </form>
 
@@ -24,7 +24,7 @@
   var xTel = document.querySelector("#x-tel");
   var xCompany = document.querySelector("#x-company");
 
-  document.querySelector("#x-add-btn").onclick = function() {
+  document.querySelector("#x-update-btn").onclick = function() {
     if (xName.value == "" || xEmail.value == "" || xTel.value == "") {
       window.alert("필수 입력 항목이 비어 있습니다.");
       return;

@@ -11,6 +11,10 @@ public class Exam0240 {
     return retVal;
   }
 
+  static String hello2(String name, int age, String hobby, String ads) {
+    String value = String.format("안녕하세요 제 이름은 %s입니다. 나이는 %d이고 취미는 %s, 사는곳은 %s입니다.\n", name, age, hobby, ads);
+    return value;
+  }
   public static void main(String[] args) {
 
     // hello() 메서드를 실행하고, 그 리턴 값을 변수에 담는다.
@@ -24,5 +28,12 @@ public class Exam0240 {
 
     // 리턴 값을 안 받아도 된다.
     hello("임꺽정", 30); // 리턴 값은 버려진다.
+    System.out.println("=========================");
+    hello2("김주은", 31, "축구", "서대문");
+    System.out.println("=========================2");
+    System.out.println(hello2("김주은", 31, "축구", "서대문"));
+    String val = hello2("김주은", 31, "축구", "서대문");
+    System.out.println("=========================3");
+    System.out.println(val);
   }
 }

@@ -15,7 +15,6 @@
 회사: <input id="x-company" type="text"><br>
 별표(*) 항목은 필수 입력입니다.<br>
 <button id="x-update-btn" type="button">변경</button>
-<button id="x-delete-btn" type="button">삭제</button>
 <button id="x-cancel-btn" type="button">취소</button>
 </form>
 
@@ -82,18 +81,6 @@
   document.querySelector("#x-cancel-btn").onclick = function() {
     window.location.href = "index.html";
   };
-
-  document.querySelector("#x-delete-btn").onclick = function() {
-    fetch(`/contact/delete?email=${email}`)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(result) {
-        console.log(result);
-        location.href = "index.html";
-      });
-  };
-
 </script>
 
 </body>

@@ -21,6 +21,10 @@ public class Exam0230 {
     //    System.out.println("NO!"); // 컴파일 오류!
   }
 
+
+  static String hello2() {
+    return "안녕하세요 제 이름은 김주은 입니다. 잘부탁드리겠습니다";
+  }
   public static void main(String[] args) {
 
     // hello() 메서드를 실행하고, 그 리턴 값을 변수에 담는다.
@@ -37,7 +41,15 @@ public class Exam0230 {
 
     // 메서드가 값을 리턴한다고 해서 반드시 그 값을 변수에 받아야 하는 것은 아니다.
     // 변수에 받을 지 여부는 호출하는 쪽의 마음이다.
+    System.out.println("=================================");
     hello(); // 값을 받는 변수가 없으면 리턴 값은 버려진다.
+    System.out.println("=================================");
+    hello2();
+    System.out.println("=================================");
+    System.out.println(hello2());
+    System.out.println("=================================");
+    String hi = hello2();
+    System.out.println(hi + "!!!!!");
 
     // 리턴 타입과 다른 타입의 변수로 값을 받으려 하면 컴파일 오류!
     //    int r2 = hello(); // 컴파일 오류!

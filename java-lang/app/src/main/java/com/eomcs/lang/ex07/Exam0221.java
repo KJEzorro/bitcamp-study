@@ -8,7 +8,13 @@ public class Exam0221 {
     System.out.printf("%d살 %s님 반갑습니다.\n", age, name);
   }
 
+  static void hello(String name, int age, String hobby, String ads) {
+    System.out.printf("안녕하세요 제 이름은 %s입니다. 나이는 %d, 취미는 %s, 사는곳은 %s입니다.\n",name, age, hobby, ads);
+  }
+
   public static void main(String[] args) {
+
+    hello("김주은", 31);
     // 파라미터의 타입, 개수, 순서가 일치해야 한다.
 
     //    hello("윤봉길"); // 컴파일 오류!

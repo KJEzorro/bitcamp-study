@@ -16,6 +16,18 @@ public class Exam0250 {
     }
   }
 
+  static void num(int... number) {
+    for (int i = 0; i < number.length; i++) {
+      System.out.printf("number: %d -- ", number[i]);
+    }
+  }
+
+  static void bool(boolean... bool) {
+    for (int i = 0; i < bool.length; i++) {
+      System.out.printf("boolean: %s", bool[i]);
+    }
+  }
+
   public static void main(String[] args) {
 
     hello(); // 이 경우 names 배열의 개수는 0이다.
@@ -32,6 +44,10 @@ public class Exam0250 {
 
     hello(arr);
     System.out.println("-------------------");
+    System.out.println("numnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnumnum");
+    num(20,30,40,50);
+    System.out.println("boolboolboolboolboolboolboolboolboolboolboolboolboolboolboolboolboolboolboolboolbool");
+    bool(true, true, false);
 
     //    hello("홍길동", 20, "오호라"); // 다른 타입은 안된다. 컴파일 오류!
   }
