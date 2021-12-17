@@ -23,10 +23,14 @@ public class contactController {
 
   @RequestMapping("/contact/add")
   public Object add(String name, String email, String tel, String company) {
+    if (size == contacts.length) { // 배열이 꽉찼다면,
+      contacts = grow();  // 메서드 이름에서 해당 코드에 대한 설명을 짐작할 수 있다.
+    }
     contacts[size++] = createCSV(name, email, tel, company);
     return size;
-
   }
+
+
 
 
   @RequestMapping("/contact/get")
@@ -57,7 +61,7 @@ public class contactController {
     if (index == -1) {
       return 0;
     }
-    remove(index);
+    remove(index); // 메서드 이름으로 코드의 의미를 짐작할 수 있다. 이것이 메서드로 분리하는 이유이다.
     return 1;
   }
 
@@ -89,7 +93,23 @@ public class contactController {
     }
     size--;
     return old;
+  }
 
+  // 기능: 배열의 크기를 늘린다.
+  //       기존 배열의 값을 복사해온다.
+  String[] grow() {
+    String[] arr = new String[newLength()];
+
+    // 기존 배열의 값을 새 배열로 복사한다.
+    for (int i = 0; i < contacts.length; i++) {
+      arr[i] = contacts[i]; 
+    }
+    return arr;
+  }
+
+  // 기능: 주어진 배열에 대해 50% 증가시킨 새 배열의 길이를 알려준다.
+  int newLength() {
+    return contacts.length + (contacts.length >> 1);
   }
 }
 

@@ -64,12 +64,12 @@ public class my1Controller {
   String createCSV(String category, String name, String menu, String tel) {
     return category + "," + name + "," + menu + "," + tel;
   }
-
-  int indexOf(String tel) {
-    for (int i=0; i < size; i++) {
-      if (resInfo[i].split(",")[3].equals(tel) {
-        return i;
-      }
-    }
-    return -1;
-  }
+}
+//  int indexOf(String tel) {
+//    for (int i=0; i < size; i++) {
+//      if (resInfo[i].split(",")[3].equals(tel) {
+//        return i;
+//      }
+//    }
+//    return -1;
+//  }
