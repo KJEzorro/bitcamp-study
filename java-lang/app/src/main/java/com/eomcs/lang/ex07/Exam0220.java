@@ -16,6 +16,10 @@ public class Exam0220 {
     //    System.out.println(age + "살 " + name + "님 반갑습니다.");
   }
 
+  static void score(String name, int kor, int eng, int math, int his) {
+    System.out.printf("이름: %s, 국어: %d, 영어: %d, 수학: %d, 한국사: %d", name, kor, eng, math, his);
+  }
+
   public static void main(String[] args) {  // program entry point
 
     System.out.println("main()11111");
@@ -36,6 +40,8 @@ public class Exam0220 {
     hello("유관순", 16);
 
     System.out.println("main()44444");
+
+    score("김주은", 100, 100, 90, 80);
   }
 }
 
