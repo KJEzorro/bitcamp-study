@@ -51,16 +51,14 @@
   // 3) 서버에서 데이터 가져오기
   fetch(`/contact/get?email=${email}`)
     .then(function(response) {
-      return response.text();
+      return response.json();
     })
     .then(function(contact) {
-      var values = contact.split(",");
-
       // 4) 연락처 상세 정보를 화면에 출력한다.
-      xName.value = values[0];
-      xEmail.value = values[1];
-      xTel.value = values[2];
-      xCompany.value = values[3];
+      xName.value = contact.name
+      xEmail.value = contact.email
+      xTel.value = contact.tel
+      xCompany.value = contact.company
     });
 
   document.querySelector("#x-update-btn").onclick = function() {

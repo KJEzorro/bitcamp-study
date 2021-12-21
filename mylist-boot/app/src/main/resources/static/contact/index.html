@@ -30,12 +30,11 @@
     .then(function(contacts) {
       console.log(contacts);
       for (var contact of contacts) {
-        var values = contact.split(",");
         var tr = document.createElement("tr");
-        tr.innerHTML = `<td><a href="view.html?email=${values[1]}">${values[0]}</a></td>
-        <td>${values[1]}</td>
-        <td>${values[2]}</td>
-        <td>${values[3]}</td>`;
+        tr.innerHTML = `<td><a href="view.html?email=${contact.email}">${contact.name}</a></td>
+        <td>${contact.email}</td>
+        <td>${contact.tel}</td>
+        <td>${contact.company}</td>`;
         tbody.appendChild(tr);
       }
     });
