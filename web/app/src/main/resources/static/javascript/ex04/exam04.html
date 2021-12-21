@@ -45,6 +45,13 @@
 		};
 
 		console.log(obj.sum(), obj.aver());
+
+		obj.toString = function() {
+			// 자바와 달리 객체의 프로퍼티 변수를 사용할 때는 ''반드시 this를 붙여야 한다.생략하면 안된다.''
+			return this.name + "," + this.math; // 위에 toString() 함수를 덮어쓴다.
+		};
+
+		console.log(obj.toString());
 	</script>
 </body>
 

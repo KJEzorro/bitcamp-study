@@ -11,18 +11,18 @@
 
 // arrow fuction을 객체의 프로퍼티로 등록할 때,
 // => arrow function에서 this는 소속된 객체가 아니라 ''window 객체를 가리킨다.''
-// => 그에 비해 일반 함수나 익명 함수에서 사용하는 this는 자신이 소속된 객체를 가리킨다.
+// => 그에 비해 ''일반 함수나 익명 함수에서 사용하는 this는 자신이 소속된 객체를 가리킨다.''
 //
 var obj = {
 	name: "홍길동",
 	kor: 100,
 	eng: 90,
 	math:80,
-	sum: () => this.kor + this.eng + this.math,
-	aver: () => this.sum() / 3,
+	sum: () => this.kor + this.eng + this.math,  // this -> window 객체를 가리킨다.
+	aver: () => this.sum() / 3, // this -> window 객체를 가리킨다.
 	test1: function() {console.log(this);},
 	test2() {console.log(this);},
-	test3: () => console.log(this)
+	test3: () => console.log(this) // this -> window 객체를 가리킨다.
 };
 
 //console.log(obj.sum()); // this 즉 window 객체에 kor, eng, math라는 변수가 없기 때문에
