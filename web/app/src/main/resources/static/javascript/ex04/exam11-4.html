@@ -17,7 +17,7 @@
     // 그래서 자바스크립트의 모든 객체는 Object() 생성자가 추가한 변수나 함수를 갖고있다.
 
     function f1() {
-      // 생성자에 상관 없이 모든 객체는 Object() 생성자의 prototype 보관소를 공유한다.
+      // 생성자에 상관 없이 ''모든 객체''는 Object() 생성자의 prototype 보관소를 공유한다.
     }
 
     function f2() {}
@@ -35,10 +35,12 @@
     console.log(obj3);
 
     console.log("---------------------------s");
-    
+
     console.log(obj1.toString());   //Object.prototype.toString()
     console.log(obj2.toString());   //Object.prototype.toString()
     console.log(obj3.toString());   //Object.prototype.toString()
+        // [object Object]
+        //   타입  생성자
 
   </script>
 </body>
