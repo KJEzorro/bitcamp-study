@@ -50,13 +50,31 @@
 
 
 
-		console.log("forforforforforforforforforforforforforforforforfor");
 		for (var score of scores) {
 			console.log(score.name, score.kor, score.eng, score.math,
 				score.sum(), score.aver());
 		}
 
-		console.log("--------------------------------------------");
+		// 다음과 같이 생성된 객체를 초기화시키는 것이 아니라
+		// 객체를 생성해주는 일을 하는 함수는
+		// "팩토리(factory) 함수"라 한다.
+		function createScore2(name, kor, eng, math) {
+			var obj = new Object();
+			obj.name = name;
+			obj.kor = kor;
+			obj.eng = eng;
+			obj.math = math;
+			obj.sum = function() {
+				return this.kor + this.eng + this.math;
+			};
+			obj.aver = function() {
+				return this.sum() / 3;
+			};
+			return obj;
+		}
+console.log("--------------------factory function-----------------");
+		var obj = createScore2("홍길동", 100, 90, 80)
+		console.log(obj);
 
 	</script>
 </body>
