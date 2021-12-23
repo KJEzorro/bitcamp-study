@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>ex04</title>
+</head>
+
+<body>
+  <h1>생성자9 - 생성자 상속과 instanceof</h1>
+  <script>
+    "use strict"
+
+    // instanceof 를 사용하면 ''그 객체를 초기화시킨 생성자를 확인''할 수 있다.
+    // 누가 초기화를 시켰냐?? 다.
+
+
+    function f1() {
+      this.name = "홍길동"
+    }
+
+
+
+    function f2() {
+      f1.call(this) // 상위 생성자를 호출해야 한다.
+      this.email = "hong@test.com"
+    }
+    f2.prototype = Object.create(f1.prototype)
+    f2.prototype.constructor = f2
+
+
+
+    function f3() {
+      f2.call(this) // 상위 생성자를 호출해야 한다.
+      this.tel = "010-1111-2222"
+    }
+    f3.prototype = Object.create(f2.prototype)
+    f3.prototype.constructor = f3
+
+
+    var obj0 = new Object()
+    var obj1 = new f1()
+    var obj2 = new f2()
+    var obj3 = new f3()
+
+
+    console.log(obj0 instanceof Object); // true
+    console.log(obj0 instanceof f1); // false
+    console.log(obj0 instanceof f2); // false
+    console.log(obj0 instanceof f3); // false
+    console.log("-----------------------");
+
+
+    console.log(obj1 instanceof Object); // true
+    console.log(obj1 instanceof f1); // true
+    console.log(obj1 instanceof f2); // false
+    console.log(obj1 instanceof f3); // false
+    console.log("-----------------------");
+
+    console.log(obj2 instanceof Object); // true
+    console.log(obj2 instanceof f1); // true
+    console.log(obj2 instanceof f2); // true
+    console.log(obj2 instanceof f3); // false
+    console.log("-----------------------");
+
+    console.log(obj3 instanceof Object); // true
+    console.log(obj3 instanceof f1); // true
+    console.log(obj3 instanceof f2); // true
+    console.log(obj3 instanceof f3); // true
+    console.log("-----------------------");
+
+
+
+
+  </script>
+</body>
+
+</html>
