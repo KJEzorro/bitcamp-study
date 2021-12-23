@@ -22,12 +22,13 @@
     // Document.prototype.getElementsByClassName("분류명")
     // => HTMLCollection 객체 리턴
     // => HTMLCollection은 배열이 아니다!
-    // => 찾지 못하더라도 HTMLCollection 객체를 리턴한다.
+    // => 찾지 못하더라도 HTMLCollection 객체를 리턴한다. null 리턴 x
     //
     var el = document.getElementsByClassName("g3");
     console.log(el);
     for (var e of el) {
-      console.log(e.innerHTML);
+      console.log(e.innerHTML);  // 제목1.2 , 제목2.1, 제목2.2
+                                 // class에 g3가 있으면 다 리턴한다.
     }
   </script>
 </body>

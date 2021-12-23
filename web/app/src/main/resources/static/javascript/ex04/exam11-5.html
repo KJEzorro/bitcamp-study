@@ -13,10 +13,11 @@
 
     function f1(name) {
       this.name = name
+      console.log("f1f1f1f1");
     }
 
     function f2(name, kor, eng, math) {
-      // 상위 생성자를 명시적으로 호출한다.
+      // 상위 생성자를 ''명시적으로 호출''한다.
       f1.call(this, name)
 
       this.kor = kor

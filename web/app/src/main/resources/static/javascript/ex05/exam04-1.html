@@ -38,7 +38,7 @@
 
     // 2) 태그에 자식 노드를 붙이기
     // => appendChild(자식노드)를 사용하여 자식 태그나 노드를 붙인다.
-    //    appendChild()는 자식노드(태그)를 맨 뒤에 붙인다.
+    //    appendChild()는 자식노드(태그)를 ''맨 뒤''에 붙인다.
     //
 
     // Node의 함수를 사용해서 콘텐트를 설정할 수 있다.
@@ -51,7 +51,7 @@
     article.appendChild(p); // <article><h1>제목입니다.</h1><p>내용입니다.</p></article>
 
     if (confirm("article 태그를 추가하겠습니까?")) {
-      // 새로 만든 article 태그를 section 태그의 막내 자식태그로 붙인다.
+      // 새로 만든 article 태그를 section 태그의 ''막내 자식태그''로 붙인다.
       section.appendChild(article);
       // <section>
       //   <article>...</article>
