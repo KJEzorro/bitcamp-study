@@ -32,6 +32,8 @@
     //
     //
     document.getElementById("btn1").addEventListener("click", function(e) {
+      console.log(e.target);
+      console.log(e.currentTarget);
       // #btn1을 눌렀을 때 #btn2에 click 이벤트 발생시키기
       // 1) MouseEvent 만들기
       var myEvent = new MouseEvent("click"); // MouseEvent 생성자
@@ -41,6 +43,8 @@
     });
 
     document.getElementById("btn2").addEventListener("click", function(e) {
+      console.log(e.target);
+      console.log(e.currentTarget);
       console.log("버튼2...");
     });
   </script>
