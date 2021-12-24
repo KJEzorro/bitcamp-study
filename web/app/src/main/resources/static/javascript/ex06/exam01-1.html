@@ -12,6 +12,7 @@
   <button id="btn1-2" onclick="btn1Click()">버튼1-2</button><br>
   <button id="btn2">버튼2</button><br>
   <button id="btn3">버튼3</button><br>
+  <button id="btn4">버튼4</button><br>
 
   <script>
     "use strict"
@@ -114,6 +115,12 @@
       window.alert(str);
       console.log(this); // this는 window 객체이다.
     });
+
+    document.querySelector("#btn4").addEventListener("click", function(e) {
+      const target = e.target
+      console.log(target);
+      
+    })
 
   </script>
 </body>
