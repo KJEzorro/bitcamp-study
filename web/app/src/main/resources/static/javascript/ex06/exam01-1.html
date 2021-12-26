@@ -13,7 +13,18 @@
   <button id="btn2">버튼2</button><br>
   <button id="btn3">버튼3</button><br>
   <button id="btn4">버튼4</button><br>
+  <!-- onclick에서 직접 js코드를 넣을 때 ; 꼭 넣자. 안넣으면 error -->
+  <button id="btn5" onclick="const str='hahaha'; alert(str)">버튼5</button><br>
+  <button id="btn6">버튼6</button><br>
+  <button id="btn7">버튼7</button><br>
 
+  <div id="divAdd">
+<h1>dddd</h1>
+<h1>dddd</h1>
+<h1>dddd</h1>
+<h1>dddd</h1>
+
+  </div>
   <script>
     "use strict"
 
@@ -60,6 +71,7 @@
     // var btn2 = document.getElementById("btn2");
     var btn2 = document.querySelector("#btn2"); // 둘 중 아무거나 사용하면 된다.
 
+
     /*
         function f1() {
           var str = "Hello2a!";
@@ -89,6 +101,12 @@
       window.alert(str);
       console.log(this); // arrow function에서 this는 window 객체이다.
     };
+
+    var btn6 = document.querySelector("#btn6")
+    btn6.onclick = function() {
+      const num = 30
+      alert(`숫자: ${num}`)
+    }
 
 
     // 방법3:
@@ -121,9 +139,21 @@
     document.querySelector("#btn4").addEventListener("click", function(e) {
       const target = e.target
       console.log(target);
-
     })
 
+    const btn7 = document.getElementById("btn7")
+    btn7.addEventListener("click", function(e) {
+      console.log(e.target);
+      var h1 = document.querySelector("#divAdd")
+
+      for(var i = 0; i <= 10; i++) {
+        h1.append("")
+      }
+
+
+
+
+    })
   </script>
 </body>
 

@@ -11,8 +11,9 @@
   <script>
     "use strict"
 
-    function f1(name) {
+    function f1() {
       this.name = name
+
       console.log("f1f1f1f1");
     }
 
@@ -23,9 +24,13 @@
       this.kor = kor
       this.eng = eng
       this.math = math
+      this.sum = function() {
+        return this.kor + this.eng + this.math
+      }
     }
 
     var obj1 = new f2("홍길동", 100, 90, 80)
+    obj1.sum()
     console.log(obj1);
 
 

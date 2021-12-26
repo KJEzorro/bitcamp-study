@@ -28,6 +28,8 @@
     var obj2 = new f2()
     var obj3 = new f3()
 
+    f1.prototype.add = "안녕"
+
     // f1(), f2(), f3() 생성자로 초기화시킨 객체 모두
     // Object.prototype 보관소에 저장된 변수나 함수를 사용할 수 있다.
     console.log(obj1);
@@ -41,6 +43,10 @@
     console.log(obj3.toString());   //Object.prototype.toString()
         // [object Object]
         //   타입  생성자
+        console.log(obj1.add);
+        console.log(obj2.add);
+        console.log(obj3.add);
+
 
   </script>
 </body>
