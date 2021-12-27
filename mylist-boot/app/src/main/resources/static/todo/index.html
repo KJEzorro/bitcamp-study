@@ -4,6 +4,12 @@
 <head>
   <meta charset="utf-8">
   <title>Todo</title>
+  <style>
+    .todo-checked {
+      text-decoration: line-through;
+      background-color: yellow;
+    }
+  </style>
 </head>
 
 <body>
@@ -12,8 +18,8 @@
   <table id="x-todo-table" border="1">
     <thead>
       <tr>
+        <th></th>
         <th>해야 할 일</th>
-        <th>완료</th>
         <th>삭제</th>
       </tr>
     </thead>
@@ -54,36 +60,45 @@
         console.log(todoList);
         for (var i = 0; i < todoList.length; i++) {
           var tr = document.createElement("tr");
-          tr.innerHTML = `<td>${todoList[i].title}</td>
-          <td><input type="checkbox"></td>
+          tr.innerHTML = `
+          <td><input type="checkbox" onchange="checkTodo(${i}, event.target.checked)"></td>
+          <td data-no="${i}">${todoList[i].title}</td>
           <td><button type="button" onclick="deleteTodo(${i})">삭제</td>`
           tbody.appendChild(tr);
         }
       });
 
-        function deleteTodo(no) {
-          fetch(`/todo/delete?index=${no}`)
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(result) {
-              if (result == 0) {
-                alert("삭제하지 못했습니다.")
-              } else {
-                location.reload() // 새로고침 refresh와 같다.
-              }
-            });
-        }
-      
+    function deleteTodo(no) {
+      fetch(`/todo/delete?index=${no}`)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(result) {
+          if (result == 0) {
+            alert("삭제하지 못했습니다.")
+          } else {
+            location.reload() // 새로고침 refresh와 같다.
+          }
+        });
+    }
+
+    function checkTodo(no, checked) {
+      console.log(no, checked);
+      var titleTd = document.querySelector(`tbody td[data-no="${no}"]`)
+      console.log(titleTd.classList);
+      if (checked) {
+        titleTd.classList.add("todo-checked")
+      } else {
+        titleTd.classList.remove("todo-checked")
+      }
+
+      /*
+      checked == true ?
+      titleTd.style["text-decoration"] = "line-through" : titleTd.style["text-decoration"] = "none"
+      */
+
+    }
   </script>
-
-
-
-
-
-
-
-
 
 </body>
 
