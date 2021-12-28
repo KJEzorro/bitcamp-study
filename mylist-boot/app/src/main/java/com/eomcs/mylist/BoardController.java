@@ -35,8 +35,9 @@ public class BoardController {
 
 
   @RequestMapping("/board/update")
-  public Object update(int index, Board board) {
-    if (index < 0 || index>= ArrayList2.size) {
+  public Object update(Board board) {
+    int index = indexOf(board.title);
+    if (index < 0 || index >= ArrayList3.size) {
       return 0;
     }
     return ArrayList3.set(index, board) == null ? 0 : 1;
@@ -44,8 +45,9 @@ public class BoardController {
 
 
   @RequestMapping("/board/delete")
-  public Object delete(int index) {
-    if (index < 0 || index>= ArrayList3.size) {
+  public Object delete(String title) {
+    int index = indexOf(title);
+    if (index < 0 || index >= ArrayList3.size) {
       return 0;
     }
     ArrayList3.remove(index);
@@ -53,7 +55,7 @@ public class BoardController {
   }
 
 
-  static int indexOf(String title) {
+  static int indexOf(Object title) {
     for (int i = 0; i < ArrayList3.size; i++) {
       Board board = (Board)ArrayList3.list[i];  // contact = 주소
       if (board.title.equals(title)) { 
@@ -61,6 +63,10 @@ public class BoardController {
       }
     }
     return -1;
+  }
+  @RequestMapping("/board/countup")
+  static int countup(int viewCount) {
+    return viewCount++;
   }
 
 

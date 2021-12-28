@@ -2,20 +2,20 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>연락처</title>
+  <title>게시판</title>
 </head>
 <body>
 
-<h1>연락처 상세</h1>
+<h1>게시판 상세</h1>
 
 <form>
-  제목*: <input id="x-title" type="text"><br>
-  내용*: <input id="x-content" type="text"><br>
+  제목*: <input id="x-title" type="text" readonly><br>
+  내용: <td><textarea id="x-content" cols=80 rows=20></textarea></td><br>
   조회수: <input id="x-viewcount" type="text"><br>
   날짜: <input id="x-createddate" type="text"><br>
-  별표(*) 항목은 필수 입력입니다.<br>
-  <button id="x-update-btn" type="button">등록</button>
-  <button id="x-cancel-btn" type="button">취소</button>
+  <button id="x-update-btn" type="button">수정</button>
+  <button id="x-delete-btn" type="button">삭제</button>
+  <button id="x-cancel-btn" type="button">나가기</button>
 </form>
 
 <script type="text/javascript">
@@ -36,6 +36,11 @@
   var params = new URLSearchParams(qs);
   var title = params.get("title");
 
+  if (title == null) {
+    alert("타이틀 값이 없습니다.");
+    throw "파라미터 오류!";
+  }
+
   console.log(title);
 
   var xTitle = document.querySelector("#x-title");
@@ -47,7 +52,7 @@
   fetch(`/board/get?title=${title}`)
     .then(function(response) {
       console.log(response);
-      return response.text();
+      return response.json();
     })
     .then(function(contact) {
       console.log(contact);
@@ -55,16 +60,18 @@
       xTitle.value = contact.title
       xContent.value = contact.content
       xViewCount.value = contact.viewCount
-      xCreatedDate.value = contact.createddate
+      xCreatedDate.value = contact.createdDate
+
+
     });
 
   document.querySelector("#x-update-btn").onclick = function() {
-    if (Title.value == "" || xContent.value == "") {
+    if (xTitle.value == "" || xContent.value == "") {
       window.alert("필수 입력 항목이 비어 있습니다.");
       return;
     }
 
-    fetch(`/contact/update?name=${xName.value}&email=${xEmail.value}&tel=${xTel.value}&company=${xCompany.value}`)
+    fetch(`/board/update?title=${xTitle.value}&content=${xContent.value}&viewCount=${xViewCount.value}&createdDate=${xCreatedDate.value}`)
       .then(function(response) {
         return response.text();
       })
@@ -78,16 +85,16 @@
     window.location.href = "index.html";
   };
 
-  // document.querySelector("#x-delete-btn").onclick = function() {
-  //   fetch(`/contact/delete?email=${email}`)
-  //     .then(function(response) {
-  //       return response.json();
-  //     })
-  //     .then(function(result) {
-  //       console.log(result);
-  //       location.href = "index.html";
-  //     });
-  // };
+  document.querySelector("#x-delete-btn").onclick = function() {
+    fetch(`/board/delete?title=${title}`)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(result) {
+        console.log(result);
+        location.href = "index.html";
+      });
+  };
 
 </script>
 

@@ -12,8 +12,8 @@
   <table id="x-board-table" border="1">
     <thead>
       <tr>
+        <th>번호</th>
         <th>제목</th>
-        <th>내용</th>
         <th>조회수</th>
         <th>날짜</th>
       </tr>
@@ -25,6 +25,10 @@
   <script type="text/javascript">
   var tbody = document.querySelector("#x-board-table tbody")
 
+  tbody.onclick = function(e) {
+
+  }
+
   fetch("/board/list")
     .then(function(response) {
       console.log(response);
@@ -32,16 +36,17 @@
     })
     .then(function(boardLists) {
       console.log(boardLists);
-      for (var boardList of boardLists) {
+      for (var i = 0; i < boardLists.length; i++) {
         var tr = document.createElement("tr");
         tr.innerHTML = `
-        <td><a href="view.html?title=${boardList.title}">${boardList.title}</td>
-        <td>${boardList.content}</td>
-        <td>${boardList.viewCount}</td>
-        <td>${boardList.createdDate}</td>
+        <td>${i}</td>
+        <td><a href="view.html?title=${boardLists[i].title}" id="x-count">${boardLists[i].title}</td>
+        <td>${boardLists[i].viewCount}</td>
+        <td>${boardLists[i].createdDate}</td>
         `
         tbody.appendChild(tr);
       }
+
     });
 
 
