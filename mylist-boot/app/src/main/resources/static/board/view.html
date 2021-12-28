@@ -6,13 +6,14 @@
 </head>
 <body>
 
+
 <h1>게시판 상세</h1>
 
 <form>
   제목*: <input id="x-title" type="text" readonly><br>
   내용: <td><textarea id="x-content" cols=80 rows=20></textarea></td><br>
-  조회수: <input id="x-viewcount" type="text"><br>
-  날짜: <input id="x-createddate" type="text"><br>
+  조회수: <input id="x-viewcount" type="text" readonly><br>
+  날짜: <input id="x-createddate" type="text" readonly><br>
   <button id="x-update-btn" type="button">수정</button>
   <button id="x-delete-btn" type="button">삭제</button>
   <button id="x-cancel-btn" type="button">나가기</button>
@@ -32,7 +33,6 @@
   var qs = arr[1];
   console.log(qs);
 
-  // 2) 쿼리 스트링에서 email 값을 추출한다.
   var params = new URLSearchParams(qs);
   var title = params.get("title");
 
@@ -66,14 +66,14 @@
     });
 
   document.querySelector("#x-update-btn").onclick = function() {
-    if (xTitle.value == "" || xContent.value == "") {
+    if (xTitle.value == "") {
       window.alert("필수 입력 항목이 비어 있습니다.");
       return;
     }
 
     fetch(`/board/update?title=${xTitle.value}&content=${xContent.value}&viewCount=${xViewCount.value}&createdDate=${xCreatedDate.value}`)
       .then(function(response) {
-        return response.text();
+        return response.json();
       })
       .then(function(text) {
         console.log(text);

@@ -8,7 +8,7 @@
 
 <body>
   <h1>게시판</h1>
-  <a href="form.html">추가</a>
+  <a href="form.html">글 작성</a>
   <table id="x-board-table" border="1">
     <thead>
       <tr>
@@ -23,34 +23,43 @@
   </table>
 
   <script type="text/javascript">
-  var tbody = document.querySelector("#x-board-table tbody")
+    var tbody = document.querySelector("#x-board-table tbody")
 
-  tbody.onclick = function(e) {
+    // tbody.onclick = function(e) {
+    //   var at = document.querySelector(".x-title")
+    //   var title = at.innerHTML
+    //   if (e.target == at) {
+    //     console.log("haha");
+    //     fetch(`/board/countup?title=${title}`)
+    //       .then(function(response) {
+    //         console.log(response);
+    //       })
+    //       .then(function(result) {
+    //         console.log("-------------");
+    //         console.log(result);
+    //       })
+    //   }
+    // }
 
-  }
-
-  fetch("/board/list")
-    .then(function(response) {
-      console.log(response);
-      return response.json();
-    })
-    .then(function(boardLists) {
-      console.log(boardLists);
-      for (var i = 0; i < boardLists.length; i++) {
-        var tr = document.createElement("tr");
-        tr.innerHTML = `
+    fetch("/board/list")
+      .then(function(response) {
+        console.log(response);
+        return response.json();
+      })
+      .then(function(boardLists) {
+        console.log(boardLists);
+        for (var i = 0; i < boardLists.length; i++) {
+          var tr = document.createElement("tr");
+          tr.innerHTML = `
         <td>${i}</td>
-        <td><a href="view.html?title=${boardLists[i].title}" id="x-count">${boardLists[i].title}</td>
+        <td><a href="view.html?title=${boardLists[i].title}" class="x-title">${boardLists[i].title}</td>
         <td>${boardLists[i].viewCount}</td>
         <td>${boardLists[i].createdDate}</td>
         `
-        tbody.appendChild(tr);
-      }
+          tbody.appendChild(tr);
+        }
 
-    });
-
-
-
+      });
   </script>
 
 

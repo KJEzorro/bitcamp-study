@@ -1,52 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="utf-8">
   <title>게시판</title>
 </head>
+
 <body>
 
-<h1>새 게시글</h1>
+  <h1>새 게시글</h1>
 
-<form>
-제목*: <input id="x-title" type="text"><br>
-내용: <input id="x-content" type="text"><br>
-조회수: <input id="x-viewcount" type="text"><br>
-날짜: <input id="x-createddate" type="text"><br>
-별표(*) 항목은 필수 입력입니다.<br>
-<button id="x-add-btn" type="button">등록</button>
-<button id="x-cancel-btn" type="button">취소</button>
-</form>
+  <form>
+    제목*: <input id="x-title" type="text"><br>
+    내용: <td><textarea id="x-content" cols=80 rows=20></textarea></td><br>
+    별표(*) 항목은 필수 입력입니다.<br>
+    <button id="x-add-btn" type="button">등록</button>
+    <button id="x-cancel-btn" type="button">취소</button>
+  </form>
 
-<script type="text/javascript">
-var xTitle = document.querySelector("#x-title")
-var xContent = document.querySelector("#x-content")
-var xViewCount = document.querySelector("#x-viewcount")
-var xCreatedDate = document.querySelector("#x-createddate")
+  <script type="text/javascript">
+    var xTitle = document.querySelector("#x-title")
+    var xContent = document.querySelector("#x-content")
+    var xViewCount = document.querySelector("#x-viewcount")
+    var xCreatedDate = document.querySelector("#x-createddate")
 
 
 
 
-  document.querySelector("#x-add-btn").onclick = function() {
-    if (xTitle.value == "" || xContent.value == "") {
-      window.alert("필수 입력 항목이 비어 있습니다.");
-      return;
-    }
+    document.querySelector("#x-add-btn").onclick = function() {
+      if (xTitle.value == "") {
+        window.alert("필수 입력 항목이 비어 있습니다.");
+        return;
+      }
 
-    fetch(`/board/add?title=${xTitle.value}&content=${xContent.value}&viewCount=${xViewCount.value}&createdDate=${xCreatedDate.value}`)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(text) {
-        console.log(text);
-        location.href = "index.html";
-      });
-  };
+      fetch(`/board/add?title=${xTitle.value}&content=${xContent.value}`)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(text) {
+          console.log(text);
+          location.href = "index.html";
+        });
+    };
 
-  document.querySelector("#x-cancel-btn").onclick = function() {
-    window.location.href = "index.html";
-  };
-</script>
+    document.querySelector("#x-cancel-btn").onclick = function() {
+      window.location.href = "index.html";
+    };
+  </script>
 
 </body>
+
 </html>
