@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>게시판</title>
+</head>
+
+<body>
+  <h1>게시판</h1>
+  <a href="form.html">추가</a>
+  <table id="x-board-table" border="1">
+    <thead>
+      <tr>
+        <th>제목</th>
+        <th>내용</th>
+        <th>조회수</th>
+        <th>날짜</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script type="text/javascript">
+  var tbody = document.querySelector("#x-board-table tbody")
+
+  fetch("/board/list")
+    .then(function(response) {
+      console.log(response);
+      return response.json();
+    })
+    .then(function(boardLists) {
+      console.log(boardLists);
+      for (var boardList of boardLists) {
+        var tr = document.createElement("tr");
+        tr.innerHTML = `
+        <td><a href="view.html?title=${boardList.title}">${boardList.title}</td>
+        <td>${boardList.content}</td>
+        <td>${boardList.viewCount}</td>
+        <td>${boardList.createdDate}</td>
+        `
+        tbody.appendChild(tr);
+      }
+    });
+
+
+
+  </script>
+
+
+
+</body>
+
+</html>
