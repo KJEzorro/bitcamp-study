@@ -6,10 +6,6 @@ public class ArrayList {
   static int size = 0;
 
 
-
-
-
-
   // 기능: 
   // - 배열에 저장된 목록만 꺼내 새 배열에 담아 리턴한다.
   static Object[] toArray() {
