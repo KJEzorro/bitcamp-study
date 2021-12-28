@@ -25,19 +25,19 @@ public class ContactController {
 
   @RequestMapping("/contact/get")
   public Object get(String email) {
-    int index = ArrayList.indexOf(email);
+    int index = indexOf(email);
     if (index == -1) {
       return "";
     }
 
-    return ArrayList.contacts[index];
+    return ArrayList.list[index];
   }
 
 
 
   @RequestMapping("/contact/update")
   public Object update(Contact contact) {
-    int index = ArrayList.indexOf(contact.email);
+    int index = indexOf(contact.email);
     if (index == -1) {
       return 0;
     }
@@ -47,12 +47,26 @@ public class ContactController {
 
   @RequestMapping("/contact/delete")
   public Object delete(String email) {
-    int index = ArrayList.indexOf(email);
+    int index = indexOf(email);
     if (index == -1) {
       return 0;
     }
     ArrayList.remove(index);
     return 1;
+  }
+
+  //기능:
+  // - 이메일로 연락처 정보를 찾는다.
+  // - 찾은 연락처의 배열 인덱스를 리턴한다.
+  //
+  static int indexOf(String email) {
+    for (int i = 0; i < ArrayList.size; i++) {
+      Contact contact = (Contact)ArrayList.list[i];  // contact = 주소
+      if (contact.email.equals(email)) { 
+        return i;
+      }
+    }
+    return -1;
   }
 
 }
