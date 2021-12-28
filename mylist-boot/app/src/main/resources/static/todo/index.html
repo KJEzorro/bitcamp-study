@@ -15,7 +15,7 @@
 <body>
   <h1>Todo</h1>
 
-  <p>할 일<input type="text"></p>
+  <p>할 일 <input id="x-todo-input" type="text"></p>
   <table id="x-todo-table" border="1">
     <thead>
       <tr>
@@ -36,7 +36,29 @@
 
     var titleInput = document.querySelector("#x-title-input")
     titleInput.style["display"] = "none"
+
     var tbody = document.querySelector("#x-todo-table tbody")
+
+    document.querySelector("#x-todo-input").onkeyup = function(e) {
+      if (e.key === "Escape") {
+        e.target.value = ""
+
+      } else if (e.key == "Enter"){
+      if (e.target.value == "") {
+        window.alert("필수 입력 항목이 비어 있습니다.");
+        return;
+      }
+
+      fetch(`/todo/add?title=${e.target.value}`)
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(text) {
+          console.log(text);
+          location.reload()
+        });
+    }
+  }
 
     /*
         // 삭제 버튼을 클릭 했을 때 호출될 리스너 등록하기
@@ -60,6 +82,9 @@
           }
         }
     */
+
+
+
     fetch("/todo/list")
       .then(function(response) {
         return response.json();
@@ -83,6 +108,7 @@
           <td><button type="button" onclick="deleteTodo(${i})">삭제</button></td>`
           tbody.appendChild(tr);
         }
+        document.querySelector("#x-todo-input").focus()
       });
 
     function deleteTodo(no) {
@@ -146,7 +172,7 @@
       var titleSpan = titleInput.parentNode.querySelector("span")
       var originTitle = titleSpan.innerHTML
 
-      if (e.key == "Escape" /* 아니면 e.keyCode == 27 */) {  /// ESC 키를 눌러 편집을 취소한다면
+      if (e.key == "Escape" /* 아니면 e.keyCode == 27 */ ) { /// ESC 키를 눌러 편집을 취소한다면
         cancelTodoEditing()
       }
 
