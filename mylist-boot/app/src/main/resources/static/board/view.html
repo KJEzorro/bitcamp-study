@@ -9,11 +9,12 @@
 <h1>연락처 상세</h1>
 
 <form>
+  별표(*) 항목은 필수 입력입니다.<br>
+  <br>
 제목*: <input id="x-title" type="text" readonly><br>
 내용*: <textarea id="x-content" cols="60" rows="10"></textarea><br>
 조회수: <span id="x-viewCount"></span><br>
 등록일: <span id="x-createdDate"></span><br>
-별표(*) 항목은 필수 입력입니다.<br>
 <button id="x-update-btn" type="button">변경</button>
 <button id="x-delete-btn" type="button">삭제</button>
 <button id="x-cancel-btn" type="button">나가기</button>
@@ -33,7 +34,7 @@
   var qs = arr[1];
   console.log(qs);
 
-  // 2) 쿼리 스트링에서 email 값을 추출한다.
+  // 2) 쿼리 스트링에서 index 값을 추출한다.
   var params = new URLSearchParams(qs);
   var index = params.get("index");
 

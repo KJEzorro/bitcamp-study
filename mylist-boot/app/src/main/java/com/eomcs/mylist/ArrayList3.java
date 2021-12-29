@@ -21,6 +21,9 @@ public class ArrayList3 {
   // - 배열에서 지정한 항목을 삭제한다.
   //
   static Object remove(int index) {
+    if(index < 0 || index >= size) {  // 값이 저장된 위치가 무효한 인덱스라면
+      return null;
+    }
     Object old = list[index];
     for (int i = index + 1; i < size; i++) {
       list[i - 1] = list[i];
