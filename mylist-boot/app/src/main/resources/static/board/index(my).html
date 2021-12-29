@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>게시판</title>
+</head>
+
+<body>
+  <h1>게시판</h1>
+  <a href="form(my).html">글 작성</a>
+  <table id="x-board-table" border="1">
+    <thead>
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>조회수</th>
+        <th>날짜</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script type="text/javascript">
+    var tbody = document.querySelector("#x-board-table tbody")
+
+    // tbody.onclick = function(e) {
+    //   var at = document.querySelector(".x-title")
+    //   var title = at.innerHTML
+    //   if (e.target == at) {
+    //     console.log("haha");
+    //     fetch(`/board/countup?title=${title}`)
+    //       .then(function(response) {
+    //         console.log(response);
+    //       })
+    //       .then(function(result) {
+    //         console.log("-------------");
+    //         console.log(result);
+    //       })
+    //   }
+    // }
+
+    fetch("/board/list")
+      .then(function(response) {
+        console.log(response);
+        return response.json();
+      })
+      .then(function(boardLists) {
+        console.log(boardLists);
+        for (var i = 0; i < boardLists.length; i++) {
+          var tr = document.createElement("tr");
+          tr.innerHTML = `
+        <td>${i}</td>
+        <td><a href="view(my).html?title=${boardLists[i].title}" class="x-title">${boardLists[i].title}</td>
+        <td>${boardLists[i].viewCount}</td>
+        <td>${boardLists[i].createdDate}</td>
+        `
+          tbody.appendChild(tr);
+        }
+
+      });
+  </script>
+
+
+
+</body>
+
+</html>

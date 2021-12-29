@@ -3,19 +3,18 @@
 
 <head>
   <meta charset="utf-8">
-  <title>게시판</title>
+  <title>게시글</title>
 </head>
 
 <body>
-  <h1>게시판</h1>
-  <a href="form.html">글 작성</a>
+  <h1>게시글</h1>
+  <a href="form.html">새 게시글</a>
   <table id="x-board-table" border="1">
     <thead>
       <tr>
-        <th>번호</th>
         <th>제목</th>
         <th>조회수</th>
-        <th>날짜</th>
+        <th>등록일</th>
       </tr>
     </thead>
     <tbody>
@@ -25,42 +24,29 @@
   <script type="text/javascript">
     var tbody = document.querySelector("#x-board-table tbody")
 
-    // tbody.onclick = function(e) {
-    //   var at = document.querySelector(".x-title")
-    //   var title = at.innerHTML
-    //   if (e.target == at) {
-    //     console.log("haha");
-    //     fetch(`/board/countup?title=${title}`)
-    //       .then(function(response) {
-    //         console.log(response);
-    //       })
-    //       .then(function(result) {
-    //         console.log("-------------");
-    //         console.log(result);
-    //       })
-    //   }
-    // }
-
     fetch("/board/list")
       .then(function(response) {
         console.log(response);
         return response.json();
       })
-      .then(function(boardLists) {
-        console.log(boardLists);
-        for (var i = 0; i < boardLists.length; i++) {
+      .then(function(boards) {
+        console.log(boards);
+        for (var i = 0; i < boards.length; i++) {
+          var board = boards[i]
           var tr = document.createElement("tr");
-          tr.innerHTML = `
-        <td>${i}</td>
-        <td><a href="view.html?title=${boardLists[i].title}" class="x-title">${boardLists[i].title}</td>
-        <td>${boardLists[i].viewCount}</td>
-        <td>${boardLists[i].createdDate}</td>
-        `
+          tr.innerHTML = `<td><a href="view.html?index=${i}">${board.title}</a></td>
+        <td>${board.viewCount}</td>
+        <td>${board.createdDate}</td>`;
           tbody.appendChild(tr);
         }
-
       });
   </script>
+
+
+
+
+
+
 
 
 

@@ -1,6 +1,6 @@
 package com.eomcs.mylist;
 
-import java.util.Date;
+import java.sql.Date;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,74 +18,44 @@ public class BoardController {
 
   @RequestMapping("/board/add")
   public Object add(Board board) {
+    board.setCreatedDate(new Date(System.currentTimeMillis()));
     ArrayList3.add(board);
-    Date date = new Date();
-    long timeInMilliSeconds = date.getTime();
-    java.sql.Date today = new java.sql.Date(timeInMilliSeconds);
-
-    // 방금 추가한 게시물이 배열의 맨마지막에 있기 때문에 
-    // 배열의 맨마지막 것을 선택하여 날짜를 설정해준다
-    ((Board) ArrayList3.toArray()[ArrayList3.size - 1]).setCreatedDate(today);
-
     return ArrayList3.size;
   }
 
 
   @RequestMapping("/board/get")
-  public Object get(String title) {
-    int index = indexOf(title);
-    if (index == -1) {
+  public Object get(int index) {
+    if (index < 0 || index  >= ArrayList3.size) {
       return "";
     }
-    //    setViewCount를 통해 서버에 있는 게시물의 viewCount를 하나 올려준다.
-    ((Board) ArrayList3.list[index]).setViewCount(((Board)
-        // 서버에서  기존 viewCount를 가져와서 +1 해준다
-        ArrayList3.list[index]).getViewCount() + 1);
-    return ArrayList3.list[index];
+    Board board = (Board)ArrayList3.list[index];
+    board.viewCount++;
+    return board;
   }
 
 
 
   @RequestMapping("/board/update")
-  public Object update(Board board) {
-    int index = indexOf(board.title);
-    if (index < 0 || index >= ArrayList3.size) {
+  public Object update(int index, Board board) {
+    if (index < 0 || index  >= ArrayList3.size) {
       return 0;
     }
+    Board old = (Board)ArrayList3.list[index];
+    board.viewCount = old.viewCount;
+    board.createdDate = old.createdDate;
+
     return ArrayList3.set(index, board) == null ? 0 : 1;
   }
 
 
   @RequestMapping("/board/delete")
-  public Object delete(String title) {
-    int index = indexOf(title);
-    if (index < 0 || index >= ArrayList3.size) {
+  public Object delete(int index) {
+    if (index < 0 || index  >= ArrayList3.size) {
       return 0;
     }
     ArrayList3.remove(index);
     return 1;
-  }
-
-
-  //  @RequestMapping("/board/countup")
-  //  static Object countup(String title) {
-  //    int index = indexOf(title);
-  //    if (index == -1) {
-  //      return "";
-  //    }
-  //    
-  //
-  //    return ArrayList3.list[index];
-  //  }
-
-  static int indexOf(String title) {
-    for (int i = 0; i < ArrayList3.size; i++) {
-      Board board = (Board)ArrayList3.list[i];  // contact = 주소
-      if (board.title.equals(title)) { 
-        return i;
-      }
-    }
-    return -1;
   }
 
 
