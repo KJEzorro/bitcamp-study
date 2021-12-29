@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>게시판</title>
+
 </head>
 <body>
 
@@ -12,8 +13,8 @@
 <form>
   제목*: <input id="x-title" type="text" readonly><br>
   내용: <td><textarea id="x-content" cols=80 rows=20></textarea></td><br>
-  조회수: <input id="x-viewcount" type="text" readonly><br>
-  날짜: <input id="x-createddate" type="text" readonly><br>
+  <input id="x-viewcount" type="text" style="display:none;" readonly><br>
+  <input id="x-createddate" type="text" style="display:none;" readonly><br>
   <button id="x-update-btn" type="button">수정</button>
   <button id="x-delete-btn" type="button">삭제</button>
   <button id="x-cancel-btn" type="button">나가기</button>
