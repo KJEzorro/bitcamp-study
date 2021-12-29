@@ -68,7 +68,7 @@
       return;
     }
 
-    fetch(`/board/update?title=${xTitle.value}&content=${xContent.value}`)
+    fetch(`/board/update?index=${index}&title=${xTitle.value}&content=${xContent.value}`)
       .then(function(response) {
         return response.text();
       })
