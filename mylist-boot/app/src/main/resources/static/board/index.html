@@ -3,18 +3,19 @@
 
 <head>
   <meta charset="utf-8">
-  <title>게시글</title>
+  <title>게시판</title>
 </head>
 
 <body>
-  <h1>게시글</h1>
-  <a href="form.html">새 게시글</a>
+  <h1>게시판</h1>
+  <a href="form.html">새 게시판</a>
   <table id="x-board-table" border="1">
     <thead>
       <tr>
+        <th>번호</th>
         <th>제목</th>
         <th>조회수</th>
-        <th>등록일</th>
+        <th>날짜</th>
       </tr>
     </thead>
     <tbody>
@@ -31,12 +32,14 @@
       })
       .then(function(boards) {
         console.log(boards);
-        for (var i = 0; i < boards.length; i++) {
-          var board = boards[i]
+        for(var i = 0; i < boards.length; i++) {
           var tr = document.createElement("tr");
-          tr.innerHTML = `<td><a href="view.html?index=${i}">${board.title}</a></td>
-        <td>${board.viewCount}</td>
-        <td>${board.createdDate}</td>`;
+          tr.innerHTML = `
+          <td>${i}</td>
+          <td><a href="view.html?index=${i}">${boards[i].title}</a></td>
+          <td>${boards[i].viewCount}</td>
+          <td>${boards[i].createdDate}</td>
+          `
           tbody.appendChild(tr);
         }
       });

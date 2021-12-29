@@ -35,12 +35,12 @@ public class ArrayList3 {
   // - return 값:
   //    -변경하기 전에 저장되어 있던 값이다.
   //
-  static Object set(int index, Object contact) {
+  static Object set(int index, Object obj) {
     if(index < 0 || index >= size) {  // 값이 저장된 위치가 무효한 인덱스라면
       return null;
     }
     Object old = list[index];
-    list[index] = contact;
+    list[index] = obj;
     return old;
   }
 
@@ -91,15 +91,6 @@ public class ArrayList3 {
       target[i] = source[i];
     }
   }
-
-
-
-
-
-
-
-
-
 
 
 
