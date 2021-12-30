@@ -17,7 +17,7 @@ public class Exam0310 {
     Score s1 = new Score();
 
     // s1에 저장된 주소를 s2에도 저장한다.
-    // => s1과 s2는 같은 메모리를 가리킨다.
+    // => s1과 s2는 '''같은 메모리'''를 가리킨다.
     Score s2 = s1;
 
     s1.name = "홍길동";
