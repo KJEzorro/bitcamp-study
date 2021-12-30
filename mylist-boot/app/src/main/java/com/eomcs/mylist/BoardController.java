@@ -15,7 +15,7 @@ public class BoardController {
 
   @RequestMapping("/board/list")
   public Object list() {
-    return ArrayList.toArray(boardList);
+    return boardList.toArray();
   }
 
 
@@ -23,7 +23,7 @@ public class BoardController {
   public Object add(Board board) {
 
     board.setCreatedDate(new java.sql.Date(System.currentTimeMillis()));
-    ArrayList.add(boardList, board);
+    boardList.add(board);
     return boardList.size;
   }
 
@@ -50,7 +50,7 @@ public class BoardController {
     Board old = (Board)boardList.list[index];
     board.viewCount = old.viewCount;
     board.createdDate = old.createdDate;
-    return ArrayList.set(boardList, index, board) == null ? 0 : 1;
+    return boardList.set(index, board) == null ? 0 : 1;
   }
 
 
@@ -59,7 +59,7 @@ public class BoardController {
     if (index == -1 || index >= boardList.size) {
       return "";
     }
-    return ArrayList.remove(boardList, index) == null ? 0 : 1; 
+    return boardList.remove(index) == null ? 0 : 1; 
   }
 
 }
