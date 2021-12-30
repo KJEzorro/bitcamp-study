@@ -8,8 +8,6 @@ public class Exam0111 {
     int kor;
     int eng;
     int math;
-    int sum;
-    float aver;
 
     name = "홍길동";
     kor = 100;
