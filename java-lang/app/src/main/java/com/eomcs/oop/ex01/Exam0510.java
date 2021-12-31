@@ -47,6 +47,8 @@ public class Exam0510 {
     // bin/main/com/eomcs/oop/ex01/Exam0510$1D.class
     class D {}
 
+    class E {}  // Exam0510$1.class
+
     // 4) 익명 클래스(anonymouse class)
     // - 클래스 이름이 없는 중첩 클래스이다.
     // - 딱 한 개의 인스턴스를 생성할 때 사용한다.
@@ -67,6 +69,8 @@ public class Exam0510 {
 
     // 같은 스태틱 멤버라면 스태틱 중첩 클래스를 사용할 수 있다.
     B obj2 = new B();
+
+    class E {} // Exam0510$2.class
 
     // '''스태틱 멤버'''는 논-스태틱 중첩 클래스(인스턴스 멤버)를 사용할 수 없다.
     // C obj3 = new C(); // 컴파일 오류!
