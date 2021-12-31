@@ -4,7 +4,7 @@ package com.eomcs.oop.ex02;
 //
 public class Exam0270 {
 
-  // Calculator 클래스를 향후 유지보수하기 쉽도록 별도의 파일로 분리한다.
+  // Calculator 클래스를 향후 유지보수하기 쉽도록 ''별도의 파일로 분리''한다.
   // - Calculator.java 파일로 분리한다.
 
   public static void main(String[] args) {
