@@ -6,7 +6,7 @@ public class Exam0240 {
 
   static class Calculator {
 
-    // 클래스 변수는 클래스가 로딩될 때 한 번 생성된다.
+    // 클래스 변수는 클래스가 로딩될 때 '''한 번 생성'''된다.
     static int result = 0;
 
     static void plus(int value) {

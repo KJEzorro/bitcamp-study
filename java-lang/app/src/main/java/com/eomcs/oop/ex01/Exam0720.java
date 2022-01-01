@@ -17,7 +17,7 @@ public class Exam0720 {
     // 문법:
     //      import 패키지명.클래스명;
     // 
-    // import 명령어는 항상 package 명령어 다음에 나와야한다.
+    // import 명령어는 항상 '''package 명령어 다음에''' 나와야한다.
     //
     Y2 obj;
     obj = new Y2();
