@@ -1,6 +1,7 @@
 package com.eomcs.mylist.controller;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.mylist.domain.Board;
@@ -21,7 +22,7 @@ public class BoardController2 {
   @RequestMapping("/board2/add")
   public Object add(Board board) {
 
-    board.setCreatedDate(new Date(System.currentTimeMillis()));
+    board.setCreatedDate(nowTime());
     boardList2.add(board);
     return boardList2.size();
   }
@@ -32,7 +33,7 @@ public class BoardController2 {
     if (index < 0 || index >= boardList2.size()) {
       return "";
     }
-    com.eomcs.mylist.domain.Board board = (Board) boardList2.get(index);
+    Board board = (Board) boardList2.get(index);
     board.setViewCount(board.getViewCount() + 1);
     return board;
   }
@@ -57,6 +58,10 @@ public class BoardController2 {
     }
     boardList2.remove(index);
     return 1;
+  }
+
+  String nowTime() {
+    return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss"));
   }
 }
 

@@ -5,7 +5,7 @@ public class Board {
   String title;
   String content;
   int viewCount;
-  java.sql.Date createdDate;
+  String createdDate;
 
 
   public String getTitle() {
@@ -38,11 +38,11 @@ public class Board {
   }
 
 
-  public java.sql.Date getCreatedDate() {
+  public String getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(java.sql.Date createdDate) {
+  public void setCreatedDate(String createdDate) {
     this.createdDate = createdDate;
   }
 

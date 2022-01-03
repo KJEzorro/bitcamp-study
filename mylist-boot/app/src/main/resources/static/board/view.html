@@ -70,6 +70,7 @@
 
     fetch(`/board/update?index=${index}&title=${xTitle.value}&content=${xContent.value}`)
       .then(function(response) {
+        console.log(response);
         return response.text();
       })
       .then(function(text) {
