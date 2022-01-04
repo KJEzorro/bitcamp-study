@@ -2,8 +2,10 @@
 package com.eomcs.oop.ex03;
 
 public class Exam0220 {
+
   static class A {
-    int value;
+
+    int value; // 얘 자체가 변수가 아니라 변수를 만들라는 명령문이다. new라는 명령어를 실행했을 때 heap에 이 변수가 생성된다.
 
     static void m1() {
       // 클래스 메서드는 인스턴스 주소 없이 호출되기 때문에 
