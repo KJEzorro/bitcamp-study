@@ -47,6 +47,12 @@ public class Exam0410 {
     //    Score s2 = new Score;
 
     Score s3 = new Score();
+
+    // 1) heap에 인스턴스 변수 생성
+    // 2) 레퍼런스에 인스턴스 주소 저장
+    // 3) 기본 생성자 호출
+
+    //    s3.Score(); // error. 생성자는 따로 호출할 수 없다.
   }
 }
 

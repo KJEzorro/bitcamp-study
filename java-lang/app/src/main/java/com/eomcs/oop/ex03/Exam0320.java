@@ -48,6 +48,8 @@ public class Exam0320 {
 
     System.out.printf("%s, %d, %d, %d, %d, %.1f\n",
         s2.name, s2.kor, s2.eng, s2.math, s2.sum, s2.average);
+
+    keyScan.close();
   }
 }
 
