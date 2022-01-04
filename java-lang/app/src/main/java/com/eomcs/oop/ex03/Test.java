@@ -1,49 +1,63 @@
 package com.eomcs.oop.ex03;
 
+
 public class Test {
 
-  static class Test135 {
-    int a;
-    int b;
-    boolean c;
+  class Patient {
+    String name;
+    String id;
+    String gender;
+    String bloodType;
+    int age;
 
-    Test135 () {}
-
-    Test135 (int a) {
-      this.a = a;
+    public String getName() {
+      return name;
+    }
+    public void setName(String name) {
+      this.name = name;
+    }
+    public String getId() {
+      return id;
+    }
+    public void setId(String id) {
+      this.id = id;
+    }
+    public String getGender() {
+      return gender;
+    }
+    public void setGender(String gender) {
+      this.gender = gender;
+    }
+    public String getBloodType() {
+      return bloodType;
+    }
+    public void setBloodType(String bloodType) {
+      this.bloodType = bloodType;
+    }
+    public int getAge() {
+      return age;
+    }
+    public void setAge(int age) {
+      this.age = age;
+    }
+    @Override
+    public String toString() {
+      return "Patient [name=" + name + ", id=" + id + ", gender=" + gender + ", bloodType="
+          + bloodType + ", age=" + age + "]";
     }
 
-    Test135 (int a, int b) {
-      this.a = a;
-      this.b = b;
-    }
-
-    Test135 (int a, int b, boolean c) {
-      this.a = a;
-      this.b = b;
-      this.c = c;
-    }
-
-    Test135 (int a, boolean c) {
-      this.a = a;
-      this.c = c;
-    }
-
-    Test135 (boolean c) {
-      this.c = c;
-    }
   }
 
-
   public static void main(String[] args) {
+    Test t = new Test();
+    Patient patient1 = t.new Patient();
+    patient1.setName("홍길동");
+    patient1.setId("911111-1234456");
+    patient1.setGender("남");
+    patient1.setBloodType("RH+ A");
+    patient1.setAge(30);
 
-    Test135 test = new Test135(3, false);
-    Test135 test2 = new Test135(3, 5, true);
-
-    System.out.printf("%s%s%n",test.a, test.c);
-    System.out.printf("%s%s%s%n",test2.a,test2.b, test2.c);
-    System.out.println(test.c);
-
+    System.out.println(patient1.toString());
 
   }
 
