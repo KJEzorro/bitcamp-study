@@ -3,7 +3,7 @@
 package com.eomcs.oop.ex03;
 
 public class Exam0140 {
-  // nested class는 클래스가 사용될 때 로딩된다.
+  // nested class는 클래스가 ''사용될 때'' 로딩된다.
   // 사용되기 전까지는 method area에 로딩되지 않는다.
   static class A {
     static int v1;

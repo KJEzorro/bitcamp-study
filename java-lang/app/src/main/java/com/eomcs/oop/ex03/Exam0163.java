@@ -2,8 +2,15 @@
 //
 package com.eomcs.oop.ex03;
 
-// 스태틱 변수를 사용할 때 다음과 같이 소속 클래스를 미리 밝혀두면
-// 클래스 이름 없이 스태틱 변수를 사용할 수 있다.
+// Member 클래스를 외부의 다른 클래스에서도 사용한다면,
+// nested 클래스로 선언하지 말고 패키지 멤버로 분리하라.
+// 
+// 패키지 멤버의 스태틱 필드를 사용할 때는 다음과 같이 import로
+// 그 변수의 소속을 미리 밝힐 수 있다.
+// 다음과 같이 소속 클래스를 미리 밝혀두면
+// => 스태틱 변수의 소속 클래스를 미리 밝혀두면
+//    클래스 이름 없이 스태틱 변수를 사용할 수 있다.
+// static 붙여야한다.
 import static com.eomcs.oop.ex03.Member.GUEST;
 import static com.eomcs.oop.ex03.Member.MANAGER;
 import static com.eomcs.oop.ex03.Member.MEMBER;
@@ -18,7 +25,9 @@ public class Exam0163 {
     Member m4 = new Member();
     m4.id = "aaa";
     m4.password = "1111";
-    m4.type = GUEST;
+    m4.type = GUEST; // import static 명령문에서 변수의 소속을 이미 밝혔기 때문에 클래스 이름을 적을 필요가 없다.
+    // 만약 import에 선언하지 않았다면 스태틱 변수명 앞에 클래스명을 붙여야 한다.
+    // 예) Member.GUEST
 
     Member m5 = new Member();
     m5.id = "bbb";

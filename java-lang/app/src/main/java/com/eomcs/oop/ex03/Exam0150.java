@@ -6,11 +6,11 @@ public class Exam0150 {
 
   static class Student {
 
-    // 클래스 필드 = 스태틱 필드
+    // 클래스 필드 = static 필드
     // - 모든 인스턴스가 공유하는 값을 저장할 때는 클래스 변수를 사용한다.
-    static int count; 
+    static int count; // 학생 수
 
-    // 인스턴스 필드
+    // 인스턴스 필드 = non-static 필드
     // - 인스턴스마다 개별적으로 관리해야 할 값은 인스턴스 변수에 저장한다.
     String name;
     int age;
