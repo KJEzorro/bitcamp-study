@@ -4,7 +4,7 @@ package com.eomcs.oop.ex03;
 public class Exam0230 {
   static class Calculator {
     // new 명령을 실행하면, 다음 변수 선언이 실행되어 Heap에 메모리를 만든다.
-    int result;
+    int result;  // 정수 값을 담을 4byte 메모리를 준비하라. 그 메모리의 이름을 result로 하자! 라는 의미의 명령문
 
     // 주의!
     // => 이름에 인스턴스가 붙었다고 해서 인스턴스 메서드는 Heap에 만들어지는 것이 아니다!
@@ -31,9 +31,11 @@ public class Exam0230 {
 
     // c2가 가리키는 인스턴스를 가지고 Method Area에 있는 minus()를 호출한다.
     c2.minus(30);
+
+
+    // 인스턴스 = 인스턴스 변수 + 타입정보(메서드 등등등...)를 가지고 있다.
   }
 }
-
 
 
 
