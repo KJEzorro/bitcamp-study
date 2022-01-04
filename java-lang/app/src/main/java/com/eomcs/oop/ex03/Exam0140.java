@@ -3,6 +3,8 @@
 package com.eomcs.oop.ex03;
 
 public class Exam0140 {
+  // nested class는 클래스가 사용될 때 로딩된다.
+  // 사용되기 전까지는 method area에 로딩되지 않는다.
   static class A {
     static int v1;
     int v2;
@@ -24,7 +26,7 @@ public class Exam0140 {
     A p = new A();
     // 이제 v2 변수는 Heap에 생성되었다.
     // A클래스의 인스턴스를 만들 때
-    // static 이 안붙은 변수가 그 대상이다.
+    // static 이 안붙은 변수(non-static변수 = 인스턴스 변수)가 그 대상이다.
     //
     // v2 인스턴스 변수는 인스턴스 주소를 통해 사용해야 한다.
     // 클래스이름으로 사용할 수 없다.
