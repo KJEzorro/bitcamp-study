@@ -27,8 +27,9 @@ public class Exam0113 {
         (byte)0xeb, (byte)0x98, (byte)0xa5  // 똥
     };
 
-    String s1 = new String(bytes);
+    String s1 = new String(bytes, "UTF-8");
     System.out.println(s1);
+    System.out.println("-----------------------");
 
     // 생성자에 바이트 배열을 넘길 때
     // 바이트 배열에 들어 있는 데이터의 문자 코드표를 알려주지 않으면,
@@ -49,6 +50,7 @@ public class Exam0113 {
     // => JVM 실행 옵션에 다음을 추가하라
     //     -Dfile.encoding=UTF-8
     // => java -Dfile.encoding=UTF-8 -cp bin/main 클래스명
+    // => java -Dfile.encoding=UTF-8 -cp bin/main com.eomcs.oop.ex04.Exam0113
     // => PowerShell 이 아닌 Command 창에서 실행하라!
     //    PowerShell 에서는 -Dfile.encoding 옵션을 제대로 처리하지 못한다.
     //    도트(.)를 분리 문자로 인식한다.
