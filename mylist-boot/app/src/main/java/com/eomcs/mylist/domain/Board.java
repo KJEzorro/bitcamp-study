@@ -4,8 +4,8 @@ package com.eomcs.mylist.domain;
 public class Board {
   String title;
   String content;
-  int viewCount;
   String createdDate;
+  int viewCount;
 
 
   public String getTitle() {
