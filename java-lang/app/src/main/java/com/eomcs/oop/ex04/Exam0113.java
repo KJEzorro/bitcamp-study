@@ -5,6 +5,7 @@ public class Exam0113 {
 
   public static void main(String[] args) throws Exception {
 
+
     // UTF-8 문자 코드의 바이트 배열을 사용하여 String 인스턴스 초기화시키기.
     byte[] bytes = {
         (byte)0x41, // A
@@ -27,7 +28,7 @@ public class Exam0113 {
         (byte)0xeb, (byte)0x98, (byte)0xa5  // 똥
     };
 
-    String s1 = new String(bytes, "UTF-8");
+    String s1 = new String(bytes);
     System.out.println(s1);
     System.out.println("-----------------------");
 

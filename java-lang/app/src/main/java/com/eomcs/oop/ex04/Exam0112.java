@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 public class Exam0112 {
 
   public static void main(String[] args) throws Exception {
-    System.out.println(Charset.defaultCharset());
+    System.out.println(Charset.defaultCharset()); //
 
     // 한글 문자 코드의 바이트 배열을 가지고 String 인스턴스 초기화시키기.
     byte[] bytes = {
@@ -17,7 +17,7 @@ public class Exam0112 {
     };
     String s1 = new String(bytes); 
     // 바이트 배열에 들어 있는 문자 코드가 어떤 문자집합에 맞춰 작성되었는지 알려주지 않으면
-    // String 클래슨든 JVM이 가정하는 문자집합으로 작성되었을 거라고 생각하고 Unicode로 변환한다.
+    // String 클래스는 JVM이 가정하는 문자집합(UTF-8)으로 작성되었을 거라고 생각하고 Unicode로 변환한다.
     // 
     System.out.println(s1);
     System.out.println("-------------------------------------");
