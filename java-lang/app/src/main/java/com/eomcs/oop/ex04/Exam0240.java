@@ -25,7 +25,7 @@ public class Exam0240 {
     // yyyy-MM-dd 형식으로 다루기 때문에 편리하다.
 
     // 스태틱 메서드 활용
-    long currMillis = System.currentTimeMillis();
+    long currMillis = System.currentTimeMillis(); // 1970년 1월 1일부터 지금까지 지난 시간을 밀리세컨드로 반환한다.
 
     // 생성자 활용
     java.sql.Date today = new java.sql.Date(currMillis);
