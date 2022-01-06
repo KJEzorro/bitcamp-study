@@ -10,6 +10,7 @@ public class Exam0210 {
     char c = s1.charAt(1);
     System.out.println(c);
 
+    // 숫자가 얼마냐가 중요한게 아니고 양수냐 음수냐 가 중요한 것이다.
     System.out.println(s1.compareTo("Helli"));
     System.out.println(s1.compareTo("Hello"));
     System.out.println(s1.compareTo("Hellq"));
@@ -17,15 +18,17 @@ public class Exam0210 {
     System.out.println(s1.contains("ll"));
     System.out.println(s1.contains("ee"));
 
+    // immutable(불변) 객체 = 처음 객체를 만들면 그객체에 들어있는 값을 변경할 수 없다. (예:String 객체)
+
     // 두 문자열을 연결하여 새 문자열을 만들자!
     String s2 = s1.concat(", world!");
-    System.out.println(s1); // 기존 인스턴스의 값은 변경하지 않는다.
+    System.out.println(s1); // 기존 인스턴스의 값은 변경하지 않는다. 
     System.out.println(s2); // 새로 문자열을 만든다.
 
     // 두 인스턴스에 들어 있는 문자열이 같은 지 비교할 때 
     System.out.println(s1.equals("aaa")); // false
     System.out.println(s1.equals("Hello")); // true
-    System.out.println(s1 == "Hello"); // false
+    System.out.println(s1 == "Hello"); // false 문자열 비교가 아닌 주소 비교
 
     System.out.println("-------------------------");
 
@@ -61,9 +64,9 @@ public class Exam0210 {
     System.out.println(s5);
 
     // => primitive 값을 문자열로 만든다.
-    String s6 = String.valueOf(true);
-    String s7 = String.valueOf(3.14f);
-    String s8 = String.valueOf(100);
+    String s6 = String.valueOf(true); // "true"
+    String s7 = String.valueOf(3.14f); // "3.14"
+    String s8 = String.valueOf(100); // "100"
     System.out.println(s6);
     System.out.println(s7);
     System.out.println(s8);
