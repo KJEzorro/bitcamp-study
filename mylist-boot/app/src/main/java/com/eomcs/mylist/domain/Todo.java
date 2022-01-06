@@ -4,6 +4,10 @@ public class Todo {
   String title;
   boolean done;
 
+  public Todo() {
+    System.out.println("Todo() 호출됨");
+  }
+
 
   public String getTitle() {
     return title;

@@ -1,11 +1,14 @@
 package com.eomcs.mylist.domain;
 
-
 public class Board {
   String title;
   String content;
   String createdDate;
   int viewCount;
+
+  public Board() {
+    System.out.println("Board() 호출됨");
+  }
 
 
   public String getTitle() {

@@ -8,10 +8,15 @@ import com.eomcs.util.ArrayList;
 @RestController 
 public class ContactController {
 
-  // Contact 객체 목록을 저장할 메모리 준비
-  // => Object[] list = new Object[5];
-  // => int size = 0;
+  //  ArrayList contactList = new ArrayList(); <-- 이 명령문이 아래 명령문과 같다.
+
   ArrayList contactList = new ArrayList();
+
+  public ContactController() {
+    System.out.println("ContactController() 호출됨");
+  }
+
+
 
   @RequestMapping("/contact/list")
   public Object list() {
