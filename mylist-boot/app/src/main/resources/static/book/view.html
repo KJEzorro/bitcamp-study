@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>독서록</title>
+</head>
+
+<body>
+
+  <h1>독서록 상세</h1>
+
+  <form>
+    <br>
+    제목: <span id="x-title" type="text"></span><br>
+    저자: <span id="x-author" type="text"></span><br>
+    출판사: <span id="x-press" type="text"></span><br>
+    페이지수: <span id="x-page" type="text"></span><br>
+    가격: <span id="x-price" type="text"></span><br>
+    책 읽은 날짜: <span id="x-readDate"></span><br>
+    내용: <textarea id="x-feed" cols="60" rows="10"></textarea><br>
+    독서록 등록 날짜:<span id="x-listDate"></span><br>
+    <button id="x-update-btn" type="button">변경</button>
+    <button id="x-delete-btn" type="button">삭제</button>
+    <button id="x-cancel-btn" type="button">나가기</button>
+  </form>
+
+  <script type="text/javascript">
+    // 1) URL에서 쿼리스트링(query string)을 추출한다.
+    var arr = location.href.split("?");
+    console.log(arr);
+
+    if (arr.length == 1) {
+      alert("요청 형식이 옳바르지 않습니다.")
+      throw "URL 형식 오류!";
+    }
+
+    var qs = arr[1];
+    console.log(qs);
+
+    // 2) 쿼리 스트링에서 index 값을 추출한다.
+    var params = new URLSearchParams(qs);
+    var index = params.get("index");
+
+    if (index == null) {
+      alert("error");
+      throw "파라미터 오류!";
+    }
+    console.log(index);
+
+    var xTitle = document.querySelector("#x-title");
+    var xFeed = document.querySelector("#x-feed");
+    var xAuthor = document.querySelector("#x-author");
+    var xPress = document.querySelector("#x-press");
+    var xPage = document.querySelector("#x-page");
+    var xPrice = document.querySelector("#x-price");
+    var xReadDate = document.querySelector("#x-readDate");
+    var xListDate = document.querySelector("#x-listDate");
+
+    // 3) 서버에서 데이터 가져오기
+    fetch(`/book/get?index=${index}`)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(book) {
+        // 4) 연락처 상세 정보를 화면에 출력한다.
+        xTitle.innerHTML = book.title
+        xAuthor.innerHTML = book.author
+        xPress.innerHTML = book.press
+        xPage.innerHTML = book.page
+        xPrice.innerHTML = book.price
+        xReadDate.innerHTML = book.readDate
+        xListDate.innerHTML = book.listDate
+        xFeed.value = book.feed
+
+      });
+
+    document.querySelector("#x-update-btn").onclick = function() {
+      if (xFeed.value == "") {
+        window.alert("필수 입력 항목이 비어 있습니다.");
+        return;
+      }
+
+
+      fetch(`
+        /book/update?index=${index}&title=${xTitle.innerHTML}&author=${xAuthor.innerHTML}
+        &press=${xPress.innerHTML}&feed=${xFeed.value}&page=${xPage.innerHTML}
+        &price=${xPrice.innerHTML}&readDate=${xReadDate.innerHTML}&listDate=${xListDate.innerHTML}`)
+        .then(function(response) {
+          console.log(response);
+          return response.text();
+        })
+        .then(function(text) {
+          console.log(text);
+          location.href = "index.html";
+        });
+    };
+
+    document.querySelector("#x-cancel-btn").onclick = function() {
+      window.location.href = "index.html";
+    };
+
+    document.querySelector("#x-delete-btn").onclick = function() {
+      fetch(`/book/delete?index=${index}`)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(result) {
+          console.log(result);
+          location.href = "index.html";
+        });
+    };
+  </script>
+
+</body>
+
+</html>
