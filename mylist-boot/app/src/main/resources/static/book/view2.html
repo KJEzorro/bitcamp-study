@@ -12,11 +12,11 @@
 
   <form>
     <br>
-    제목: <span id="x-title" type="text"></span><br>
-    저자: <span id="x-author" type="text"></span><br>
-    출판사: <span id="x-press" type="text"></span><br>
-    페이지수: <span id="x-page" type="text"></span><br>
-    가격: <span id="x-price" type="text"></span><br>
+    제목: <span id="x-title"></span><br>
+    저자: <span id="x-author"></span><br>
+    출판사: <span id="x-press"></span><br>
+    페이지수: <span id="x-page"></span><br>
+    가격: <span id="x-price"></span><br>
     책 읽은 날짜: <span id="x-readDate"></span><br>
     소감: <textarea id="x-feed" cols="60" rows="10"></textarea><br>
     독서록 등록 날짜:<span id="x-listDate"></span><br>
@@ -81,11 +81,11 @@
         return;
       }
 
+      var updateQs2 = `index=${index}&title=${xTitle.innerHTML}&author=${xAuthor.innerHTML}
+      &press=${xPress.innerHTML}&feed=${xFeed.value}&page=${xPage.innerHTML}
+      &price=${xPrice.innerHTML}&readDate=${xReadDate.innerHTML}&listDate=${xListDate.innerHTML}`
 
-      fetch(`
-        /book2/update?index=${index}&title=${xTitle.innerHTML}&author=${xAuthor.innerHTML}
-        &press=${xPress.innerHTML}&feed=${xFeed.value}&page=${xPage.innerHTML}
-        &price=${xPrice.innerHTML}&readDate=${xReadDate.innerHTML}&listDate=${xListDate.innerHTML}`)
+      fetch(`/book2/update?${updateQs2}`)
         .then(function(response) {
           console.log(response);
           return response.text();
