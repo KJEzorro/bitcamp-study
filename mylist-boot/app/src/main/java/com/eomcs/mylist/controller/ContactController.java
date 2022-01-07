@@ -61,6 +61,12 @@ public class ContactController {
     return 1;
   }
 
+  @RequestMapping("/contact/save")
+  public Object save() {
+    return 0;
+  }
+
+
   int indexOf(String email) {
     for (int i = 0; i < contactList.size(); i++) {
       Contact contact =  (Contact) contactList.get(i);

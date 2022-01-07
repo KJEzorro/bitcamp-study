@@ -32,10 +32,10 @@
     var xReadDate = document.querySelector("#x-readDate")
 
     document.querySelector("#x-add-btn").onclick = function() {
-      // if (xTitle.value == "" || xFeed.value == "" || xAuthor.value == "" || xPress.value == "" || xPage.value == "" || xPrice.value == "" || xReadDate.value == "") {
-      //   window.alert("입력 항목이 비어 있습니다.");
-      //   return;
-      // }
+      if (xTitle.value == "" || xFeed.value == "" || xAuthor.value == "" || xPress.value == "" || xPage.value == "" || xPrice.value == "" || xReadDate.value == "") {
+        window.alert("입력 항목이 비어 있습니다.");
+        return;
+      }
 
       var addQs2 = `
 title=${xTitle.value}&author=${xAuthor.value}

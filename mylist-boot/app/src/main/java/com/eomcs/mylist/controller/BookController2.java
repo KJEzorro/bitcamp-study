@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.eomcs.mylist.domain.Book;
+import com.eomcs.mylist.domain.Book2;
 import com.eomcs.util.ArrayList;
 
 @RestController
@@ -22,7 +22,7 @@ public class BookController2 {
 
 
   @RequestMapping("/book2/add")
-  public Object add(Book book) {
+  public Object add(Book2 book) {
 
     book.setListDate(nowTime());
     bookList2.add(book);
@@ -35,13 +35,13 @@ public class BookController2 {
     if (index < 0 || index >= bookList2.size()) {
       return "";
     }
-    Book book = (Book) bookList2.get(index);
+    Book2 book = (Book2) bookList2.get(index);
     return book;
   }
 
 
   @RequestMapping("/book2/update")
-  public Object update(int index, Book book) {
+  public Object update(int index, Book2 book) {
     if (index < 0 || index >= bookList2.size()) {
       return 0;
     }

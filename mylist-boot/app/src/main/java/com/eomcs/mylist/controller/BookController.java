@@ -1,18 +1,17 @@
 package com.eomcs.mylist.controller;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.mylist.domain.Book;
 import com.eomcs.util.ArrayList;
 
-@RestController
+@RestController 
 public class BookController {
+
   ArrayList bookList = new ArrayList();
 
   public BookController() {
-    System.out.println("BookController() 호출됨");
+    System.out.println("BookController() 호출됨!");
   }
 
   @RequestMapping("/book/list")
@@ -20,11 +19,8 @@ public class BookController {
     return bookList.toArray(); 
   }
 
-
   @RequestMapping("/book/add")
   public Object add(Book book) {
-
-    book.setListDate(nowTime());
     bookList.add(book);
     return bookList.size();
   }
@@ -35,20 +31,16 @@ public class BookController {
     if (index < 0 || index >= bookList.size()) {
       return "";
     }
-    Book book = (Book) bookList.get(index);
-    return book;
+    return bookList.get(index);
   }
-
 
   @RequestMapping("/book/update")
   public Object update(int index, Book book) {
     if (index < 0 || index >= bookList.size()) {
       return 0;
     }
-    book.setListDate(nowTime());
     return bookList.set(index, book) == null ? 0 : 1;
   }
-
 
   @RequestMapping("/book/delete")
   public Object delete(int index) {
@@ -57,10 +49,8 @@ public class BookController {
     }
     return bookList.remove(index) == null ? 0 : 1;
   }
-
-
-  String nowTime() {
-    return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss"));
-
-  }
 }
+
+
+
+
