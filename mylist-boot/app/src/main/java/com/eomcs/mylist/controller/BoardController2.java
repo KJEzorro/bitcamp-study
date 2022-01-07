@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.eomcs.mylist.domain.Board;
+import com.eomcs.mylist.domain.Board2;
 import com.eomcs.util.ArrayList2;
 
 
@@ -20,7 +20,7 @@ public class BoardController2 {
   }
 
   @RequestMapping("/board2/add")
-  public Object add(Board board) {
+  public Object add(Board2 board) {
 
     board.setCreatedDate(nowTime());
     boardList2.add(board);
@@ -33,18 +33,18 @@ public class BoardController2 {
     if (index < 0 || index >= boardList2.size()) {
       return "";
     }
-    Board board = (Board) boardList2.get(index);
+    Board2 board = (Board2) boardList2.get(index);
     board.setViewCount(board.getViewCount() + 1);
     return board;
   }
 
   @RequestMapping("/board2/update")
-  public Object update(int index, Board board) {
+  public Object update(int index, Board2 board) {
     if (index < 0 || index >= boardList2.size()) {
       return 0;
     }
 
-    Board old = (Board) boardList2.get(index);
+    Board2 old = (Board2) boardList2.get(index);
     board.setViewCount(old.getViewCount());
     board.setCreatedDate(old.getCreatedDate());
 
