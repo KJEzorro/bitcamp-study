@@ -58,7 +58,7 @@
     var xListDate = document.querySelector("#x-listDate");
 
     // 3) 서버에서 데이터 가져오기
-    fetch(`/book/get?index=${index}`)
+    fetch(`/book2/get?index=${index}`)
       .then(function(response) {
         return response.json();
       })
@@ -83,7 +83,7 @@
 
 
       fetch(`
-        /book/update?index=${index}&title=${xTitle.innerHTML}&author=${xAuthor.innerHTML}
+        /book2/update?index=${index}&title=${xTitle.innerHTML}&author=${xAuthor.innerHTML}
         &press=${xPress.innerHTML}&feed=${xFeed.value}&page=${xPage.innerHTML}
         &price=${xPrice.innerHTML}&readDate=${xReadDate.innerHTML}&listDate=${xListDate.innerHTML}`)
         .then(function(response) {
@@ -92,22 +92,22 @@
         })
         .then(function(text) {
           console.log(text);
-          location.href = "index.html";
+          location.href = "index2.html";
         });
     };
 
     document.querySelector("#x-cancel-btn").onclick = function() {
-      window.location.href = "index.html";
+      window.location.href = "index2.html";
     };
 
     document.querySelector("#x-delete-btn").onclick = function() {
-      fetch(`/book/delete?index=${index}`)
+      fetch(`/book2/delete?index=${index}`)
         .then(function(response) {
           return response.json();
         })
         .then(function(result) {
           console.log(result);
-          location.href = "index.html";
+          location.href = "index2.html";
         });
     };
   </script>

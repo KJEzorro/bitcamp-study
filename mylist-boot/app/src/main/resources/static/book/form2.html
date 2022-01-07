@@ -30,23 +30,23 @@
   var xReadDate = document.querySelector("#x-readDate")
 
   document.querySelector("#x-add-btn").onclick = function() {
-    if (xTitle.value == "" || xFeed.value == "" || xAuthor.value == "" || xPress.value == "" || xPage.value == "" || xPrice.value == "" || xReadDate.value == "") {
-      window.alert("입력 항목이 비어 있습니다.");
-      return;
-    }
+    // if (xTitle.value == "" || xFeed.value == "" || xAuthor.value == "" || xPress.value == "" || xPage.value == "" || xPrice.value == "" || xReadDate.value == "") {
+    //   window.alert("입력 항목이 비어 있습니다.");
+    //   return;
+    // }
 
-    fetch(`/book/add?title=${xTitle.value}&author=${xAuthor.value}&press=${xPress.value}&feed=${xFeed.value}&page=${xPage.value}&price=${xPrice.value}&readDate=${xReadDate.value}`)
+    fetch(`/book2/add?title=${xTitle.value}&author=${xAuthor.value}&press=${xPress.value}&feed=${xFeed.value}&page=${xPage.value}&price=${xPrice.value}&readDate=${xReadDate.value}`)
       .then(function(response) {
         return response.text();
       })
       .then(function(text) {
         console.log(text);
-        location.href = "index.html";
+        location.href = "index2.html";
       });
   };
 
   document.querySelector("#x-cancel-btn").onclick = function() {
-    window.location.href = "index.html";
+    window.location.href = "index2.html";
   };
 </script>
 
