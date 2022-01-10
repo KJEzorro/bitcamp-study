@@ -13,23 +13,16 @@ public class TodoController {
   ArrayList todoList = new ArrayList();
 
   public TodoController() throws Exception{
+
     System.out.println("TodoController() 호출됨");
 
     com.eomcs.io.FileReader2 in = new com.eomcs.io.FileReader2("todos.csv");
-    StringBuilder buf = new StringBuilder();
-    int c;
 
-    while ((c = in.read()) != -1) {
-      if (c == '\n') {  // 만약 읽은 문자가 줄바꿈 명령이라면, 지금까지 읽은 CSV 데이터를 분석하여 Contact 객체에 담는다.
-        todoList.add(Todo.valueOf(buf.toString())); // 파일에서 읽은 CSV 데이터로 객체를 초기화시킨후 목록에 등록한다.
-        buf.setLength(0); // 다음 데이터를 읽기 위해 버퍼를 초기화 시킨다.
-
-      } else {
-        buf.append((char) c); // 문자를 읽을 때마다 버퍼에 임시 보관한다.
-      }
+    String line;
+    while ((line = in.readLine()).length() != 0) { // 빈 줄을 리턴받았으면 읽기를 종료한다.
+      todoList.add(Todo.valueOf(line)); // 파일에서 읽은 CSV 데이터로 객체를 초기화시킨후 목록에 등록한다.
     }
     in.close();
-
   }
 
   @RequestMapping("/todo/list")
