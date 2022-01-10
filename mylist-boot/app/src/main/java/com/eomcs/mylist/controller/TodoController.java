@@ -2,6 +2,7 @@ package com.eomcs.mylist.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.eomcs.io.FileReader2;
 import com.eomcs.io.FileWriter2;
 import com.eomcs.mylist.domain.Todo;
 import com.eomcs.util.ArrayList;
@@ -9,18 +10,15 @@ import com.eomcs.util.ArrayList;
 @RestController 
 public class TodoController {
 
-  // Todo 객체 목록을 저장할 메모리를 준비한다.
   ArrayList todoList = new ArrayList();
 
-  public TodoController() throws Exception{
-
-    System.out.println("TodoController() 호출됨");
-
-    com.eomcs.io.FileReader2 in = new com.eomcs.io.FileReader2("todos.csv");
+  public TodoController() throws Exception {
+    System.out.println("TodoController() 호출됨!");
+    FileReader2 in = new FileReader2("todos.csv");
 
     String line;
-    while ((line = in.readLine()).length() != 0) { // 빈 줄을 리턴받았으면 읽기를 종료한다.
-      todoList.add(Todo.valueOf(line)); // 파일에서 읽은 CSV 데이터로 객체를 초기화시킨후 목록에 등록한다.
+    while ((line = in.readLine()).length() != 0) {
+      todoList.add(Todo.valueOf(line)); 
     }
     in.close();
   }
@@ -68,21 +66,19 @@ public class TodoController {
     return 1;
   }
 
-
   @RequestMapping("/todo/save")
-  public Object save() throws Exception{
-    // 따로 경로를 지정하지 않으면 파일은 프로젝트 폴더에 생성된다.
-    FileWriter2 out = new FileWriter2("todos.csv");
+  public Object save() throws Exception {
+    FileWriter2 out = new FileWriter2("todos.csv"); // 따로 경로를 지정하지 않으면 파일은 프로젝트 폴더에 생성된다.
 
     Object[] arr = todoList.toArray();
     for (Object obj : arr) {
       Todo todo = (Todo) obj;
       out.println(todo.toCsvString());
     }
+
     out.close();
     return arr.length;
   }
-
 }
 
 
