@@ -1,15 +1,16 @@
 package com.eomcs.io;
 
+import java.io.FileReader;
+
 // 기존 코드를 자신의 코드인양 사용하겠다고 선언한다.
-public class FileReader2 extends java.io.FileReader{
+public class FileReader2{
 
-  // super 클래스의 생성자는 바로 사용할 수 없다.
-  // 서브 클래스의 생성자를 통해 사용해야 한다.
+  //기존의 클래스 포함!
+  FileReader in;
+
   public FileReader2(String filename) throws Exception {
-
-    // 다음과 같이 수퍼 클래스의 생성자를 호출해야 한다.
-    super(filename);
-
+    // 기존 객체를 준비한다.
+    in = new FileReader(filename);
   }
 
   public String readLine() throws Exception {
@@ -17,8 +18,9 @@ public class FileReader2 extends java.io.FileReader{
     StringBuilder buf =  new StringBuilder();
     int c;
 
-    while ((c = this.read()) != -1) { // 파일에서 한 문자를 읽는다. 더이상 읽을 문자가 없으면 반복문을 종료한다.
-      if (c == '\n') {  // 만약 읽은 문자가 줄바꿈 명령이라면, 지금까지 버퍼에 저장한 문자를 리턴한다.
+    // 입력을 수행하기 위해 이 클래스가 포함하고 있는 기존 객체를 이용한다.
+    while ((c = in.read()) != -1) { 
+      if (c == '\n') {  
         return buf.toString();
       } else if(c == '\r') {
         // 무시! CR(Carrage Return; \r) 코드는 버퍼에 담지 말고 버린다.
@@ -29,5 +31,10 @@ public class FileReader2 extends java.io.FileReader{
     }
     return buf.toString();
   }
+  // 자원해제라는 요청이 들어오면 실제 일을 하는 객체에게 전달한다.
+  public void close() throws Exception {
+    in.close();
+  }
+
 
 }
