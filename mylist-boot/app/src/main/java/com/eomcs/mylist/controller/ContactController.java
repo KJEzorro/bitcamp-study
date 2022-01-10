@@ -1,8 +1,8 @@
 package com.eomcs.mylist.controller;
 
-import java.io.FileWriter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.eomcs.io.FileWriter2;
 import com.eomcs.mylist.domain.Contact;
 import com.eomcs.util.ArrayList;
 
@@ -84,12 +84,12 @@ public class ContactController {
   @RequestMapping("/contact/save")
   public Object save() throws Exception{
     // 따로 경로를 지정하지 않으면 파일은 프로젝트 폴더에 생성된다.
-    FileWriter out = new FileWriter("contacts.csv");
+    FileWriter2 out = new FileWriter2("contacts.csv");
 
     Object[] arr = contactList.toArray();
     for (Object obj : arr) {
       Contact contact = (Contact) obj;
-      out.write(contact.toCsvString() + "\n");
+      out.println(contact.toCsvString());
     }
     out.close();
     return arr.length;
