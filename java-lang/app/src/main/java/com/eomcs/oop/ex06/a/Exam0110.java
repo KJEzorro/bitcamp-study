@@ -17,7 +17,7 @@ public class Exam0110 {
     // - 서브 클래스의 인스턴스를 만들 때 상위 클래스의 인스턴스 변수도 만든다.
     // - 따라서 상위 클래스의 레퍼런스를 사용하여 그 클래스의 인스턴스 변수를 100% 사용할 수 있다.
     // 
-    // 이런 규칙에 따라, 다음 vehicle2 변수는 Vehicle 객체 뿐만아니라
+    // 이런 규칙에 따라, 다음 vehicle2 변수는 Vehicle 객체 뿐만아니라 
     // Bike, Car, Sedan, Truck 객체까지 다양한 서브클래스의 객체를 가리킬 수 있다.
     // 그래서 vehicle2를 "다형적 변수"의 기능을 갖고 있다 말한다.
     Vehicle vehicle2 = null;
@@ -35,6 +35,8 @@ public class Exam0110 {
     //    bike2 = car; // Error!
     //    bike2 = sedan; // Error!
     //    bike2 = truck; // Error!
+
+
   }
 
 }

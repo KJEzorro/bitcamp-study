@@ -33,7 +33,7 @@ public class Exam0211 {
         ((Sedan)v1).sunroof, ((Sedan)v1).auto);
 
     // 각각의 변수에 대해 일일이 형변환해서 사용하기가 불편한가?
-    // => 그냥 레퍼런스를 형변환 해서 사용하라!
+    // => 그냥 레퍼런스를 형변환 해서 사용하라! 
     Sedan s = (Sedan)v1;
     s.cc = 1980;
     s.valve = 16;
