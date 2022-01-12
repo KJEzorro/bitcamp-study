@@ -3,7 +3,7 @@ package com.eomcs.oop.ex06.c;
 
 public class Exam0120 {
 
-  //오버라이딩(overrding)?
+  //오버라이딩(overriding)?
   //=> 부모로부터 상속 받은 메서드 중에서
   //   자신(서브클래스 입장에서)의 역할에 맞지 않는 메서드가 있다면,
   //   자신(서브클래스 입장에서)의 역할에 맞춰 상속받은 메서드를 재정의하여
@@ -39,6 +39,7 @@ public class Exam0120 {
     // 
     // * 메서드 시그너처(method signature) = 함수 프로토타입(function prototype)
     //       메서드명, 파라미터 타입/개수/순서
+    @Override
     void print() {
       System.out.println("A3.print():");
       System.out.printf("  => this.name(%s)\n", this.name);
