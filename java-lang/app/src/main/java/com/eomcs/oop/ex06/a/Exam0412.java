@@ -3,7 +3,7 @@ package com.eomcs.oop.ex06.a;
 
 public class Exam0412 {
 
-  // Sedan과 Truck의 모델명과 cc를 출력하라!
+  // Sedan과 Truck의 모델명과 cc를 출력하라! 
 
   // 다형적 변수를 사용하게 되면 동일한 코드를 갖고 있는 메서드를
   // 한 개의 메서드로 통합할 수 있다.

@@ -4,15 +4,16 @@ package com.eomcs.oop.ex06.a;
 public class Exam0520 {
 
   // Sedan과 Truck, Bike의 모든 정보를 자세히 출력하라!
-  // 단, 한 개의 메서드로 처리하라!
+  // 단, 한 개의 메서드로 처리하라! 
 
   public static void print(Vehicle v) {
-    
+
     System.out.println("[기본정보]");
     System.out.printf("모델명: %s\n", v.model);
     System.out.printf("수용인원: %d\n", v.capacity);
 
     // 파라미터 v에 들어있는 주소가 Bike인지 Sedan인지 Truck인지를 구분해서 처리해야 한다.
+    // 메서드에 파라미터로 들어올 때에는 어떤 인스턴스의 주소가 들어왔는지 컴파일러는 모른다.
     // 자바는 이런 경우를 대비해 인스턴스의 주소가 어떤 클래스의 주소인지 
     // 판단할 수 있는 연산자를 제공한다. 
     // instanceof 연산자!
@@ -21,7 +22,7 @@ public class Exam0520 {
       Bike bike = (Bike) v;
       System.out.println("[바이크 정보]");
       System.out.printf("엔진의 존재: %b\n", bike.engine);
-      
+
     } else if (v instanceof Car) {
       Car car = (Car) v;
       System.out.println("[자동차 기본정보]");
@@ -33,7 +34,7 @@ public class Exam0520 {
         System.out.println("[승용차 기본정보]");
         System.out.printf("썬루프: %b\n", sedan.sunroof);
         System.out.printf("자동변속: %b\n", sedan.auto);
-        
+
       } else if (v instanceof Truck) {
         Truck truck = (Truck) v;
         System.out.println("[트럭 정보]");
@@ -67,9 +68,9 @@ public class Exam0520 {
     truck.ton = 15;
 
     print(bike);
-    
+
     print(sedan);
-    
+
     print(truck);
 
 
