@@ -3,7 +3,7 @@ package com.eomcs.oop.ex05.x3.app2;
 
 // 트럭 만들기
 //
-// 1) app1에서 복사해 온 Engine에 기능을 덧붙이기
+// 2) app1에서 복사해 온 Engine에 기능을 덧붙이기
 
 public class CarTest2 {
   public static void main(String[] args) {
