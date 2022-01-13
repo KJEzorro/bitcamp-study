@@ -1,6 +1,4 @@
-package com.eomcs.oop.ex05.x2.app1;
-
-import com.eomcs.oop.ex05.x2.Engine;
+package com.eomcs.oop.ex05.x2;
 
 // 하이브리드 자동차 만들기
 //
