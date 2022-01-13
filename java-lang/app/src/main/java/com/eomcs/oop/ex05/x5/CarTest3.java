@@ -21,9 +21,9 @@ public class CarTest3 {
     electricOption2.chargeBattery(100);
 
 
-    truck.start();
-    truck.run();
-    truck.stop();
+    electricOption2.start();
+    electricOption2.run();
+    electricOption2.stop();
 
   }
 }

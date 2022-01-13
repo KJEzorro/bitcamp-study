@@ -4,7 +4,6 @@ public class CarTest2 {
   public static void main(String[] args) {
     Sedan sedan = new Sedan();
     Trailer trailer = new Trailer(sedan);
-
     trailer.start();
     trailer.run();
     trailer.stop();
