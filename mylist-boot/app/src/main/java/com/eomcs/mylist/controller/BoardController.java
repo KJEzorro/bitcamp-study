@@ -81,7 +81,7 @@ public class BoardController {
   @RequestMapping("/board/save")
   public Object save() throws Exception {
     // 1) 주 작업 객체 준비
-    FileWriter out = new FileWriter("boards.csv"); // 따로 경로를 지정하지 않으면 파일은 프로젝트 폴더에 생성된다.
+    FileWriter out = new FileWriter("boards.csv"); // 따로 경로를 지정하지 않으면 파일은 프로젝트 폴더에 생성된다.r
 
     // 2) 한 줄 단위로 출력하는 데코레이터 객체 준비
     PrintWriter out2 = new PrintWriter(out);
