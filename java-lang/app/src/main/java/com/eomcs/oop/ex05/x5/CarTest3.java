@@ -18,12 +18,14 @@ public class CarTest3 {
 
     Truck truck = new Truck();
     ElectricEngine electricOption2 = new ElectricEngine(truck);
-    electricOption2.chargeBattery(100);
+    //    electricOption2.chargeBattery(100);
+
+    Trailer trailer2 = new Trailer(electricOption2);
 
 
-    electricOption2.start();
-    electricOption2.run();
-    electricOption2.stop();
+    trailer2.start();
+    trailer2.run();
+    trailer2.stop();
 
   }
 }
