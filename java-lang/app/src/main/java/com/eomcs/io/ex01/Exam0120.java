@@ -10,7 +10,7 @@ public class Exam0120 {
     // => 파일이나 디렉토리 정보를 관리
     // => 파일이나 디렉토리를 생성,삭제,변경
 
-    // 상위 폴더 정보 조회
+    // ''상위 폴더'' 정보 조회
     // - ".." 으로 경로를 표시한다.
     //
     File currentDir = new File("./src/main/java/../../test/java");
