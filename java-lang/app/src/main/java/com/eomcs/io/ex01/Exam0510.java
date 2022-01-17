@@ -11,7 +11,7 @@ public class Exam0510 {
     File dir = new File(".");
 
     // 현재 폴더에 있는 파일이나 하위 디렉토리 이름을 알아내기
-    String[] names = dir.list();
+    String[] names = dir.list(); // 타입을 보면 알겠지만 list() 메서드는 String 반환 타입이 '''String 타입'''이다.
 
     for (String name : names) {
       System.out.println(name);
