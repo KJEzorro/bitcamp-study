@@ -14,7 +14,7 @@ public class Exam0514 {
 
     // => UTF-8로 인코딩 하기
     System.out.printf("file.encoding=%s\n", System.getProperty("file.encoding"));
-    byte[] bytes = str.getBytes("UTF-8"); // UCS2 ==> UTF-8
+    byte[] bytes = str.getBytes("UTF-8"); // UCS2 ==> UTF-8 이렇게 하는걸 추천한다. Exam0510은 비추천이다.
 
     for (byte b : bytes) {
       System.out.printf("%x ", b);
