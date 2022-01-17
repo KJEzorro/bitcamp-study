@@ -2,7 +2,7 @@ package com.eomcs.io.test1;
 
 import java.io.File;
 
-public class Exam0710 {
+public class Exam0710Test {
 
   public static void main(String[] args) throws Exception {
 
