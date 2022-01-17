@@ -12,7 +12,7 @@ public class Exam0330 {
     if (dir.delete()) {
       System.out.println("temp 디렉토리를 삭제하였습니다.");
     } else {
-      // 디렉토리 안에 파일이나 다른 하위 디렉토리가 있다면 삭제할 수 없다.
+      // 디렉토리 안에 '''파일이나 다른 하위 디렉토리가 있다면''' 삭제할 수 없다.
       // 또한 존재하지 않는 디렉토리도 삭제할 수 없다.
       System.out.println("temp 디렉토리를 삭제할 수 없습니다.");
     }
