@@ -12,7 +12,7 @@ public class Exam0610 {
     class JavaFilter implements FilenameFilter {
       @Override
       public boolean accept(File dir/* 부모 경로 */, String name /* 파일,디렉토리 이름 */) {
-        // 이 메서드는 list()에서 호출한다.
+        // 이 메서드는 '''list()에서 호출'''한다.
         // 해당 폴더에 들어 있는 파일이나 디렉토리를 찾을 때 마다 호출한다.
         // (하위 폴더 아래는 뒤지지 않는다)
         // 이 메서드에서 해야 할 일은 찾은 파일이나 디렉토리를
