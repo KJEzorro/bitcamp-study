@@ -11,7 +11,12 @@ public class Exam0111 {
 
     // 1) 출력 스트림 객체를 생성할 때  문자 집합을 지정하면 
     //    UCS2 문자열을 해당 문자집합으로 인코딩 한다.
-    Charset charset = Charset.forName("EUC-KR");
+    Charset charset = Charset.forName("EUC-KR"); 
+    // Charset.forName = EUC-KR(문자집합)의 정보를 담은 객체를 리턴(factory method) 
+    // - factory method 설계기법
+    //   객체 생성 과정이 복잡할 때 new라는 명령어를 사용해서 객체를 생성하는 것이 아니라
+    //   static 메서드 호출해서 static 메서드 안에서 객체를 생성해서 리턴하는 기법
+    //   => 보통 이렇게 하는 경우는 객체 생성이 복잡할 때 이 기법을 많이 쓴다.
     FileWriter out = new FileWriter("temp/test2.txt", charset);
 
     // 현재 JVM 환경 변수 'file.encoding' 값 알아내기
