@@ -10,7 +10,7 @@ public class Exam0210 {
 
     long start = System.currentTimeMillis();
 
-    for (int i = 0; i < 1000000; i++) {
+    for (int i = 0; i < 1000000; i++) { // 1MB정도
       out.write(0x55);
     }
 
