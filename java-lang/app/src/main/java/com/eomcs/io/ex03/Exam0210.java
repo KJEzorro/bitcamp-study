@@ -10,8 +10,8 @@ public class Exam0210 {
 
     char[] chars = new char[] {'A', 'B', 'C', '0', '1', '2', '가', '각', '간', '똘', '똥'};
 
-    // FileOutputStream 은 byte[] 을 출력하지만,
-    // FileWriter 는 char[] 을 출력한다.
+    // FileOutputStream 은 '''byte[] 을 출력'''하지만,
+    // FileWriter 는 '''char[] 을 출력'''한다.
     out.write(chars); // 문자 배열 전체를 출력한다.
 
     // 당연히 UCS2를 JVM 환경 변수 'file.encoding'에 설정된 문자 코드표에 따라 변환하여 출력한다.

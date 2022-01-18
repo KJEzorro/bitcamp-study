@@ -26,7 +26,7 @@ public class Exam0110 {
     //   Linux, macOS 의 기본 character set => UTF-8
     //   Windows 의 기본 character set => MS-949
     //
-    // - file.encoding 옵션을 설정하지 않은 생테에서는
+    // - file.encoding 옵션을 설정하지 않은 상태에서는
     //   어느 OS에서 실행하느냐에 따라 출력되는 코드 값이 달라진다.
     //
     // - 이클립스에서 실행할경우,
