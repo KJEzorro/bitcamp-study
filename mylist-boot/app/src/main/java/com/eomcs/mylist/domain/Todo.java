@@ -1,6 +1,8 @@
 package com.eomcs.mylist.domain;
 
-public class Todo {
+import java.io.Serializable;
+
+public class Todo implements Serializable {
   String title;
   boolean done;
 

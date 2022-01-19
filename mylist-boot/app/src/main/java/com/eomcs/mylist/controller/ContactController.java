@@ -2,10 +2,10 @@ package com.eomcs.mylist.controller;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.mylist.domain.Contact;
@@ -30,22 +30,25 @@ public class ContactController {
     contactList = new ArrayList();
     System.out.println("ContactController() 호출됨!");
 
-    DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream("contacts.data")));
-    while (true) { 
-      try {
-        Contact contact = new Contact();
-        contact.setName(in.readUTF());
-        contact.setEmail(in.readUTF());
-        contact.setTel(in.readUTF());
-        contact.setCompany(in.readUTF());
+    try {
+      ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("contacts.ser2")));
 
-        contactList.add(contact); 
+      //    while (true) { 
+      //      try {
+      //        Contact contact = (Contact)in.readObject();
+      //        contactList.add(contact); 
+      //
+      //      } catch (Exception e) {
+      //        break;
+      //      }
+      //    }
 
-      } catch (Exception e) {
-        break;
-      }
+      contactList = (ArrayList) in.readObject();
+
+      in.close();
+    } catch (Exception e) {
+      System.out.println("주소록 데이터 로딩하는 중 오류 발생");
     }
-    in.close();
   }
 
   @RequestMapping("/contact/list")
@@ -93,19 +96,20 @@ public class ContactController {
 
   @RequestMapping("/contact/save")
   public Object save() throws Exception {
-    DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("contacts.data")));
+    //  FileInputStream in = new FileInputStream("contacts.data");
+    //  BufferedInputStream in2 = new BufferedInputStream(in);
+    //  DataInputStream in3 = new DataInputStream(in2);
 
-    Object[] arr = contactList.toArray();
-    for (Object obj : arr) {
-      Contact contact = (Contact) obj;
-      out.writeUTF(contact.getName());
-      out.writeUTF(contact.getEmail());
-      out.writeUTF(contact.getTel());
-      out.writeUTF(contact.getCompany());
-    }
+    ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("contacts.ser2")));
 
+    //    Object[] arr = contactList.toArray();
+    //    for (Object obj : arr) {
+    //      out.writeObject(obj);
+    //    }
+
+    out.writeObject(contactList);
     out.close();
-    return arr.length;
+    return contactList.size();
   }
 
   int indexOf(String email) {

@@ -1,8 +1,9 @@
 package com.eomcs.mylist.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Board {
+public class Board implements Serializable {
   String title;
   String content;
   int viewCount;

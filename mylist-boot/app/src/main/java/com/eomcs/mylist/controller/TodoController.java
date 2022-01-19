@@ -2,10 +2,10 @@ package com.eomcs.mylist.controller;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.mylist.domain.Todo;
@@ -18,21 +18,28 @@ public class TodoController {
 
   public TodoController() throws Exception {
     System.out.println("TodoController() 호출됨!");
-    DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream("todos.data")));
+    //    FileInputStream in = new FileInputStream("todos.data");
+    //    BufferedInputStream in2 = new BufferedInputStream(in);
+    //    DataInputStream in3 = new DataInputStream(in2);
+    try {
+      ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("todos.ser2")));
 
-    while (true) { 
-      try {
-        Todo todo = new Todo();
-        todo.setTitle(in.readUTF());
-        todo.setDone(in.readBoolean());
+      //    while (true) { 
+      //      try {
+      //        Todo todo = (Todo) in.readObject();
+      //        todoList.add(todo);
+      //
+      //      } catch (Exception e) {
+      //        break;
+      //      }
+      //    }
 
-        todoList.add(todo);
+      todoList = (ArrayList)in.readObject(); 
 
-      } catch (Exception e) {
-        break;
-      }
+      in.close();
+    } catch (Exception e) {
+      System.out.println("Todo 데이터 로딩하는 중 오류 발생");
     }
-    in.close();
   }
 
   @RequestMapping("/todo/list")
@@ -80,17 +87,17 @@ public class TodoController {
 
   @RequestMapping("/todo/save")
   public Object save() throws Exception {
-    DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("todos.data")));
+    ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("todos.ser2")));
 
-    Object[] arr = todoList.toArray();
-    for (Object obj : arr) {
-      Todo todo = (Todo) obj;
-      out.writeUTF(todo.getTitle());
-      out.writeBoolean(todo.isDone());
-    }
+    //    Object[] arr = todoList.toArray();
+    //    for (Object obj : arr) {
+    //      out.writeObject(obj);
+    //    }
+
+    out.writeObject(todoList);
 
     out.close();
-    return arr.length;
+    return todoList.size();
   }
 }
 
