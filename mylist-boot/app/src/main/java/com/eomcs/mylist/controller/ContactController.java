@@ -1,9 +1,11 @@
 package com.eomcs.mylist.controller;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.mylist.domain.Contact;
@@ -28,12 +30,21 @@ public class ContactController {
     contactList = new ArrayList();
     System.out.println("ContactController() 호출됨!");
 
-    BufferedReader in = new BufferedReader(new FileReader("contacts.csv"));
-    String line;
-    while ((line = in.readLine()) != null) { // readLine()이 null을 리턴한다면 더이상 읽을 데이터가 없다는 뜻!
-      contactList.add(Contact.valueOf(line)); // 파일에서 읽은 CSV 데이터로 객체를 초기화시킨후 목록에 등록한다.
-    }
+    DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream("contacts.data")));
+    while (true) { 
+      try {
+        Contact contact = new Contact();
+        contact.setName(in.readUTF());
+        contact.setEmail(in.readUTF());
+        contact.setTel(in.readUTF());
+        contact.setCompany(in.readUTF());
 
+        contactList.add(contact); 
+
+      } catch (Exception e) {
+        break;
+      }
+    }
     in.close();
   }
 
@@ -82,12 +93,15 @@ public class ContactController {
 
   @RequestMapping("/contact/save")
   public Object save() throws Exception {
-    PrintWriter out = new PrintWriter(new FileWriter("contacts.csv")); // 따로 경로를 지정하지 않으면 파일은 프로젝트 폴더에 생성된다.
+    DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("contacts.data")));
 
     Object[] arr = contactList.toArray();
     for (Object obj : arr) {
       Contact contact = (Contact) obj;
-      out.println(contact.toCsvString());
+      out.writeUTF(contact.getName());
+      out.writeUTF(contact.getEmail());
+      out.writeUTF(contact.getTel());
+      out.writeUTF(contact.getCompany());
     }
 
     out.close();
