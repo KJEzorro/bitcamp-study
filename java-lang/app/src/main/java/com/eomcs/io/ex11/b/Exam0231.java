@@ -6,11 +6,16 @@ public class Exam0231 {
   static class Score {
     String name;
 
-    // 복제 기능을 수행하려면 clone()을 오버라이딩 해야 한다.
     @Override
     public Score clone() throws CloneNotSupportedException {
       return (Score) super.clone();
     }
+
+    // 복제 기능을 수행하려면 clone()을 오버라이딩 해야 한다.
+    //    @Override
+    //    public Score clone() throws CloneNotSupportedException {
+    //      return (Score) super.clone();
+    //    }
   }
 
   public static void main(String[] args) throws Exception {

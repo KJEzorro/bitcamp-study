@@ -13,6 +13,7 @@ public class Exam0120 {
 
     Member member = new Member();
 
+    // 반드시 저장한 순서대로 읽어야 한다. 그러지 않으면 에러
     member.name = in.readUTF();
     member.age = in.readInt();
     member.gender = in.readBoolean();
