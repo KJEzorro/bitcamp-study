@@ -15,7 +15,7 @@ public class Exam0161 {
     System.out.println(classInfo.getName()); //[Ljava.lang.String;
 
     //    int i = 100;
-    //    classInfo = i.getClass(); // primitive type은 Object의 서브 클래스가 아니다.
+    //    classInfo = i.getClass(); // '''primitive type은 Object의 서브 클래스가 아니다.'''
 
     int[] obj3 = new int[10];
     classInfo = obj3.getClass();

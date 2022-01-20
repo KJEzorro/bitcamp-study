@@ -17,7 +17,7 @@ public class Exam0162 {
 
     // 값을 한 번 밖에 사용하지 않을 것이라면
     // 위의 경우처럼 한 번씩 호출하고, 리턴 값을 가지고 또 호출하는 방식으로 값을 꺼내지 않는다.
-    // 체인(chain) 방식으로 호출한다.
+    // '''체인(chain) 방식으로 호출'''한다.
     System.out.println(obj2.getClass().getComponentType().getName()); //java.lang.String
   }
 }
