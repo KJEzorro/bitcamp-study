@@ -19,13 +19,18 @@ public class Exam0140 {
 
     // Object에서 상속 받은 hashCode()는 인스턴스마다 고유의 4바이트 정수 값을 리턴한다.
     // => 이 값은 toString()의 출력 값으로 사용된다.
+    // hash code = 인스턴스 주소가 아니다.
+    // => 데이터를 다른 데이터와 구분하기 위해 사용하는 특별한 정수 값이다.
+    // => 디지털 지문이라고도 한다.
+    // => hash code로 데이터를 비교하면 속도가 빠르다.
     System.out.println(Integer.toHexString(obj1.hashCode()));
     System.out.println(Integer.toHexString(obj2.hashCode()));
+
 
     System.out.println(obj1);
     System.out.println(obj2);
 
-    // hash value?
+    // hash value(=hash code)?
     // - 데이터를 다른 데이터와 구분하기 위해 사용하는 특별한 정수 값이다.
     // - 특정 수학 공식(MD4, MD5, SHA, PGP, CRC 등)에 따라 값을 계산한다.
     // - 데이터가 같은지 비교할 때 사용한다.
