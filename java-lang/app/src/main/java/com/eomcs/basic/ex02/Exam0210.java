@@ -3,7 +3,7 @@ package com.eomcs.basic.ex02;
 
 public class Exam0210 {
   public static void main(String[] args) {
-    // 자바는 primitive data 를 객체처럼 다룰 수 있도록
+    // 자바는 primitive data 를 '''객체처럼 다룰 수 있도록'''
     // 각 타입에 대응하는 클래스를 제공한다.
     // 예)
     Byte b = new Byte((byte)100);               // ==> byte
@@ -14,6 +14,7 @@ public class Exam0210 {
     Double d = new Double(3.14159);             // ==> double
     Boolean bool = new Boolean(true);           // ==> boolean
     Character c = new Character((char)0x41);    // ==> char
+
 
     // 이렇게 primitive data type에 대응하여 만든 클래스를
     // primitive data를 포장하는 객체라고 해서
@@ -32,7 +33,8 @@ public class Exam0210 {
 
 
     // Wrapper 클래스의 인스턴스를 생성할 때는 생성자 대신 클래스 메서드를 사용하라.
-    Byte b2 = Byte.valueOf((byte)100);
+    // valueOf() 같이 객체를 만들어주는 메서드를 factory method 라 한다.
+    Byte b2 = Byte.valueOf((byte)100); // byte 범위 안에 있는 값이지만 컴파일러는 int 타입으로 보기 때문에 형변환을 해줘야 한다. (자바에서는 기본이 int(4byte) 이다)
     Short s2 = Short.valueOf((short)20000);
     Integer i2 = Integer.valueOf(3000000);
     Long l2 = Long.valueOf(60000000000L);
@@ -40,6 +42,7 @@ public class Exam0210 {
     Double d2 = Double.valueOf(3.14159);
     Boolean bool2 = Boolean.valueOf(true);
     Character c2 = Character.valueOf((char)0x41);
+
   }
 }
 
