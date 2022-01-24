@@ -13,6 +13,7 @@ public class Exam0120 {
     ObjectMapper mapper = new ObjectMapper();
 
     // 3) JSON 문자열을 가지고 객체 만들기
+    // Member.class(클래스 정보)를 알려줘야 읽어온 JSON 데이터가 어떤 클래스인지 안다. 
     Member m = mapper.readValue(jsonStr, Member.class);
 
     System.out.println(m);
