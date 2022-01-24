@@ -1,15 +1,15 @@
 package com.eomcs.mylist.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.mylist.domain.Todo;
 import com.eomcs.util.ArrayList;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController 
 public class TodoController {
@@ -18,23 +18,21 @@ public class TodoController {
 
   public TodoController() throws Exception {
     System.out.println("TodoController() 호출됨!");
-    //    FileInputStream in = new FileInputStream("todos.data");
-    //    BufferedInputStream in2 = new BufferedInputStream(in);
-    //    DataInputStream in3 = new DataInputStream(in2);
+
     try {
-      ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("todos.ser2")));
 
-      //    while (true) { 
-      //      try {
-      //        Todo todo = (Todo) in.readObject();
-      //        todoList.add(todo);
-      //
-      //      } catch (Exception e) {
-      //        break;
-      //      }
-      //    }
+      BufferedReader in = new BufferedReader(new FileReader("todos.json"));
 
-      todoList = (ArrayList)in.readObject(); 
+      ObjectMapper mapper = new ObjectMapper();
+
+      String jsonStr = in.readLine();
+
+      Todo[] todos = mapper.readValue(jsonStr, Todo[].class);
+
+      for (Todo todo : todos) {
+        todoList.add(todo);
+      }
+
 
       in.close();
     } catch (Exception e) {
@@ -81,20 +79,21 @@ public class TodoController {
       return 0;
     }
 
-    todoList.remove(index);
+    todoList.remove(index); 
     return 1;
   }
 
   @RequestMapping("/todo/save")
   public Object save() throws Exception {
-    ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("todos.ser2")));
 
-    //    Object[] arr = todoList.toArray();
-    //    for (Object obj : arr) {
-    //      out.writeObject(obj);
-    //    }
+    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("todos.json")));
 
-    out.writeObject(todoList);
+    ObjectMapper mapper = new ObjectMapper();
+
+    String jsonStr = mapper.writeValueAsString(todoList.toArray());
+
+    out.println(jsonStr);
+
 
     out.close();
     return todoList.size();

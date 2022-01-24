@@ -1,15 +1,15 @@
 package com.eomcs.mylist.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.mylist.domain.Book;
 import com.eomcs.util.ArrayList;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController 
 public class BookController {
@@ -19,19 +19,18 @@ public class BookController {
   public BookController() throws Exception {
     System.out.println("BookController() 호출됨!");
     try {
-      ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("books.ser2")));
+      BufferedReader in = new BufferedReader(new FileReader("books.json"));
 
-      //    while (true) { 
-      //      try {
-      //        Book book = (Book) in.readObject();
-      //        bookList.add(book);
-      //
-      //      } catch (Exception e) {
-      //        break;
-      //      }
-      //    }
+      ObjectMapper mapper = new ObjectMapper();
 
-      bookList = (ArrayList) in.readObject();
+      String jsonStr = in.readLine();
+
+      Book[] books = mapper.readValue(jsonStr, Book[].class);
+
+      for (Book book : books) {
+        bookList.add(book);
+      }
+
       in.close();
     } catch (Exception e) {
       System.out.println("독서록 데이터를 로딩하는 중 오류 발생");
@@ -76,19 +75,15 @@ public class BookController {
 
   @RequestMapping("/book/save")
   public Object save() throws Exception {
-    //  FileInputStream in = new FileInputStream("books.data");
-    //  BufferedInputStream in2 = new BufferedInputStream(in);
-    //  DataInputStream in3 = new DataInputStream(in2);
+
+    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("books.json"))); 
+
+    ObjectMapper mapper = new ObjectMapper();
+
+    String jsonStr = mapper.writeValueAsString(bookList.toArray());
 
 
-    ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("books.ser2"))); 
-
-    //    Object[] arr = bookList.toArray();
-    //    for (Object obj : arr) {
-    //      out.writeObject(obj);
-    //    }
-
-    out.writeObject(bookList);
+    out.println(jsonStr);
     out.close();
     return bookList.size();
   }
