@@ -20,16 +20,9 @@ public class BookController {
     System.out.println("BookController() 호출됨!");
     try {
       BufferedReader in = new BufferedReader(new FileReader("books.json"));
-
       ObjectMapper mapper = new ObjectMapper();
-
       String jsonStr = in.readLine();
-
-      Book[] books = mapper.readValue(jsonStr, Book[].class);
-
-      for (Book book : books) {
-        bookList.add(book);
-      }
+      bookList = new ArrayList(mapper.readValue(jsonStr, Book[].class));
 
       in.close();
     } catch (Exception e) {

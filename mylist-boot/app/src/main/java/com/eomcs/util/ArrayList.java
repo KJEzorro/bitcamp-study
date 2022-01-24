@@ -9,6 +9,14 @@ public class ArrayList implements Serializable {
   Object[] list = new Object[5];
   int size = 0;
 
+  public ArrayList() {}
+
+  public ArrayList(Object[] arr) {
+    this.addAll(arr);
+  }
+
+
+
   // 인스턴스 주소를 앞쪽에서 받으려면 static 키워드를 붙이면 안된다.
   // 즉 non-static 메서드로 정의해야 한다.
   // 그리고 메서드가 호출될 때 받은 인스턴스를 사용하려면 내장 변수 this를 이용해야 한다.
@@ -17,6 +25,12 @@ public class ArrayList implements Serializable {
       this.list = this.grow();
     }
     this.list[this.size++] = obj;
+  }
+
+  public void addAll(Object[] arr) {
+    for (Object obj : arr) {
+      this.add(obj);
+    }
   }
 
   Object[] grow() {
