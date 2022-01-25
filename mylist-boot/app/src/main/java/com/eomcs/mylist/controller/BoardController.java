@@ -1,15 +1,21 @@
 package com.eomcs.mylist.controller;
 
 import java.sql.Date;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.eomcs.mylist.dao.SerialBoardDao;
+import com.eomcs.mylist.dao.BoardDao;
 import com.eomcs.mylist.domain.Board;
 
 @RestController 
 public class BoardController {
 
-  SerialBoardDao boardDao = new SerialBoardDao();
+  // @Autowired
+  // - 필드 선언부에 이 애너테이션을 붙여서 표시해 두면,
+  //   Spring Boot가 BoardController 객체를 만들 때 BoardDao 구현체를 찾아 자동으로 주입한다.
+  // 
+  @Autowired
+  BoardDao boardDao;
 
   public BoardController() {
     System.out.println("BoardController() 호출됨!");

@@ -6,10 +6,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import org.springframework.stereotype.Repository;
 import com.eomcs.mylist.domain.Board;
 import com.eomcs.util.ArrayList;
 
-public class SerialBoardDao {  
+@Repository
+public class SerialBoardDao implements BoardDao {  
 
   //variables initializer
   String filename = "boards.ser";
@@ -36,19 +38,23 @@ public class SerialBoardDao {
     out.close();
   }
 
+  @Override
   public int countAll() {
     return boardList.size();
   }
 
+  @Override
   public Object[] findAll() {
     return boardList.toArray();
   }
 
-  public void create(Board board) throws Exception {
+  @Override
+  public void  insert(Board board) throws Exception {
     boardList.add(board);
     save();
   }
 
+  @Override
   public Board findByNo(int no) {
     if (no < 0 || no >= boardList.size()) {
       return null;
@@ -56,7 +62,8 @@ public class SerialBoardDao {
     return (Board) boardList.get(no);
   }
 
-  public int modify(int no, Board board) throws Exception {
+  @Override
+  public int update(int no, Board board) throws Exception {
     if (no < 0 || no >= boardList.size()) {
       return 0;
     }
@@ -65,7 +72,8 @@ public class SerialBoardDao {
     return 1;
   }
 
-  public int remove(int no) throws Exception {
+  @Override
+  public int delete(int no) throws Exception {
     if (no < 0 || no >= boardList.size()) {
       return 0;
     }
@@ -74,6 +82,7 @@ public class SerialBoardDao {
     return 1;
   }
 
+  @Override
   public void increaseViewCount(int no) throws Exception {
     Board board = findByNo(no);
     board.setViewCount(board.getViewCount() + 1);
