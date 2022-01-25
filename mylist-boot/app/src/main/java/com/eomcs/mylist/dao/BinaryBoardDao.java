@@ -8,17 +8,17 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.sql.Date;
 import com.eomcs.mylist.domain.Board;
-import com.eomcs.util.ArrayList;
 
+
+
+// 인터페이스를 직접 구현하는 대신에 AbstractBoardDao를 상속 받는다.
 //@Repository
-public class BinaryBoardDao implements BoardDao {  
+public class BinaryBoardDao extends AbstractBoardDao {  
 
   //variables initializer
   String filename = "boards.bin";
-  ArrayList boardList = new ArrayList();  // 변수 선언 = 변수를 만들라는 명렁어.
 
   public BinaryBoardDao() {
-    // super();
     try {
       DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(filename)));
 
@@ -42,7 +42,8 @@ public class BinaryBoardDao implements BoardDao {
   }
 
 
-  private void save() throws Exception {
+  @Override
+  protected void save() throws Exception {
     DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filename)));
 
     // 게시글 개수를 먼저 출력한다.
@@ -60,57 +61,6 @@ public class BinaryBoardDao implements BoardDao {
     out.close();
   }
 
-  @Override
-  public int countAll() {
-    return boardList.size();
-  }
-
-  @Override
-  public Object[] findAll() {
-    return boardList.toArray();
-  }
-
-  @Override
-  public void insert(Board board) throws Exception {
-    boardList.add(board);
-    save();
-  }
-
-  @Override
-  public Board findByNo(int no) {
-    if (no < 0 || no >= boardList.size()) {
-      return null;
-    }
-    return (Board) boardList.get(no);
-  }
-
-  @Override
-  public int update(int no, Board board) throws Exception {
-    if (no < 0 || no >= boardList.size()) {
-      return 0;
-    }
-    boardList.set(no, board);
-    save();
-    return 1;
-  }
-
-  @Override
-  public int delete(int no) throws Exception {
-    if (no < 0 || no >= boardList.size()) {
-      return 0;
-    }
-    boardList.remove(no);
-    this.save();
-    return 1;
-  }
-
-  @Override
-  public void increaseViewCount(int no) throws Exception {
-    Board board = findByNo(no);
-    board.setViewCount(board.getViewCount() + 1);
-    save();
-
-  }
 
 }
 
