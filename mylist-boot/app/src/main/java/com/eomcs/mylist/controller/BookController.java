@@ -13,7 +13,7 @@ public class BookController {
   BookDao bookDao;
 
 
-  public BookController() throws Exception {
+  public BookController() {
     System.out.println("BookController() 호출됨!");
   }
 
@@ -32,10 +32,7 @@ public class BookController {
   @RequestMapping("/book/get")
   public Object get(int index) throws Exception {
     Book book = bookDao.findByNo(index);
-    if (book == null) {
-      return "";
-    }
-    return book;
+    return book != null ? book : "";
   }
 
   @RequestMapping("/book/update")
@@ -49,6 +46,10 @@ public class BookController {
 
   @RequestMapping("/book/delete")
   public Object delete(int index) throws Exception {
+    Book old = bookDao.findByNo(index);
+    if (old == null) {
+      return 0;
+    }
     return bookDao.delete(index);
   }
 }
