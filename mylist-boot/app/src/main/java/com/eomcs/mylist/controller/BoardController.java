@@ -3,13 +3,13 @@ package com.eomcs.mylist.controller;
 import java.sql.Date;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.eomcs.mylist.dao.BinaryBoardDao;
+import com.eomcs.mylist.dao.SerialBoardDao;
 import com.eomcs.mylist.domain.Board;
 
 @RestController 
 public class BoardController {
 
-  BinaryBoardDao boardDao = new BinaryBoardDao();
+  SerialBoardDao boardDao = new SerialBoardDao();
 
   public BoardController() {
     System.out.println("BoardController() 호출됨!");
