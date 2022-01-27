@@ -1,7 +1,9 @@
 package com.eomcs.app1;
 
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ServerApp {
 
@@ -16,6 +18,16 @@ public class ServerApp {
     System.out.println("클라이언트의 연결을 기다림.");
     Socket socket = serverSocket.accept(); // 클라이언트가 연결될 때까지 리턴하지 않는다.
     System.out.println("클라이언트와 연결됨");
+
+    // 클라이언트와 데이터를 주고 받을 입출력 도구를 준비한다.
+    Scanner in = new Scanner(socket.getInputStream());
+    PrintStream out = new PrintStream(socket.getOutputStream());
+
+    // 클라이언트와 주고 받는 순서가 맞아야 한다.
+    String request = in.nextLine();
+    System.out.println("이름: " + request);
+
+    out.println(request + "님 반갑습니다.");
 
     // 클라이언트와의 연결을 끊음
     socket.close();
