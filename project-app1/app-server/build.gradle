@@ -1,0 +1,30 @@
+
+plugins {
+    id 'application'
+    id 'java'
+    id 'eclipse'
+}
+
+group = 'com.eomcs'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+// eclipse 프로젝트 이름을 설정하기
+eclipse {
+    project {
+        name = "project-app1-server"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'com.google.guava:guava:30.1.1-jre'
+}
+
+application {
+    mainClass = 'com.eomcs.app1.App'
+}
