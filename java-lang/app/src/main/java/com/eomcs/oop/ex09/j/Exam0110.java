@@ -13,11 +13,13 @@ public class Exam0110 {
     list.add("김구");
 
     // Iterator 는 인터페이스다.
+    // Iterator : 목록(컬렉션)에서 데이터를 꺼내주는 일을 하는 객체
     // ArrayList의 iterator() 메서드는 이 인터페이스를 구현한 클래스의 객체를 만들어 리턴한다.
     Iterator<String> iterator = list.iterator();
 
     // 인터페이스를 기준으로 한 개발자 입장:
     // => 인터페이스 호출 규칙에 따라 객체를 사용한다.
+    // => Iterator 인터페이스에 정의된 규칙에 따라 메서드 호출
     while (iterator.hasNext()) {
       System.out.println(iterator.next());
     }
