@@ -14,6 +14,7 @@ public class Exam0320 {
 
     long start = System.currentTimeMillis();
 
+    // 쓴 순서대로 읽어야 한다. (출력된 형식에 맞춰서 읽어야 한다. (파일 포맷))
     for (int i = 0; i < 1000000; i++) {
       member = new Member();
       member.name = in2.readUTF();
