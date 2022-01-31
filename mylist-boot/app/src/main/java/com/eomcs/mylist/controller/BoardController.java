@@ -15,7 +15,7 @@ public class BoardController {
   //   Spring Boot가 BoardController 객체를 만들 때 BoardDao 구현체를 찾아 자동으로 주입한다.
   // 
   @Autowired
-  BoardDao boardDao;
+  BoardDao boardDao;   
 
   public BoardController() {
     System.out.println("BoardController() 호출됨!");
