@@ -22,7 +22,7 @@ public class BoardController {
   }
 
   @RequestMapping("/board/list")
-  public Object list() {
+  public Object list() {  
     return boardDao.findAll(); 
   }
 
