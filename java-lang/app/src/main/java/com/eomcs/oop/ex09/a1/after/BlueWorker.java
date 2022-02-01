@@ -6,7 +6,7 @@ package com.eomcs.oop.ex09.a1.after;
 public class BlueWorker implements Worker {
 
   // 인터페이스(약속,규칙,규격,법률)를 이행하는 클래스는
-  // 인터페이스에 선언된 모든 메서드를 반드시 구현해야만 일반 클래스(concrete class)가 된다.
+  // 인터페이스에 선언된 모든 메서드를 '''반드시 구현'''해야만 일반 클래스(concrete class)가 된다.
   // 만약에 구현하지 않으면, 추상 메서드인채로 존재한다.
   // 따라서 졸지에 추상 메서드를 가진 클래스가 된다. 
   // 추상 메서드는 추상 클래스만이 가질 수 있기 때문에 
