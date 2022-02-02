@@ -12,12 +12,13 @@ public class Exam0120 {
     void rule2();
   }
 
+  // 인터페이스는 다중 상속 가능.
   interface ProtocolC extends ProtocolA, ProtocolB {
     void rule3();
   }
 
   // 인터페이스를 구현할 때는
-  // 수퍼 인터페이스의 메서드까지 모두 구현해야 한다.
+  // '''수퍼 인터페이스의 메서드까지 모두 구현'''해야 한다.
   class ProtocolImpl implements ProtocolC {
     // ProtocolA 규칙 준수!
     @Override
@@ -30,11 +31,18 @@ public class Exam0120 {
     // ProtocolC 규칙 준수!
     @Override
     public void rule3() {System.out.println("rule3()");}
+
+    public void m1() {System.out.println("m1()");}
   }
 
   void test() {
 
     ProtocolImpl obj = new ProtocolImpl();
+    obj.rule1(); // OK
+    obj.rule2(); // OK
+    obj.rule3(); // OK
+    obj.m1();    // OK
+    System.out.println("-------------------------------");
 
     // 1) 인터페이스 레퍼런스로 구현체의 주소 받기
     ProtocolC c = obj;
@@ -42,11 +50,12 @@ public class Exam0120 {
     ProtocolA a = obj;
 
     // 2) 메서드 호출
-    // - 해당 인터페이스의 규칙에 따라서만 호출할 수 있다.
+    // - '''해당 인터페이스의 규칙에 따라서만 호출'''할 수 있다.
 
     c.rule1(); // OK
     c.rule2(); // OK
     c.rule3(); // OK
+    //    c.m1();    // 컴파일 오류.
     System.out.println("-------------------------------");
 
     //    b.rule1(); // 컴파일 오류!

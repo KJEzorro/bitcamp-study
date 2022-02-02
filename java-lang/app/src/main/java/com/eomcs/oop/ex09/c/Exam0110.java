@@ -16,7 +16,7 @@ public class Exam0110 {
   }
 
   // 인터페이스를 구현할 때는
-  // 수퍼 인터페이스의 메서드까지 모두 구현해야 한다.
+  // 수퍼 인터페이스의 메서드까지 '''모두 구현'''해야 한다.
   class ProtocolImpl implements ProtocolB {
     // ProtocolA 규칙 준수!
     @Override

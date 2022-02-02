@@ -15,8 +15,8 @@ public class Exam0130 {
   }
 
   // ProtoclA와 ProtocolB에 같은 이름의 메서드가 있더라도
-  // 메서드 시그너처(이름, 파라미터, 리턴타입)가 같다면
-  // 다중 상속이 가능하다.
+  // '''메서드 시그너처(이름, 파라미터, 리턴타입)가 같다면
+  //    다중 상속이 가능'''하다.
   // - 클래스와 달리 메서드를 구현하기 전이라서 충돌날 일이 없다.
   //
   interface ProtocolC extends ProtocolA, ProtocolB {
