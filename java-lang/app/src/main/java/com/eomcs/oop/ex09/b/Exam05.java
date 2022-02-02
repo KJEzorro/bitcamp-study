@@ -1,4 +1,5 @@
 // 인터페이스 - static 메서드
+// 이 메서드는 쓸 일이 없으니 눈에 익혀두기만 하자.
 package com.eomcs.oop.ex09.b;
 
 interface MyInterface5 {
