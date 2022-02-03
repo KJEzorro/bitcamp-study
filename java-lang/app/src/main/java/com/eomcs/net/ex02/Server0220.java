@@ -13,7 +13,7 @@ public class Server0220 {
 
     // => new ServerSocket(포트번호, 대기열크기);
     //
-    ServerSocket ss = new ServerSocket(8888, 2);
+    ServerSocket ss = new ServerSocket(8888, 2); // ServerSocket(포트번호, backlog); backlog = 대기열 크기
     System.out.println("서버 소켓 생성 완료!");
     System.out.println("클라이언트 연결을 기다리는 중...");
 

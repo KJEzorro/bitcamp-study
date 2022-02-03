@@ -23,7 +23,7 @@ public class Server0110 {
     System.out.println("클라이언트 연결을 기다리는 중...");
 
     // 잠깐 멈추기
-    keyboard.nextLine(); // 사용자가 엔터를 칠 때까지 리턴하지 않는다.
+    keyboard.nextLine(); // 사용자가 엔터를 칠 때까지 리턴하지 않는다. (입력을 해야 서버가 종료되므로)
 
     ss.close();
     System.out.println("서버 종료!");

@@ -17,11 +17,13 @@ public class Sender5 {
     BufferedInputStream fileIn = new BufferedInputStream(new FileInputStream(file));
 
     System.out.println("서버에 연결 중...");
-    Socket socket = new Socket("192.168.0.61", 8888);
+    Socket socket = new Socket("localhost", 8888);
     System.out.println("서버에 연결 완료!");
 
-    DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-    Scanner in = new Scanner(new BufferedInputStream(socket.getInputStream()));
+    DataOutputStream out = new DataOutputStream(
+        new BufferedOutputStream(socket.getOutputStream()));
+    Scanner in = new Scanner(
+        new BufferedInputStream(socket.getInputStream()));
 
     System.out.println("서버에 데이터 송신 중...");
 
