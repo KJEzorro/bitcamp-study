@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="utf-8">
-  <title>게시판</title>
+  <title>웹계산기</title>
 </head>
+
 <body>
 
-<h1>새 게시판</h1>
+  <h1>웹 계산기</h1>
 
-<form>
-제목*: <input id="x-title" type="text"><br>
-내용: <textarea id="x-content" cols="60" rows="10"></textarea><br>
-<button id="x-add-btn" type="button">등록</button>
-<button id="x-cancel-btn" type="button">취소</button>
-</form>
+  <form>
+    <input id="x-a" type="text">
+    <select id="x-op">
+      <option value="">연산자 선택</option>
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+    </select>
+    <input id="x-b" type="text">
+    <button id="x-do-btn" type="button">=</button>
+    <input id="x-result" type="text">
+  </form>
 
-<script type="text/javascript">
-  var xTitle = document.querySelector("#x-title");
-  var xContent = document.querySelector("#x-content");
+  <script type="text/javascript">
+    var xA = document.querySelector("#x-a");
+    var xB = document.querySelector("#x-b");
+    var xOp = document.querySelector("#x-op");
+    var xResult = document.querySelector("#x-result");
 
-  document.querySelector("#x-add-btn").onclick = function() {
-    if (xTitle.value == "" || xContent.value == "") {
-      window.alert("필수 입력 항목이 비어 있습니다.");
-      return;
-    }
+    document.querySelector("#x-do-btn").onclick = function() {
+      if (xA.value == "" || xB.value == "") {
+        window.alert("값을 입력하세요");
+        return;
+      }
+      console.log(xOp.value);
 
-    fetch(`/board/add?title=${xTitle.value}&content=${xContent.value}`)
-      .then(function(response) {
-        return response.text();
-      })
-      .then(function(text) {
-        console.log(text);
-        location.href = "index.html";
-      });
-  };
+      if (xOp.value == "") {
+        window.alert("연산자를 선택하세요");
+        return;
+      }
 
-  document.querySelector("#x-cancel-btn").onclick = function() {
-    window.location.href = "index.html";
-  };
-</script>
+      fetch(`/calc?op=${encodeURIComponent(xOp.value)}&a=${xA.value}&b=${xB.value}`)
+        .then(function(response) {
+          return response.text()
+        })
+        .then(function(text) {
+          xResult.value = text
+
+
+        });
+
+    };
+  </script>
 
 </body>
+
 </html>
