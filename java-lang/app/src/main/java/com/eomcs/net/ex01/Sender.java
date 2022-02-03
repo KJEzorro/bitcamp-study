@@ -14,8 +14,9 @@ public class Sender {
     // => 서버와 연결되면 Socket 객체가 생성된다.
     // => 서버와 연결될 때까지 리턴하지 않는다.
     // => 서버에 연결할 수 없으면 예외가 발생한다.
-    // => localhost == 127.0.0.1 : 현재 컴퓨터를 가리킨다.
-    Socket socket = new Socket("localhost", 8888);
+    //    new Socket(원격 호스트의 IP 주소/도메인이름, 포트번호)
+    //    - 로컬 호스트(애플리케이션을 실행하는 현재 컴퓨터)일 경우 : 127.0.0.1 또는localhost
+    Socket socket = new Socket("localhost", 8888); // 서버의 '''대기열에 등록'''된다면 리턴한다.
     System.out.println("서버와 연결된 Socket 생성!");
 
     // 2) 소켓 객체를 통해 읽고 쓸 수 있도록 입출력 스트림을 얻는다.
@@ -24,7 +25,7 @@ public class Sender {
     System.out.println("서버와 데이터를 송수신할 스트림 준비!");
 
     // 3) 상대편으로 문자열을 한 줄 보낸다.
-    out.println("엄진영입니다. 안녕하세요!");
+    out.println("김주은입니다. 안녕하세요!");
 
     // 4) 상대편에서 보낸 문자열을 한 줄 읽는다.
     // => 상대편이 한 줄 데이터를 보낼 때까지 리턴하지 않는다.
