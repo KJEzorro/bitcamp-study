@@ -1,4 +1,5 @@
 // 클라이언트와 입출력 테스트 - byte stream + try with resource 문법 사용
+// 110과 111 비교 하면서 보기
 package com.eomcs.net.ex03;
 
 import java.io.InputStream;
@@ -11,7 +12,9 @@ public class Server0111 {
   public static void main(String[] args) {
 
 
-    try (Scanner keyboard = new Scanner(System.in);
+    try (/*여기 안에는 일반 문장이 올 수 없다.
+          변수 선언(AutoCloseable 구현체만)만 올 수 있다.*/
+        Scanner keyboard = new Scanner(System.in);
         ServerSocket serverSocket = new ServerSocket(8888)) {
 
       System.out.println("클라이언트의 연결을 기다리고 있음.");
@@ -58,6 +61,10 @@ public class Server0111 {
       e.printStackTrace();
 
     }
+    // finally가 없는 이유?
+    // byte stream + try with resource 문법 사용을 해서 try(여기 안에)선언된 변수들은
+    // 마지막에 자동으로 close()가 실행된다.
+
     System.out.println("서버 종료!");
   }
 

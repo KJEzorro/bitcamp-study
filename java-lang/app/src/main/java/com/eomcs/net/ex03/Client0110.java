@@ -52,6 +52,8 @@ public class Client0110 {
       e.printStackTrace();
 
     } finally {
+      // 소켓은 먼저 닫으면 안된다.
+      // 소켓보다 입출력 스트림을 먼저 닫아야 한다.
       try {out.close();} catch (Exception e) {}
       try {in.close();} catch (Exception e) {}
       try {socket.close();} catch (Exception e) {}

@@ -8,7 +8,9 @@ import java.util.Scanner;
 
 public class Client0111 {
   public static void main(String[] args) {
-    try (Scanner keyScan = new Scanner(System.in);
+    try (/*여기 안에는 일반 문장이 올 수 없다.
+         변수 선언(AutoCloseable 구현체만)만 올 수 있다.*/
+        Scanner keyScan = new Scanner(System.in);
 
         // 서버와 연결
         Socket socket = new Socket("localhost", 8888);

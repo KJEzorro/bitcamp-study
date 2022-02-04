@@ -32,6 +32,7 @@ public class Client0120 {
       // out.flush();
       // byte stream 을 사용할 때는 바로 출력한다.
       // 따라서 flush()를 호출하지 않아도 된다.
+      // 그러나 문자를 출력하는 경우에는 flush()를 호출해야 한다.
       System.out.println("서버에 데이터를 보냈음!");
 
     } catch (Exception e) {

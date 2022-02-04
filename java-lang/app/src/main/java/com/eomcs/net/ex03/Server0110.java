@@ -71,6 +71,10 @@ public class Server0110 {
         e.printStackTrace();
 
       } finally {
+
+        // 보통 출력 스트림을 먼저 닫는다. (출력은 반드시 닫아야 한다.)
+        // 입력 출력을 닫을 때 한꺼번에 닫는게 아닌 따로따로닫아야 한다. ( 같이 닫게 되면 뒤에 꺼를 못 닫을수도 있기 때문)
+        // 소켓은 먼저 닫으면 안된다.
         try {out.close();} catch (Exception e) {}
         try {in.close();} catch (Exception e) {}
         try {socket.close();} catch (Exception e) {}
@@ -79,11 +83,17 @@ public class Server0110 {
 
 
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println("상세 예외 정보");
+      // 예외 객체의 상세 정보가 들어있다.
+      // 보통 어디서 예외가 발생했는지 추척할 때 이 메서드를 사용한다.
+      e.printStackTrace(); 
+
 
     } finally {
-      try { keyboard.close(); } catch (Exception e) {}
-      try { serverSocket.close();} catch (Exception e) {}
+      System.out.println("키보드 자원해제 및 서버 소켓 자원 해제");
+      // 보통 close() 메서드를 예외처리 할 때 따로 예외처리를 하지 않으므로 catch 블록은 비워둔 채로 내비둔다.
+      keyboard.close(); // Scanner 클래스의 close() 메서드는 예외처리를 할 필요가 없다.
+      try { serverSocket.close();} catch (Exception e) {} // ServerSocket 클래스의 close() 메서드는 예외처리를 해줘야 한다.
     }
     System.out.println("서버 종료!");
   }
