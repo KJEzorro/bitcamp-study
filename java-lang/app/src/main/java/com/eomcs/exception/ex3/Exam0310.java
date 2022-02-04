@@ -18,6 +18,8 @@ public class Exam0310 {
       throw new IOException();
   }
 
-  public static void main(String[] args) {}
+  public static void main(String[] args) {
+
+  }
 
 }

@@ -11,7 +11,7 @@ public class Exam0320 {
   //    여러 개를 나열하지 않을 수 있다.
   // => 그러나 호출자에게 어떤 오류가 발생하는지 정확하게 알려주는 것이
   //    유지보수에 도움이 된다.
-  //    따라서 가능한 그 메서드에서 발생하는 예외는 모두 나열하라!
+  //    따라서 '''가능한 그 메서드에서 발생하는 예외는 모두 나열'''하라!
   //
   static void m(int i) throws Exception {
     if (i == 0)
@@ -24,6 +24,7 @@ public class Exam0320 {
       throw new IOException();
   }
 
-  public static void main(String[] args) {}
+  public static void main(String[] args) {
+  }
 
 }
