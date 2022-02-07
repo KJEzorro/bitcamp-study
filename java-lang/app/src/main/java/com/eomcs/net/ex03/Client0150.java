@@ -10,7 +10,7 @@ public class Client0150 {
 
     try (Scanner keyScan = new Scanner(System.in);
         Socket socket = new Socket("localhost", 8888);
-        PrintStream out = new PrintStream(socket.getOutputStream());
+        PrintStream out = new PrintStream(socket.getOutputStream()); // PrintStream -> byte stream 이다.
         Scanner in = new Scanner(socket.getInputStream())) {
 
       System.out.println("서버와 연결되었음!");

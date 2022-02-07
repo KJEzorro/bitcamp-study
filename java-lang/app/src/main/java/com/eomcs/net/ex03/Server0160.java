@@ -30,9 +30,9 @@ public class Server0160 {
         keyboard.nextLine();
 
         out.println(str);
-        //        out.flush();
-        // 버퍼를 사용할 때는
-        // 데이터를 보내기 위해 반드시 flush()를 호출해야 한다.
+        out.flush();
+        // '''버퍼를 사용할 때'''는
+        // 데이터를 보내기 위해 '''반드시 flush()를 호출'''해야 한다.
         // => 버퍼에 남아 있는 데이터를 연결된 출력 스트림을 이용하여 내보낸다.
         System.out.println("클라인트에게 데이터를 보냈음.");
 

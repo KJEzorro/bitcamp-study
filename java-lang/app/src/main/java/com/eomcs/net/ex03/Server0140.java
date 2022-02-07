@@ -14,7 +14,7 @@ public class Server0140 {
 
       System.out.println("클라이언트의 연결을 기다리고 있음.");
 
-      try (Socket socket = serverSocket.accept();
+      try (Socket socket = serverSocket.accept(); // 대기열에 있는 클라이언트를 꺼내서 소켓 생성
           DataOutputStream out = new DataOutputStream(socket.getOutputStream());
           DataInputStream in = new DataInputStream(socket.getInputStream())) {
 
@@ -36,8 +36,9 @@ public class Server0140 {
         out.writeFloat(value3);
         out.writeUTF(value4);
         // out.flush();
-        // byte stream 을 사용할 때는 바로 출력한다.
+        // '''byte stream''' 을 사용할 때는 '''바로 출력'''한다.
         // 따라서 flush()를 호출하지 않아도 된다.
+        // 그래도 flush()는 하는 것을 추천한다.
         System.out.println("클라인트에게 데이터를 보냈음.");
 
       }
