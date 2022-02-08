@@ -1,4 +1,6 @@
 // URL 클래스를 이용하여 HTTP 요청 수행하기
+
+// ex07 방법이 아닌 ex08 방법으로 해라 ex07 방법은 예전 방법이다.
 package com.eomcs.net.ex08;
 
 import java.io.BufferedReader;

@@ -31,7 +31,8 @@ public class CalculatorClient {
 
       try (Socket socket = new Socket("localhost", 8888);
           PrintStream out = new PrintStream(socket.getOutputStream());
-          BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+          BufferedReader in = new BufferedReader(
+              new InputStreamReader(socket.getInputStream()))) {
 
         sendRequest(out, input); // 서버에 요청을 보내기
         receiveResponse(in); // 서버의 실행 결과를 받기
