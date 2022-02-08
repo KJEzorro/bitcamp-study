@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 // 연결지향(connection oriented)
-// => 연결 후에 데이터를 송수신 하기 때문에 데이터 송수신에 대한 신뢰를 보장한다.
+// => '''연결 후에 데이터를 송수신''' 하기 때문에 데이터 송수신에 대한 신뢰를 보장한다.
 // => TCP 통신 방법이 전형적인 예이다.
 //    예) FTP, Telnet, SMTP, POP3, HTTP 등 
 // 
