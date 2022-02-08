@@ -23,6 +23,7 @@ public class HttpServer {
       Scanner in = new Scanner(socket.getInputStream());
       PrintStream out = new PrintStream(socket.getOutputStream());
 
+
       // 클라이언트가 보낸 데이터를 HTTP 요청 프로토콜에 맞춰 읽는다.
       while (true) {
         String str = in.nextLine();
