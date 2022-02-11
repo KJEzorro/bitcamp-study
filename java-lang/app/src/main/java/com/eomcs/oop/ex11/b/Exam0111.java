@@ -25,6 +25,8 @@ public class Exam0111 {
 
     // 인스턴스 생성
     obj = new A2.X();
+
+    obj.v2 = 100;
   }
 
 }

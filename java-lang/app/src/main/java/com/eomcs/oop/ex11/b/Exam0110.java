@@ -1,8 +1,9 @@
 // static nested class : 클래스 정의와 인스턴스 생성
 package com.eomcs.oop.ex11.b;
 
+
 class A {
-  static class X {
+  static class X { // 스태틱 중첩 클래스
 
   }
 }
