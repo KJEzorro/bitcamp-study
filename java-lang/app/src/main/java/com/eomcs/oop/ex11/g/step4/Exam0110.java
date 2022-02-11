@@ -4,7 +4,7 @@ package com.eomcs.oop.ex11.g.step4;
 
 public class Exam0110 {
   public static void main(String[] args) {
-    // 카테고리 값을 정수를 정의하면 메모리가 절약된다.
+    // 카테고리 값을 정수로 정의하면 메모리가 절약된다.
     // 카테고리 값을 상수로 정의하면 따로 주석을 달 필요가 없다.
     // 또한 상수의 이름을 대문자로 하면 상수임을 직관적으로 알 수 있다.
     //

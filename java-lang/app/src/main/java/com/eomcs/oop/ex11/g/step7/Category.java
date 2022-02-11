@@ -29,7 +29,7 @@ public class Category {
   //
   // static nested class를 이런 식으로 적용한 대표적인 예가
   // 안드로이드 컴파일러가 자동 생성하는 R.java 이다.
-  //
+  // 일부러 클래스명의 첫 글자를 소문자로 적는다.
   public final static class computer {
     public static final int CPU = 1;
     public static final int VGA = 2;
