@@ -54,7 +54,7 @@ public class Exam0310 {
     C.m1();
 
     C outer = new C();
-    outer.test();
+    outer.test1();
     outer.aa = 100;
     outer.m2();
   }
