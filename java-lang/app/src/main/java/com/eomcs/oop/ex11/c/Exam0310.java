@@ -15,6 +15,20 @@ class C {
     // - 스태틱 메서드는 인스턴스 주소를 담고 있는 this 변수가 존재하지 않는다.
   }
 
+  int aa;
+
+  void test1() {
+    test2();
+  }
+
+  void test2() {
+    test3();
+  }
+
+  void test3() {
+    m2();
+  }
+
   void m2() {
     // 인스턴스 메서드는 인스턴스 주소를 담고 있는 this 변수가 있다.
     // 그래서 inner class 를 사용할 수 있다.
@@ -23,6 +37,8 @@ class C {
 
     X obj2 = new X(); // 인스턴스 필드나 메서드와 마찬가지로 this를 생략할 수 있다.
     obj2.test();
+
+    new X().test(); // 레퍼런스를 또 쓸 필요가 없다면 레퍼런스 선언 할 필요 없이 객체에서 바로 메서드 호출하면 된다.
   }
 
   class X {
@@ -38,6 +54,8 @@ public class Exam0310 {
     C.m1();
 
     C outer = new C();
+    outer.test();
+    outer.aa = 100;
     outer.m2();
   }
 
