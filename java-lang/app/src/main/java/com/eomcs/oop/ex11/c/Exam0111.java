@@ -9,6 +9,8 @@ class A2 {
     // - static nested class 
     // 만이 가질 수 있다.
     // 
+
+    // JDK 16부터는 가능한 문법이다. (현재 JDK 11로 세팅이 되어있다.)
     //    static int v1; // 컴파일 오류!
     //    static void m1() {} // 컴파일 오류!
     //    static {} // 컴파일 오류!
