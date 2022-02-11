@@ -32,6 +32,17 @@ public class Exam0220 {
   public static void main(String[] args) {
     C2 c = new C2();
     c.m1();
+
+
+
   }
 
 }
+
+
+
+
+
+
+
+
