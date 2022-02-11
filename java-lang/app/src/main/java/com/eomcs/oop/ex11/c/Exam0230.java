@@ -39,6 +39,7 @@ public class Exam0230 {
     B3.X x3 = outer2.new X();
     x3.test();
     System.out.println("--------------------");
+
   }
 
 }
