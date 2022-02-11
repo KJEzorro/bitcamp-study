@@ -33,7 +33,9 @@ public class Exam0111 {
     };
     obj2.print();
 
-    new A() { // 위 코드와 같다. (실무용. 레퍼런스를 쓸 필요가 없다. 객체를 한번만 만들고 메서드를 한번만 호출할 것이라면.)
+    // 위 코드와 같다. (실무용. 레퍼런스를 쓸 필요가 없다. 
+    //객체를 한번만 만들고 메서드를 한번만 호출할 것이라면.)
+    new A() { 
       @Override
       public void print() {
         System.out.println("Hello!");
