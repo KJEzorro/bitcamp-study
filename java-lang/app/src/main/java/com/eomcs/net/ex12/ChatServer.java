@@ -4,10 +4,13 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
+@SuppressWarnings("rawtypes")
 public class ChatServer {
 
   int port;
+  ArrayList clientOutputStreams = new ArrayList();
 
   public ChatServer(int port) {
     this.port = port;
@@ -19,12 +22,16 @@ public class ChatServer {
 
       while (true) {
         new RequestHandler(serverSocket.accept()).start();
-
       }
-
-
     } catch (Exception e) {
       System.out.println("서버 실행 오류 - " + e.getMessage());
+    }
+  }
+
+  public void sendMessage(String message) {
+    for (int i = 0; i < clientOutputStreams.size(); i++) {
+      DataOutputStream out = (DataOutputStream) clientOutputStreams.get(i);
+      try {out.writeUTF(message);} catch (Exception e) {}
     }
   }
 
@@ -35,11 +42,14 @@ public class ChatServer {
       this.socket = socket;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void run() {
       try (Socket socket2 = socket;
           DataInputStream in = new DataInputStream(socket.getInputStream())) {
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+
+        clientOutputStreams.add(out);
 
         out.writeUTF("환영합니다!");
         out.flush();
@@ -51,8 +61,9 @@ public class ChatServer {
             out.flush();
             break;
           }
-          out.writeUTF(message);
-          out.flush();
+
+          sendMessage(message);
+
         }
       } catch (Exception e) {
         System.out.println("클라이언트와의 통신 오류 -> " + e.getMessage());
@@ -60,6 +71,7 @@ public class ChatServer {
 
     }
   }
+
 
   public static void main(String[] args) {
     new ChatServer(8888).service();
