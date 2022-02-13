@@ -51,18 +51,20 @@ public class ChatServer {
 
         clientOutputStreams.add(out);
 
-        out.writeUTF("환영합니다!");
+        String nickname = in.readUTF();
+
+        out.writeUTF(nickname + " 님 환영합니다!");
         out.flush();
 
         while (true) {
           String message = in.readUTF(); 
           if (message.equals("\\quit")) {
-            out.writeUTF("Goodbye");
+            out.writeUTF("<![QUIT[]]>"); // 연결을 끊겠다는 특별한 메시지를 클라이언트에게 보낸다.
             out.flush();
             break;
           }
 
-          sendMessage(message);
+          sendMessage(String.format("[%s] %s", nickname, message));
 
         }
       } catch (Exception e) {
