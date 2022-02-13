@@ -51,6 +51,12 @@ public class ChatClient extends JFrame {
     addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent e) {
+        if (connectBtn.getText().equals("종료")) { //  
+          try {
+            out.writeUTF("\\quit");
+            out.flush();
+          } catch (Exception ex) {}
+        }
         try {in.close();} catch (Exception ex) {}
         try {out.close();} catch (Exception ex) {}
         try {socket.close();} catch (Exception ex) {}
