@@ -3,6 +3,7 @@ package com.eomcs.oop.ex12;
 
 public class Exam0120 {
 
+  // functional interface = 추상 메서드가 한 개만 있는 인터페이스
   interface Player {
     void play();
   }
@@ -18,7 +19,7 @@ public class Exam0120 {
     };
     p2.play();
 
-    // => 파라미터가 없다고 괄호를 생략할 수는 없다.
+    // => 파라미터가 없다고 괄호()를 생략할 수는 없다.
     //    Player p3 = -> System.out.println("테스트3"); // 컴파일 오류!
   }
 }

@@ -16,7 +16,7 @@ public class Exam0140 {
     Player p2 = (name, age) -> System.out.printf("%s(%d)님 환영합니다.\n", name, age);
     p2.play("임꺽정", 30);
 
-    // 3) 파라미터가 여러 개일 때는 괄호를 생략할 수 없다.
+    // 3) 파라미터가 여러 개일 때는 괄호를 생략할 수 없다. 한개일 때만 가능하다.
     //    Player p3 = name, age -> System.out.printf("%s(%d)님 환영합니다.\n", name, age);
     //    p3.play("임꺽정", 30);
   }

@@ -23,7 +23,7 @@ public class LinkedList {
     Node node = getNode(index);
     Node newNode = new Node(value);
 
-    // 순서가 중요하다.
+    // 순서가 중요하다. (이해하기 어렵다) 
     if (node.prev != null) {  // 첫 번째 노드가 아니라면
       node.prev.next = newNode;  // 앞 노드 뒤의 노드를 새 노드 설정.
     }
