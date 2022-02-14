@@ -1,4 +1,4 @@
-package com.eomcs.oop.ex11.h.test;
+package com.eomcs.algorithm.data_structure.linkedlist2.step5;
 
 public class Test {
 

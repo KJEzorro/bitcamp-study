@@ -1,4 +1,4 @@
-package com.eomcs.oop.ex11.h.test;
+package com.eomcs.algorithm.data_structure.linkedlist2.step3;
 
 public class LinkedList {
 
@@ -93,21 +93,7 @@ public class LinkedList {
   }
 
   public Iterator iterator() {
-    // anonymous class 활용 예 2
-    // => 오직 한 개의 인스턴스만 생성할 경우
-    // => 다른 문장 안에 넣기
-    // => return 문, 할당문, 파라미터 전달하는 곳에 놓기
-    return new Iterator() {
-      int cursor;
-      @Override
-      public boolean hasNext() {
-        return cursor < LinkedList.this.size();
-      }
-      @Override
-      public Object next() {
-        return LinkedList.this.get(cursor++);
-      }
-    };
+    return this.new ListIterator(); // => ListIterator(this);
   }
 
   // static nested class(스태틱 중첩 클래스) 활용 예
@@ -121,6 +107,29 @@ public class LinkedList {
 
     public Node(Object value) {
       this.value = value;
+    }
+  }
+
+  // non-static nested class(=inner class) 활용 예
+  // => 특정 클래스의 안에서만 사용될 때
+  // => 바깥 클래스의 인스턴스 멤버를 사용할 때
+
+  //컬렉션의 값을 조회하는 일을 수행한다.
+  //
+  @SuppressWarnings("rawtypes")
+  private class ListIterator implements Iterator {
+
+    int cursor;
+
+    @Override
+    public boolean hasNext() {
+      return cursor < LinkedList.this.size();
+    }
+
+    @Override
+    public Object next() {
+      return LinkedList.this.get(cursor++);
+
     }
   }
 }
