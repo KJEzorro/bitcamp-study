@@ -77,18 +77,25 @@ public class ChatServer {
           }
 
           sendMessage(String.format("[%s] %s", nickname, message));
-
         }
+
       } catch (Exception e) {
         System.out.println("클라이언트와의 통신 오류 -> " + e.getMessage());
       }
 
     }
   }
-
-
   public static void main(String[] args) {
     new ChatServer(8888).service();
   }
 
 }
+
+
+
+
+
+
+
+
+

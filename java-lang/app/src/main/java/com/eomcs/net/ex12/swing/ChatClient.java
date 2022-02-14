@@ -72,7 +72,6 @@ public class ChatClient extends JFrame {
     topPanel.add(addressTf);
     topPanel.add(portTf);
 
-
     //  1) 로컬 클래스
     //    class MyActionListener implements ActionListener {
     //      @Override
@@ -111,8 +110,6 @@ public class ChatClient extends JFrame {
 
     messageTf.addActionListener(this::sendMessage);
 
-
-
     setVisible(true);
   }
 
@@ -138,7 +135,6 @@ public class ChatClient extends JFrame {
 
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
-
 
         out.writeUTF(nickname);
         out.flush();
@@ -172,8 +168,6 @@ public class ChatClient extends JFrame {
     } catch (Exception ex) {
       JOptionPane.showMessageDialog(this, "메시지 전송 오류", "통신 오류", JOptionPane.ERROR_MESSAGE);
     }
-
-
   }
 
   class MessageReceiver extends Thread {
