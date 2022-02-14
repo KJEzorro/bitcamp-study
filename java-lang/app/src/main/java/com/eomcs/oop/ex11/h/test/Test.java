@@ -9,7 +9,7 @@ public class Test {
     list.add("유관순");
     list.add("안중근");
     list.add("윤봉길");
-    list.add("김  구");
+    list.add("김구");
 
     System.out.println(list.size());
 
@@ -19,11 +19,24 @@ public class Test {
     System.out.println();
     System.out.println("-------------------------------------------------");
 
-    list.remove(2);
+    list.remove(0);  // 홍길동
+    list.remove(4);  // 김구
+    list.remove(2);  // 안중근
     for (int i = 0; i < list.size(); i++) {
       System.out.print(list.get(i) + ",");
     }
     System.out.println();
     System.out.println("-------------------------------------------------");
+
+    list.remove(0);  
+    list.remove(0);  
+    list.remove(0);  
+    list.add("박보검");
+    for (int i = 0; i < list.size(); i++) {
+      System.out.print(list.get(i) + ",");
+    }
+    System.out.println();
+    System.out.println("-------------------------------------------------");
+
   }
 }
