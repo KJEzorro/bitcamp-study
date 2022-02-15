@@ -5,6 +5,9 @@ public class Exam0410 {
 
   // 제네릭 적용 전
   static Object[] reverse(Object[] arr) {
+    // 배열 순서를 역순으로 바꾸기 
+    // 예) 1, 2, 3, 4, 5 -> 5, 4, 3, 2, 1
+    // 이 알고리즘은 기본적으로 알아두자.
     for (int i = 0; i < arr.length / 2; i++) {
       Object temp = arr[i];
       int targetIndex = arr.length - 1 - i;
