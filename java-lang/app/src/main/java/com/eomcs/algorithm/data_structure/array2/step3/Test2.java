@@ -1,4 +1,4 @@
-package com.eomcs.algorithm.data_structure.array2.step2;
+package com.eomcs.algorithm.data_structure.array2.step3;
 
 import com.eomcs.algorithm.data_structure.array2.Score;
 
