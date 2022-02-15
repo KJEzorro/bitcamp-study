@@ -39,8 +39,11 @@ public class Exam0223 {
     //    m1(new ArrayList<Object>()); // 컴파일 오류!
     //    m1(new ArrayList<A>()); // 컴파일 오류!
     m1(new ArrayList<B1>()); // OK!
+    m1(new ArrayList<>()); // OK! B1 생략 가능
     //    m1(new ArrayList<B2>()); // 컴파일 오류!
     //    m1(new ArrayList<C>()); // 컴파일 오류!
+
+
   }
 
   static void m1(ArrayList<B1> list) {

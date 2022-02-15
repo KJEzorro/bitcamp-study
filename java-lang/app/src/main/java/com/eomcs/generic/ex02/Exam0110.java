@@ -13,7 +13,7 @@ public class Exam0110 {
     //    클래스명 옆에 다루고자 하는 타입의 이름을 지정한다.
     //    클래스명<타입명>
     //
-    ArrayList<Member> list = new ArrayList<Member>();
+    ArrayList<Member> list = new ArrayList<>();
     list.add(new Member("홍길동", 20));
 
     // ArrayList를 선언할 때 지정한 타입이 아닌 경우에는 컴파일 오류가 발생한다.
