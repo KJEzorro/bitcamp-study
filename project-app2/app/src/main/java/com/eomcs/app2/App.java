@@ -51,7 +51,7 @@ public class App {
   }
 
   private boolean checkQuit(String input) {
-    return input.equals("quit") || input.equals("exit");
+    return input.equalsIgnoreCase("quit") || input.equalsIgnoreCase("exit");
   }
 }
 

@@ -8,6 +8,24 @@ public class Score {
   int sum;
   float average;
 
+  public static Score fromCSV(String csv) {
+    String[] values = csv.split(",");
+    Score score = new Score();
+    score.setName(values[0]);
+    score.setKor(Integer.parseInt(values[1]));
+    score.setEng(Integer.parseInt(values[2]));
+    score.setMath(Integer.parseInt(values[3]));
+    return score;
+  }
+
+  public String toCSV() {
+    return String.format("%s,%d,%d,%d",
+        this.getName(),
+        this.getKor(),
+        this.getEng(),
+        this.getMath());
+  }
+
   private void compute() {
     sum = kor + eng + math;
     average = sum / 3f;
