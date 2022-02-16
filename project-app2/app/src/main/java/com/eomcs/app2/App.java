@@ -6,45 +6,105 @@ package com.eomcs.app2;
 import java.util.Scanner;
 
 public class App {
-  public static void main(String[] args) {
-    Scanner keyScan = new Scanner(System.in);
 
+  Scanner keyScan = new Scanner(System.in);
+
+  public static void main(String[] args) {
+    new App().service();
+  }
+
+  public void service() {
     while (true) {
-      System.out.println("메뉴 :");
-      System.out.println("1. 등록");
-      System.out.println("2. 목록");
-      System.out.println("3. 상세");
-      System.out.println("4. 변경");
-      System.out.println("5. 삭제");
-      System.out.print("명령> ");
-      String input = keyScan.nextLine();
-      if (input.equals("quit") || input.equals("exit")) {
+      printMenu();
+      String input = prompt();
+
+      if (checkQuit(input)) {
         break;
       } 
 
-      switch (input) {
-        case "1":
-          break;
-
-        case "2":
-          break;
-
-        case "3":
-          break;
-
-        case "4":
-          break;
-
-        case "5":
-          break;
-
-        default:
-          System.out.println("올바른 메뉴 번호를 입력하세요");
+      try {
+        switch (input) {
+          case "1": createScore(); break;
+          case "2": listScore();   break;
+          case "3": detailScore(); break;
+          case "4": updateScore(); break;
+          case "5": deleteScore(); break;
+          default:
+            System.out.println("올바른 메뉴 번호를 입력하세요");
+        }
+      } catch (Exception e) {
+        System.out.println("실행 중 오류 발생 : " + e.getMessage());
       }
-
+      System.out.println();
     }
 
     System.out.println("종료");
     keyScan.close();
   }
+
+
+  private void printMenu() {
+    System.out.println("메뉴 :");
+    System.out.println("1. 등록");
+    System.out.println("2. 목록");
+    System.out.println("3. 상세");
+    System.out.println("4. 변경");
+    System.out.println("5. 삭제");
+  }
+
+  private String prompt() {
+    System.out.print("명령> ");
+    return keyScan.nextLine();
+  }
+
+  private boolean checkQuit(String input) {
+    return input.equals("quit") || input.equals("exit");
+  }
+
+  private void createScore() {
+    System.out.print("이름? ");
+    String name = keyScan.nextLine();
+
+    System.out.print("국어? ");
+    int kor = Integer.parseInt(keyScan.nextLine());
+
+    System.out.print("영어? ");
+    int eng = Integer.parseInt(keyScan.nextLine());
+
+    System.out.print("수학? ");
+    int math = Integer.parseInt(keyScan.nextLine());
+
+  }
+
+  private void listScore() {
+
+  }
+
+  private void detailScore() {
+
+  }
+
+  private void updateScore() {
+
+  }
+
+  private void deleteScore() {
+
+  }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
