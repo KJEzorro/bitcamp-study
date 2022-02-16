@@ -1,4 +1,4 @@
-package com.eomcs.app2;
+package com.eomcs.app2.vo;
 
 public class Score {
   String name;
