@@ -23,6 +23,7 @@ public class Exam0130 {
     return obj;
   }
 
+
   public static void main(String[] args) {
 
     String obj1 = echo(new String("Hello"));
@@ -30,7 +31,9 @@ public class Exam0130 {
     Calendar obj3 = echo(Calendar.getInstance());
     File obj4 = echo(new File("okok"));
     Integer obj5 = echo(Integer.valueOf(100));
+
   }
+
 }
 
 // # 제네릭의 타입 파라미터로 많이 사용하는 이름
