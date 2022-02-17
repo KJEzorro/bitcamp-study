@@ -18,7 +18,7 @@ public class ClientApp {
   }
 
   public void service() {
-    try (Socket socket = new Socket("localhost", 3306);
+    try (Socket socket = new Socket("localhost", 3336);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         ) {
