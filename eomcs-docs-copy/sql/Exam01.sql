@@ -22,6 +22,9 @@ DB 객체(테이블, 뷰, 함수, 트리거 등)를 생성, 변경, 삭제하는
 데이터베이스 변경
 > alter database 데이터베이스명 옵션들...;
 
+데이터베이스 지정해서 사용하기(이렇게 하면 테이블 생성할 때 데이터베이스명을 따로 안적어줘도 된다.)
+> use 데이터베이스명;
+
 ## 테이블
 테이블 생성
 > create table 테이블명 (
@@ -513,7 +516,7 @@ create table test1 (
 alter table test1
   add column no int;
 
-alter table test1 
+alter table test1
   add column age int;
 
 alter table test1
@@ -671,13 +674,13 @@ drop view worker;
 
 1) 테이블의 제약 조건 조회
 
-select table_name, constraint_name, constraint_type 
+select table_name, constraint_name, constraint_type
 from table_constraints;
 
 
 2) 테이블의 키 컬럼 정보 조회
 
-select table_name, column_name, constraint_name 
+select table_name, column_name, constraint_name
 from key_column_usage;
 
 
@@ -688,6 +691,5 @@ select
   t2.column_name,
   t2.constraint_name,
   t1.constraint_type
-from table_constraints t1 
+from table_constraints t1
   inner join key_column_usage t2 on t2.constraint_name=t1.constraint_name;
-
