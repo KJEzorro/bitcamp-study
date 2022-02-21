@@ -73,7 +73,7 @@ DB 객체(테이블, 뷰, 함수, 트리거 등)를 생성, 변경, 삭제하는
 #### not null
 데이터를 입력하지 않으면 입력/변경 거절!
 > create table test1(
-    no int not null,
+    no int not null, -> 필수 입력 해야한다. (not null)
     name varchar(20)
   );
 
@@ -83,7 +83,7 @@ DB 객체(테이블, 뷰, 함수, 트리거 등)를 생성, 변경, 삭제하는
 > insert into test1(no, name) values(3, null);
 
 #### 기본값 지정하기
-입력할 때 컬럼을 생략하면 지정된 기본값이 대신 입력된다.
+입력할 때 컬럼을 생략하면 해당 컬럼에 지정된 기본값이 대신 입력된다.
 > create table test1(
     no int not null,
     name varchar(20) default 'noname',
@@ -114,7 +114,7 @@ DB 객체(테이블, 뷰, 함수, 트리거 등)를 생성, 변경, 삭제하는
 #### float
 - 부동소수점 저장
 
-#### numeric = decimal
+#### numeric = decimal (10자리까지만 가능 numeric 와 int 는 다르다 numeric 는 숫자의 자릿수를 지정한다.)
 - 전체 자릿수와 소수점 이하의 자릿수를 정밀하게 지정할 수 있다.
 - numeric(n,e) : 전체 n 자릿수 중에서 소수점은 e 자릿수다.
   - 예) numeric(10,2) : 12345678.12
@@ -130,7 +130,7 @@ DB 객체(테이블, 뷰, 함수, 트리거 등)를 생성, 변경, 삭제하는
 
 > insert into test1(c1) values(100);
 > insert into test1(c1) values(3.14); /* 소수점 이하 반올림하고 짜름 */
-> insert into test1(c1) values(100.98); /* 소수점 이하 반올림하고 짜름 */
+> insert into test1(c1) values(100.98); /* 소수점 이하 ''반올림''하고 짜름 */
 
 > insert into test1(c2) values(100);
 > insert into test1(c2) values(3.14);
@@ -165,6 +165,7 @@ DB 객체(테이블, 뷰, 함수, 트리거 등)를 생성, 변경, 삭제하는
 - 한 문자를 저장하면 한 문자 만큼 크기의 메모리를 차지한다.
 - 메모리 크기가 가변적이라서 데이터 위치를 찾을 때 시간이 오래 걸린다.
   그래서 검색할 때 위치를 계산해야 하기 때문에 검색 시 느리다.
+- char 보다는 varchar를 실무에서 더 많이 쓴다.
 
 > create table test1(
   c1 char(5),
