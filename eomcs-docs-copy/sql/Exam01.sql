@@ -435,7 +435,7 @@ key column : 데이터를 구분할 때 사용하는 값
   kor int,
   eng int,
   math int,
-  constraint test1_pk primary key(no),
+  constraint primary key(no),
   constraint test1_uk unique (name, age)
   );
 
@@ -488,7 +488,7 @@ create table test1(
   eng int,
   math int,
   constraint test1_uk unique (name, age),
-  fulltext index test1_name_idx (name) /* 인덱스 지정 */ 
+  fulltext index test1_name_idx (name)
 );
 
 insert into test1(no,name,age,kor,eng,math) values(1,'aaa',20,80,80,80);
@@ -511,7 +511,7 @@ select * from test1 where name = 'bbb';
 ### 테이블 변경
 기존에 있는 테이블을 변경할 수 있다.
 
-- 테이블 생성
+- 테이블 생성 (실무에서 이 방법을 가장 많이 쓴다.)
 
 create table test1 (
   name varchar(3),
@@ -545,6 +545,7 @@ alter table test1
 
 
 - 컬럼에 옵션 추가
+- not null을 추가하고 싶으면 컬럼에 대한 데이터 타입까지 같이 지정해야 한다.
 
 alter table test1
   modify column name varchar(20) not null,
@@ -570,10 +571,11 @@ insert into test1(no,name,age,kor,eng,math,sum,aver)
 
 
 ### 컬럼 값 자동 증가
-- 숫자 타입의 PK 컬럼인 경우 값을 1씩 자동 증가시킬 수 있다.
+- 숫자 타입의 PK 컬럼 또는 Unique 컬럼인 경우 값을 1씩 자동 증가시킬 수 있다.
 - 즉 데이터를 입력할 때 해당 컬럼의 값을 넣지 않아도 자동으로 증가된다.
 - 단 삭제를 통해 중간에 비어있는 번호는 다시 채우지 않는다.
-  즉 증가된 번호는 계속 앞으로 증가할 뿐이다.
+  즉 증가된 번호는 계속 앞으로 증가할 뿐이다. (중요)
+
 
 - 테이블 생성
 
@@ -626,7 +628,7 @@ insert into test1(name) values('123456789012345678901234');
  * 다음 값을 입력할 때는 증가된 값이 들어간다.
  * 그러나 MySQL(MariaDB)는 증가되지 않는다.
  */
-insert into test1(name) values('fff'); /* no=? */
+insert into test1(name) values('fff'); /* no=105, 오라클이었다면 106이 되었을 것이다. */
 
 
 ## 뷰(view)
