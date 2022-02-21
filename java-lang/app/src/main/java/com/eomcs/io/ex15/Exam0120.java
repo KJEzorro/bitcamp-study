@@ -22,7 +22,6 @@ public class Exam0120 {
     // 텍스트로 변환된 데이터를 파일로 출력하기.
     out.write(decodedBytes);
 
-
     in.close();
     out.close();
 

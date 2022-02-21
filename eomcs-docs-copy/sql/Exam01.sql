@@ -216,16 +216,20 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
   );
 
 입력 테스터:
-> insert into test1(c1) values('2017-11-21');
+> insert into test1(c1) values('2022-02-21');
 > insert into test1(c2) values('16:12:35');
-> insert into test1(c3) values('2017-9-7 16:5:3');
-> insert into test1(c1) values('2017-11-21 16:13:33'); /* 날짜 정보만 저장*/
-> insert into test1(c2) values('2017-11-21 16:13:33'); /* 시간 정보만 저장*/
+> insert into test1(c3) values('2022-02-21 16:5:3');
+> insert into test1(c1) values('2022-2-21 16:13:33'); /* 날짜 정보만 저장*/
+> insert into test1(c2) values('2022-2-21 16:13:33'); /* 시간 정보만 저장*/
+> insert into test1(c3) values('2022-2-21'); /* 시간 정보는 0으로 설정된다.*/
+> insert into test1(c3) values('16:13:33'); /* 실행오류. datatime은 날짜정보가 기본으로 있어야 한다. 없으면 오류.*/
 
 #### boolean
 - 보통 true, false를 의미하는 값을 저장할 때는 정수 1 또는 0으로 표현한다.
 - 또는 문자로 Y 또는 N으로 표현하기도 한다.
 - 실제 컬럼을 생성할 때 tinyint(1) 로 설정한다.
+- dbms마다 boolean 타입이 있는 경우가 있고 없는 경우가 있다.
+  - 없는 경우네느 char 이나 int 타입을 쓴다.
 
 > create table test1(
   c1 char(1),
@@ -255,6 +259,8 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
 > insert into test1(c3) values('0'); /* false -> 0 */
 > insert into test1(c3) values(1); /* true -> 1 */
 > insert into test1(c3) values(0); /* false -> 0 */
+=> 숫자로 쓸 수는 있지만 2로 저장해도 저장이 되기 때문에
+   숫자로 저장하는거 보다는 true나 false로 저장하는 것을 추천한다.
 
 - 숫자 컬럼인 경우 값을 설정할 때 문자로 표현할 수 있다.
 - 즉 문자열을 숫자로 바꿀 수 있으면 된다.
