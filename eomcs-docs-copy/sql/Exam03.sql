@@ -30,9 +30,13 @@ insert into test1(name,class,working) values('ooo','java101','N');
 select * from 테이블;
 select * from test1;
 
-/* 특정 컬럼의 값만 조회할 때 => "프로젝션(projection)"이라 부른다.*/
+/* 특정 컬럼의 값만 조회할 때 => "프로젝션(projection)"이라 부른다.*/ 기억해두자.
 select 컬럼명,컬럼명 from 테이블;
-select no, name, tel from test1;
+select
+  no,
+  name,
+  tel
+from test1;
 
 /* 가상의 컬럼 값을 조회하기*/
 select no, concat(name,'(',class,')') from test1;
@@ -60,7 +64,8 @@ from test1;
 
 ### 조회할 때 조건 지정하기
 - where 절과 연산자를 이용하여 조회 조건을 지정할 수 있다.
-- 이렇게 조건을 지정하여 결과를 선택하는 것을 "셀렉션(selection)" 이라 한다.
+- 이렇게 조건을 지정하여 결과를 선택하는 것을 "셀렉션(selection)" 이라 한다. (컬럼이 아닌 데이터를 선택하는 것이다.)
+ => 셀렉션 프로젝션 구분 잘하자.
 
 
 select ... from ... where 조건...
@@ -127,7 +132,7 @@ select *
 from test1
 where tel != null;
 
-/* => null인지 여부를 가릴 때는 is 또는 is not 연산자를 사용하라!*/
+/* => null인지 여부를 가릴 때는 *is 또는 is not 연산자를 사용*하라!*/
 select *
 from test1
 where tel is not null;
@@ -155,7 +160,7 @@ select (4 + 5), (4 - 5), (4 * 5), (4 / 5), (4 % 5);
 
 
 ### 비교연산
-- =, !=, >, >=, <, <=, <>
+- =, !=, >, >=, <, <=, <>(서로 다르다)
 
 select (4=5), (4!=5), (4>5), (4>=5), (4<5), (4<=5), (4<>5);
 
@@ -229,19 +234,19 @@ alter table test1
   add constraint primary key (no),
   modify column no int not null auto_increment;
 
-insert into test1(title, regdt) values('aaaa', '2017-01-27');
-insert into test1(title, regdt) values('bbbb', '2017-2-2');
-insert into test1(title, regdt) values('cccc', '2017-2-13');
-insert into test1(title, regdt) values('dddd', '2017-3-2');
-insert into test1(title, regdt) values('eeee', '2017-4-15');
-insert into test1(title, regdt) values('ffff', '2017-6-7');
-insert into test1(title, regdt) values('gggg', '2017-6-17');
-insert into test1(title, regdt) values('hhhh', '2017-6-27');
-insert into test1(title, regdt) values('iiii', '2017-9-5');
-insert into test1(title, regdt) values('jjjj', '2017-10-12');
-insert into test1(title, regdt) values('kkkk', '2017-11-22');
-  insert into test1(title, regdt) values('llll', '2017-11-24');
-insert into test1(title, regdt) values('mmmm', '2017-12-31');
+insert into test1(title, regdt) values('aaaa', '2022-01-27');
+insert into test1(title, regdt) values('bbbb', '2022-2-2');
+insert into test1(title, regdt) values('cccc', '2022-2-13');
+insert into test1(title, regdt) values('dddd', '2022-3-2');
+insert into test1(title, regdt) values('eeee', '2022-4-15');
+insert into test1(title, regdt) values('ffff', '2022-6-7');
+insert into test1(title, regdt) values('gggg', '2022-6-17');
+insert into test1(title, regdt) values('hhhh', '2022-6-27');
+insert into test1(title, regdt) values('iiii', '2022-9-5');
+insert into test1(title, regdt) values('jjjj', '2022-10-12');
+insert into test1(title, regdt) values('kkkk', '2022-11-22');
+insert into test1(title, regdt) values('llll', '2022-11-24');
+insert into test1(title, regdt) values('mmmm', '2022-12-31');
 
 
 - 날짜 값 비교하기
@@ -306,10 +311,9 @@ insert into test1 (title, regdt) values('aaaa', '2017-11-22');
 /* 다음 형식의 문자열을 날짜 값으로 지정할 수 없다.*/
 insert into test1 (title, regdt) values('bbbb', '11/22/2017');
 
-/* 특정 형식으로 입력된 날짜를 date 타입의 컬럼 값으로 변환하면 입력할 수 있다.*/ 
+/* 특정 형식으로 입력된 날짜를 date 타입의 컬럼 값으로 변환하면 입력할 수 있다.*/
 insert into test1 (title, regdt) values('bbbb', str_to_date('11/22/2017', '%m/%d/%Y'));
 
 /* 위 형식의 문자열을 날짜 값으로 저장하려면 str_to_date() 함수를 사용해야 한다.*/
 insert into test1 (title, regdt)
   values('bbbb', str_to_date('11/22/2017', '%m/%d/%Y'));
-
