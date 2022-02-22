@@ -644,6 +644,7 @@ create table test1 (
   tel varchar(20)
 );
 
+- where 조건 검사 대소문자 구분 x
 insert into test1(name,class,working) values('aaa','java100','Y');
 insert into test1(name,class,working) values('bbb','java100','N');
 insert into test1(name,class,working) values('ccc','java100','Y');
@@ -666,11 +667,16 @@ select no, name, class from test1 where working = 'Y';
 create view worker
   as select no, name, class from test1 where working = 'Y';
 
+  - 이렇게 생각하면 된다.
+  worker = select no, name, class from test1 where working = 'Y';
+
 
 - view가 참조하는 테이블에 데이터를 입력한 후 view를 조회하면?
   => 새로 추가된 컬럼이 함께 조회된다.
 - 뷰를 조회할 때 마다 매번 select 문장을 실행한다.
   => 미리 결과를 만들어 놓는 것이 아니다.
+  => 위 명령문을 실행해 주는 것이다. (668라인)
+  => view는 select 문에 대한 링크라고 생각하면 된다. (실시간 조회 ?)
 - 일종의 조회 함수 역할을 한다.
 - 목적은 복잡한 조회를 가상의 테이블로 표현할 수 있어 SQL문이 간결해진다.
 
@@ -700,9 +706,13 @@ from key_column_usage;
 
 3) 테이블과 컬럼의 키 제약 조건 조회
 
+information_schema로 db 변경한 후,
+
+use information_schema;
+
 select
   t2.table_name,
-  t2.column_name,
+  t2.column_name
   t2.constraint_name,
   t1.constraint_type
 from table_constraints t1
