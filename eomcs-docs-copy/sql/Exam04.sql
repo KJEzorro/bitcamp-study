@@ -49,7 +49,7 @@ create table test1(
 
 /* 첨부 파일 테이블 */
 create table test2(
-  fno int not null primary key auto_increment, /* 첨부파일 고유번호 */
+  fno int not null primary key auto_increment, /* 첨부파일 고유번호 (artificial key) */
   filepath varchar(255) not null, /* 파일시스템에 저장된 첨부파일의 경로 */
   bno int not null /* 게시글 번호 */
 );
@@ -80,14 +80,17 @@ insert into test2(filepath, bno) values('c:/download/f.gif', 10);
 
 
 ## FK 제약 조건이 없을 때
+
+### 문제점 1
 - 첨부파일 데이터를 입력할 때 존재하지 않는 게시물 번호가 들어 갈 수 있다.
-- 그러면 첨부파일 데이터는 무효한 데이타 된다.
+- 그러면 첨부파일 데이터는 무효한 데이터가 된다.
 
 insert into test2(filepath, bno) values('c:/download/x.gif', 100);
 
 
-- 첨부 파일이 있는 게시물을 삭제할 수 있다.
-- 마찬가지로 해당 게시물을 참조하는 첨부파일 데이터는 무효한 데이터가 된다.
+### 문제점 2
+- 첨부 파일이 있는 게시물을 삭제할 때,
+  마찬가지로 해당 게시물을 참조하는 첨부파일 데이터는 무효한 데이터가 된다.
 
 delete from test1 where no=1;
 
