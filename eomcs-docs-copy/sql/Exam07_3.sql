@@ -9,7 +9,7 @@ from room;
 select rno room_no, loc location, name
 from room;
 
-/* 라벨명에 공백을 넣고 싶으면 '' 안에 작성한다.*/
+/* 라벨명에 공백을 넣고 싶으면 '' 안에 작성한다. (특별한 경우가 아니면 공백x)*/
 select rno 'room no', loc location, name
 from room;
 
@@ -24,14 +24,14 @@ from room;
 select count(*)
 from room;
 
-select count(*) cnt
+select count(*) cnt /* count(*)에 별명 붙이기 */
 from room;
 
 select count(*) cnt
 from room
 where loc='서초';
 
-/* count()를 호출할 때 컬럼 이름을 지정하면 
+/* count()를 호출할 때 컬럼 이름을 지정하면
    해당 컬럼의 값이 null 이 아닌 데이터만 카운트한다. */
 select count(loc) cnt
 from room;
