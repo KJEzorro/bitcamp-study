@@ -16,10 +16,10 @@ from lect_appl la
 /* select 절에 서브쿼리 사용하기 */
 
 /* 수강신청 데이터를 출력 */
-select 
-    la.lano, 
-    la.lno, 
-    la.mno, 
+select
+    la.lano,
+    la.lno,
+    la.mno,
     la.rdt
 from lect_appl la;
 
@@ -90,7 +90,7 @@ from lect_appl la
             from lect l) as lec on la.lno=lec.lno;
 
 /* lect_appl 테이블 대신에 서브 쿼리의 결과를 테이블로 사용할 수 있다. */
-select 
+select
     la2.lano,
     la2.rdt,
     la2.sname,
@@ -110,10 +110,10 @@ from (
             inner join memb m on la.mno=m.mno
             inner join stnt s on la.mno=s.mno) la2
      inner join (
-        select 
-            l.lno, 
-            l.titl, 
-            r.name rname, 
+        select
+            l.lno,
+            l.titl,
+            r.name rname,
             m.name mname,
             mr.posi
         from lect l
@@ -163,3 +163,102 @@ from lect_appl la
     join lect2 as lec on la.lno=lec.lno
 where
     lec.manager_no in (select mno from mgr where posi in ('과장', '주임'));
+
+
+
+
+
+-- 서브 쿼리 예1 : select 절에 서브쿼리를 둘 때
+select
+  la.lano,
+  (select titl from lect where lno=la.lno) lect_title,
+  (select name from memb where mno=la.mno) stnt_name,
+  (select work from stnt where mno=la.mno) stnt_work,
+  to_char(la.rdt, 'YYYY-MM-DD') reg_date,
+  ifnull((select name from room where rno=(select rno from lect where lno=la.lno)), '') room_name,
+  ifnull((select name from memb where mno=(select mno from lect where lno=la.lno)), '') mgr_name,
+  ifnull((select posi from mgr where mno=(select mno from lect where lno=la.lno)), '') mgr_posi
+from lect_appl la;
+
+
+-- 서브쿼리 예2 : from 절에 서브쿼리를 둘 때
+-- 1) 강의 정보
+select
+  l.lno lect_no,
+  l.titl lect_title,
+  ifnull((select name from room where rno=l.rno), '') room_name,
+  ifnull((select name from memb where mno=l.mno), '') mgr_name,
+  ifnull((select posi from mgr where mno=l.mno), '') mgr_posi
+from
+  lect l;
+
+-- 2) 수강생 정보
+select
+  s.mno stnt_no,
+  (select name from memb where mno=s.mno) stnt_name,
+  s.work stnt_work
+from
+  stnt s;
+
+
+-- 3) 수강 신청 정보
+select
+  la.lano,
+  la.lno,
+  la.mno,
+  to_char(la.rdt, 'YYYY-MM-DD') reg_date
+from lect_appl la;
+
+
+-- 4) 수강 신청 정보 + 강의 정보 + 수강생 정보
+select
+  la.lano,
+  le.lect_no,
+  le.lect_title,
+  le.room_name,
+  le.mgr_name,
+  le.mgr_posi,
+  st.stnt_no,
+  st.stnt_name,
+  st.stnt_work,
+  to_char(la.rdt, 'YYYY-MM-DD') reg_date
+from lect_appl la
+  inner join (
+    select
+      l.lno lect_no,
+      l.titl lect_title,
+      ifnull((select name from room where rno=l.rno), '') room_name,
+      ifnull((select name from memb where mno=l.mno), '') mgr_name,
+      ifnull((select posi from mgr where mno=l.mno), '') mgr_posi
+    from
+    lect l
+  ) le on la.lno=le.lect_no
+  inner join (
+    select
+      s.mno stnt_no,
+      (select name from memb where mno=s.mno) stnt_name,
+      s.work stnt_work
+    from
+      stnt s
+  )st on la.mno=st.stnt_no;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**/

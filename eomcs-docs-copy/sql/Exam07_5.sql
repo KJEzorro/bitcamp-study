@@ -270,11 +270,50 @@ select
   l.titl,
   m.name student_name,
   s.work,
-  coalesce(r.name, '') room_name,
-  coalesce(m2.name, '')memb.name
+  ifnull(r.name, '') room,
+  ifnull(m2.name, '') manager,
+  ifnull(mr.posi, '') mgr
 from lect_appl la
   inner join lect l on la.lno=l.lno
   inner join memb m on la.mno=m.mno
   inner join stnt s on la.mno=s.mno
   left outer join room r on l.rno=r.rno
-  left outer join memb m2 on l.mno=m2.mno;
+  left outer join memb m2 on l.mno=m2.mno
+  left outer join mgr mr on l.mno=mr.mno;
+
+
+
+
+  /* 여러 테이블의 데이터를 연결하기
+      => 다음의 결과가 출력될 수 있도록 수강 신청 데이터를 출력하시오!
+      수강신청번호, 강의명, 학생명, 재직여부, 수강신청일, 강의실명, 매니저명, 직위 */
+
+select
+  la.lano,
+  (select titl from lect where lno=la.lno) lect_title,
+  (select name from memb where mno=la.mno) stnt_name,
+  (select work from stnt where mno=la.mno) stnt_work,
+  to_char(la.rdt, 'YYYY-MM-DD') reg_date,
+  ifnull((select name from room where rno=(select rno from lect where lno=la.lno)), '') room_name,
+  ifnull((select name from memb where mno=(select mno from lect where lno=la.lno)), '') mgr_name,
+  ifnull((select posi from mgr where mno=(select mno from lect where lno=la.lno)), '') mgr_posi
+from lect_appl la;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  */
