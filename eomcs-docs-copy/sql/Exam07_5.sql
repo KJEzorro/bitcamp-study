@@ -45,7 +45,7 @@ select m.mno, name, s.mno, work, bank
 from memb m, stnt s
 where m.mno=s.mno;
 
-/* natural join 의 문제점
+/* natural join 의 문제점 (실무에서는 잘 안쓰이는 join이다.)
  * 1) 두 테이블의 조인 기준이 되는 컬럼 이름이 다를 때 연결되지 못한다.
    2) 상관 없는 컬럼과 이름이 같을 때 잘못 연결된다.
    3) 같은 이름의 컬럼이 여러 개 있을 경우 잘못 연결된다.
@@ -252,3 +252,29 @@ from lect_appl la
         left outer join room r on l.rno=r.rno
         left outer join memb m2 on l.mno=m2.mno
         left outer join mgr mr on l.mno=mr.mno;
+
+
+
+
+
+
+
+
+
+
+
+select
+  la.lano,
+  /*date_format(la.rdt, '%Y-%m-%d') reg_date,*/
+  to_char(la.rdt, 'YYYY-MM-DD') reg_date,
+  l.titl,
+  m.name student_name,
+  s.work,
+  coalesce(r.name, '') room_name,
+  coalesce(m2.name, '')memb.name
+from lect_appl la
+  inner join lect l on la.lno=l.lno
+  inner join memb m on la.mno=m.mno
+  inner join stnt s on la.mno=s.mno
+  left outer join room r on l.rno=r.rno
+  left outer join memb m2 on l.mno=m2.mno;
