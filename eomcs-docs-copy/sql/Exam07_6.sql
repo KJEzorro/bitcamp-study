@@ -181,6 +181,14 @@ select
 from lect_appl la;
 
 
+
+
+
+
+
+
+
+
 -- 서브쿼리 예2 : from 절에 서브쿼리를 둘 때
 -- 1) 강의 정보
 select
