@@ -9,10 +9,6 @@ import java.util.logging.Logger;
 
 public class MyDriver implements java.sql.Driver {
 
-  static {
-    System.out.println("com.eomcs.jdbc.ex1.MyDriver 클래스 로딩!");
-  }
-
   @Override
   public Connection connect(String url, Properties info) throws SQLException {
     // TODO Auto-generated method stub
@@ -54,5 +50,7 @@ public class MyDriver implements java.sql.Driver {
     // TODO Auto-generated method stub
     return null;
   }
+
+
 
 }
