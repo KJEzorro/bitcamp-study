@@ -25,7 +25,7 @@ public class Exam0220 {
     }
 
     try (Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
+        "jdbc:mariadb://localhost:3306/studydb?user=study&password=1111");
 
         // PreparedStatement는 미리 SQL 문장을 준비하여 값을 삽입하는 기법이다.
         PreparedStatement stmt = con.prepareStatement(
@@ -62,6 +62,9 @@ public class Exam0220 {
       } else {
         System.out.println("변경하였습니다.");
       }
+
+      // 결론 : PreparedStatement 쓰는게 훨씬 낫다.
+
       // Statement vs PreparedStatement
       // 1) SQL 문장의 간결함
       // [Statement]
