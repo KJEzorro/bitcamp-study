@@ -14,7 +14,7 @@ public abstract class AbstractTodoDao implements TodoDao {
 
   // 서브 클래스에서 접근해야 할 필드라면,
   // 접근 범위를 protected로 설정한다.
-  protected ArrayList todoList = new ArrayList();
+  protected ArrayList<Todo> todoList = new ArrayList<>();
 
   // 1) 데이터를 저장하는 save() 메서드가 반드시 있어야 한다.
   //    - insert(), update(), delete(), increaseViewCount() 메서드에서 save()를 사용한다.
@@ -49,7 +49,7 @@ public abstract class AbstractTodoDao implements TodoDao {
     if (no < 0 || no >= todoList.size()) {
       return null;
     }
-    return (Todo) todoList.get(no);
+    return todoList.get(no);
   }
 
   @Override
@@ -67,7 +67,7 @@ public abstract class AbstractTodoDao implements TodoDao {
     if (no < 0 || no >= todoList.size()) {
       return 0;
     }
-    ((Todo) todoList.get(no)).setDone(done);
+    todoList.get(no).setDone(done);
     save();
     return 1;
   }

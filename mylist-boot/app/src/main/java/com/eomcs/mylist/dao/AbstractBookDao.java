@@ -6,7 +6,7 @@ import com.eomcs.mylist.domain.Book;
 public abstract class AbstractBookDao implements BookDao {
 
 
-  protected ArrayList bookList = new ArrayList();
+  protected ArrayList<Book> bookList = new ArrayList<>();
 
 
   protected abstract void save() throws Exception;
@@ -32,7 +32,7 @@ public abstract class AbstractBookDao implements BookDao {
     if (no < 0 || no >= bookList.size()) {
       return null;
     }
-    return (Book) bookList.get(no);
+    return bookList.get(no);
   }
 
   @Override
