@@ -1,7 +1,7 @@
 package com.eomcs.mylist.dao;
 
+import java.util.ArrayList;
 import com.eomcs.mylist.domain.Board;
-import com.eomcs.util.ArrayList;
 
 // 서브 클래스의 공통 분모를 추출하여 수퍼 클래스를 정의할 경우,
 // - 보통 이런 수퍼 클래스는 직접 사용하려고 만든 클래스가 아니다.
