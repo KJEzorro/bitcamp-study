@@ -12,7 +12,7 @@ public interface BoardDao {
 
   Object[] findAll();
 
-  void insert(Board board) throws Exception;
+  int insert(Board board) throws Exception;
 
   Board findByNo(int no);
 
