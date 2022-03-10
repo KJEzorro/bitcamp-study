@@ -1,4 +1,4 @@
-package com.eomcs.mylist.dao;
+package com.eomcs.mylist.dao.mariadb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,16 +7,18 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
+import com.eomcs.mylist.dao.BoardDao;
+import com.eomcs.mylist.dao.DaoException;
 import com.eomcs.mylist.domain.Board;
 // @Repository
 // - 클래스에 이 애너테이션을 붙여 표시해 두면, Spring Boot가 실행될 때 이 클래스의 객체를 자동 생성한다.
 // - 또한 이 객체를 원하는 곳에 자동으로 주입한다.
 
 @Repository   
-public class JdbcBoardDao implements BoardDao {
+public class BoardDaoImpl implements BoardDao {
 
-  public JdbcBoardDao() {
-    System.out.println("JdbcBoardDao 객체 생성");
+  public BoardDaoImpl() {
+    System.out.println("BoardDao 객체 생성");
   }
 
   @Override
