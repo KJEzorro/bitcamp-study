@@ -67,7 +67,6 @@ public class BoardDao {
       stmt.setString(1, board.getTitle());
       stmt.setString(2, board.getContent());
       stmt.setInt(3, board.getNo());
-      stmt.executeUpdate();
 
       return stmt.executeUpdate();
     }

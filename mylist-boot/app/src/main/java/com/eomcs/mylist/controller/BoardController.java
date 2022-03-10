@@ -22,7 +22,7 @@ public class BoardController {
   }
 
   @RequestMapping("/board/list")
-  public Object list() {  
+  public Object list() throws Exception {  
     return boardDao.findAll(); 
   }
 
@@ -33,33 +33,23 @@ public class BoardController {
 
 
   @RequestMapping("/board/get")
-  public Object get(int index) throws Exception {
-    Board board = boardDao.findByNo(index);
+  public Object get(int no) throws Exception {
+    Board board = boardDao.findByNo(no);
     if (board == null) {
       return "";
     }
-    boardDao.increaseViewCount(index);
+    boardDao.increaseViewCount(no);
     return board;
   }
 
   @RequestMapping("/board/update")
-  public Object update(int index, Board board) throws Exception {
-    Board old = boardDao.findByNo(index);
-
-    if (old == null) {
-      return 0;
-    }
-
-    board.setViewCount(old.getViewCount());
-    board.setCreatedDate(old.getCreatedDate());
-
-    return boardDao.update(index, board);
-
+  public Object update(Board board) throws Exception {
+    return boardDao.update(board);
   }
 
   @RequestMapping("/board/delete")
-  public Object delete(int index) throws Exception {
-    return boardDao.delete(index);
+  public Object delete(int no) throws Exception {
+    return boardDao.delete(no);
   }
 
 

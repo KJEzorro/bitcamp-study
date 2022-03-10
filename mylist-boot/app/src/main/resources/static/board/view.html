@@ -11,6 +11,7 @@
 <form>
   별표(*) 항목은 필수 입력입니다.<br>
   <br>
+번호: <input id="x-no" type="text" readonly><br>
 제목*: <input id="x-title" type="text" readonly><br>
 내용*: <textarea id="x-content" cols="60" rows="10"></textarea><br>
 조회수: <span id="x-viewCount"></span><br>
@@ -36,26 +37,27 @@
 
   // 2) 쿼리 스트링에서 index 값을 추출한다.
   var params = new URLSearchParams(qs);
-  var index = params.get("index");
+  var no = params.get("no");
 
-  if (index == null) {
+  if (no == null) {
     alert("error");
     throw "파라미터 오류!";
   }
-  console.log(index);
-
+  console.log(no);
+  var xNo = document.querySelector("#x-no");
   var xTitle = document.querySelector("#x-title");
   var xContent = document.querySelector("#x-content");
   var xViewCount = document.querySelector("#x-viewCount");
   var xCreatedDate = document.querySelector("#x-createdDate");
 
   // 3) 서버에서 데이터 가져오기
-  fetch(`/board/get?index=${index}`)
+  fetch(`/board/get?no=${no}`)
     .then(function(response) {
       return response.json();
     })
     .then(function(board) {
       // 4) 연락처 상세 정보를 화면에 출력한다.
+      xNo.value = board.no
       xTitle.value = board.title
       xContent.value = board.content
       xViewCount.innerHTML = board.viewCount
@@ -68,7 +70,7 @@
       return;
     }
 
-    fetch(`/board/update?index=${index}&title=${xTitle.value}&content=${xContent.value}`)
+    fetch(`/board/update?no=${no}&title=${xTitle.value}&content=${xContent.value}`)
       .then(function(response) {
         console.log(response);
         return response.text();
@@ -84,7 +86,7 @@
   };
 
   document.querySelector("#x-delete-btn").onclick = function() {
-    fetch(`/board/delete?index=${index}`)
+    fetch(`/board/delete?no=${no}`)
       .then(function(response) {
         return response.json();
       })
