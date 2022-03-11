@@ -1,6 +1,7 @@
 package com.eomcs.mylist;
 
 import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,16 +15,32 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class App {
 
+  // 이렇게 인스턴스 필드로 주거나, 아래의 createDataSource() 메서드의 파라미터로 줄 수도 있다.
+  //  @Value("${spring.datasource.driver-class-name}")
+  //  String driverClassName;
+  //  @Value("${spring.datasource.url}")
+  //  String Url;
+  //  @Value("${spring.datasource.username}")
+  //  String username;
+  //  @Value("${spring.datasource.password}")
+  //  String password;
+
   // Spring 프레임워크(IoC = Object pool(객체풀)) 에서 객체를 생성한 후 보관하도록 만드는 방법
-  @Bean // => 다음 메서드를 호출한 후 이 메서드가 리턴한 값을 스프링 부트에 보관하라고 지시하는 애노테이션
-  public DataSource createDataSource() {
-    System.out.println("createDataSource() 호출됨!!!!");
+  @Bean 
+  // => 스프링 부트를 시작할 때 다음 메서드를 호출하게 만든다.
+  // => 이 메서드가 리턴한 값은 스프링 부트의 객체풀에(Object pool) 보관한다.
+  // 
+  public DataSource DataSource(
+      @Value("${spring.datasource.driver-class-name}") String driverClassName,
+      @Value("${spring.datasource.url}") String Url,
+      @Value("${spring.datasource.username}") String username,
+      @Value("${spring.datasource.password}") String password) {
     try {
       DriverManagerDataSource connectionPool = new DriverManagerDataSource();
-      connectionPool.setDriverClassName("org.mariadb.jdbc.Driver");
-      connectionPool.setUrl("jdbc:mariadb://localhost:3306/studydb");
-      connectionPool.setUsername("study");
-      connectionPool.setPassword("1111");
+      connectionPool.setDriverClassName(driverClassName);
+      connectionPool.setUrl(Url);
+      connectionPool.setUsername(username);
+      connectionPool.setPassword(password);
       return connectionPool;
 
     } catch (Exception e) {
