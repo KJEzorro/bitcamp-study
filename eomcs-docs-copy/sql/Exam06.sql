@@ -12,6 +12,36 @@ insert into room(rno, loc, name, qnty) values(8, '서초', '302', 30);
 insert into room(rno, loc, name, qnty) values(9, '서초', '501', 30);
 insert into room(rno, loc, name, qnty) values(10, '서초', '601', 30);
 
+insert into member(
+  email,
+  pwd,
+  name,
+  tel,
+  social_accept,
+  gender,
+  birth,
+  self_introduction,
+  m_img,
+  nickname,
+  score,
+  block_accept,
+  member_status
+)
+values(
+  'test@test.com',
+  'asdasd',
+  '홍길동',
+   '010-2222-2222',
+   true,
+   910521,
+   'hello hello',
+   'dlalwldlalwldlalwl/diwhde/wdqd/',
+   'hongkil',
+   3.55,
+   false,
+   'a'
+   );
+
 /* 학생 데이터 입력 */
 insert into memb(mno, name, tel, email, pwd)
 values(100, 's100', '111-1111', 's100@', sha2('1111', 224));
@@ -94,7 +124,7 @@ insert into lect(lno, titl, sdt, edt, qnty, pric, nat_sup, sup_typ, dsct)
 values(3, '윈도우프로그래밍', '2018-5-1', '2018-10-30', 30, 300, 'Y', '노동부', 'ok');
 
 
-/* 강의에 매니저 배정 */ 
+/* 강의에 매니저 배정 */
 update lect set mno=303 where lno=1;
 update lect set mno=304 where lno=3;
 
