@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoardDao">
+
+  <select id="sql1" resultType="com.eomcs.mylist.domain.Board">
+    select
+      board_no no,
+      title,
+      created_date createdDate,
+      view_count viewCount
+    from
+      ml_board
+    order by
+      board_no desc
+  </select>
+  
+</mapper>

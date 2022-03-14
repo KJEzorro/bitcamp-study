@@ -3,9 +3,10 @@ package com.eomcs.mylist.dao.mariadb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.eomcs.mylist.dao.BoardDao;
@@ -20,6 +21,9 @@ public class BoardDaoImpl implements BoardDao {
 
   @Autowired // => 스프링 부트가 보관하고 있는 객체 중에서 다음 타입의 객체가 있다면 주입해 줄 것을 지시하는 애노테이션.
   DataSource dataSource;
+
+  @Autowired
+  SqlSessionFactory sqlSessionFactory; // => Mybatis: 제공하는 SQL 실행 도구를 만들어 주는 객체.
 
   public BoardDaoImpl() {
     System.out.println("BoardDao 객체 생성");
@@ -42,23 +46,8 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public List<Board> findAll() {
-    try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement( 
-            "select board_no,title,created_date,view_count from ml_board order by board_no desc");
-        ResultSet rs = stmt.executeQuery()) {
-
-      ArrayList<Board> arr = new ArrayList<>();
-      while (rs.next()) {
-        Board board = new Board();
-        board.setNo(rs.getInt("board_no"));
-        board.setTitle(rs.getString("title"));
-        board.setCreatedDate(rs.getDate("created_date"));
-        board.setViewCount(rs.getInt("view_count"));
-        arr.add(board);
-      }
-      return arr;
-    } catch (Exception e) {
-      throw new DaoException(e);
+    try (SqlSession sqlSession = sqlSessionFactory.openSession();) { // SQL을 실행시켜주는 도구를 준비
+      return sqlSession.selectList("BoardDao.sql1");
     }
   }
 
