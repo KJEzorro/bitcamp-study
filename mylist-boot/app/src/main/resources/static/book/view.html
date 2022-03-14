@@ -9,6 +9,7 @@
 <h1>독서록 상세</h1>
 
 <form>
+번호: <input id="x-no" type="text" readonly><br>
 제목*: <input id="x-title" type="text"><br>
 저자*: <input id="x-author" type="text"><br>
 출판사*: <input id="x-press" type="text"><br>
@@ -38,36 +39,37 @@
 
   // 2) 쿼리 스트링에서 email 값을 추출한다.
   var params = new URLSearchParams(qs);
-  var index = params.get("index");
+  var no = params.get("no");
 
-  if (index == null) {
+  if (no == null) {
     alert("독서록 번호가 없습니다.");
     throw "파라미터 오류!";
   }
-  console.log(index);
-
+  console.log(no);
+  var xNo = document.querySelector("#x-no");
   var xTitle = document.querySelector("#x-title");
   var xAuthor = document.querySelector("#x-author");
   var xPress = document.querySelector("#x-press");
+  var xFeed = document.querySelector("#x-feed");
+  var xReadDate = document.querySelector("#x-readDate");
   var xPage = document.querySelector("#x-page");
   var xPrice = document.querySelector("#x-price");
-  var xReadDate = document.querySelector("#x-readDate");
-  var xFeed = document.querySelector("#x-feed");
 
   // 3) 서버에서 데이터 가져오기
-  fetch(`/book/get?index=${index}`)
+  fetch(`/book/get?no=${no}`)
     .then(function(response) {
       return response.json();
     })
     .then(function(book) {
       // 4) 연락처 상세 정보를 화면에 출력한다.
+      xNo.value = book.no;
       xTitle.value = book.title;
       xAuthor.value = book.author;
       xPress.value = book.press;
+      xFeed.value = book.feed;
+      xReadDate.value = book.readDate;
       xPage.value = book.page;
       xPrice.value = book.price;
-      xReadDate.value = book.readDate;
-      xFeed.value = book.feed;
     });
 
   document.querySelector("#x-update-btn").onclick = function() {
@@ -79,7 +81,7 @@
       return;
     }
 
-    var qs = `index=${index}&title=${xTitle.value}&author=${xAuthor.value}&press=${xPress.value}`;
+    var qs = `no=${xNo.value}&title=${xTitle.value}&author=${xAuthor.value}&press=${xPress.value}`;
     qs += `&page=${xPage.value}&price=${xPrice.value}&feed=${xFeed.value}`;
 
     // 독서일을 입력했을 때만 서버에 보낸다.
@@ -102,7 +104,7 @@
   };
 
   document.querySelector("#x-delete-btn").onclick = function() {
-    fetch(`/book/delete?index=${index}`)
+    fetch(`/book/delete?no=${no}`)
       .then(function(response) {
         return response.json();
       })

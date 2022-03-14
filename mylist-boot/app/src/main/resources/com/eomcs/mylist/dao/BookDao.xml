@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eomcs.mylist.dao.BookDao">
+  
+
+  <resultMap type="book" id="bookMap">
+    <id column="book_no" property="no"/>
+    <result column="title" property="title"/>
+    <result column="author" property="author"/>
+    <result column="press" property="press"/>
+    <result column="feed" property="feed"/>
+    <result column="read_Date" property="readDate"/>
+    <result column="page" property="page"/>
+    <result column="price" property="price"/>
+  </resultMap>
+    
+  
+    <select id="countAll" resultType="int">
+    select count(*) from ml_book
+  </select>
+
+
+  <select id="findAll" resultMap="bookMap">
+    select 
+      book_no,
+      title,
+      author,
+      press,
+      page
+    from 
+      ml_book 
+    order by 
+      title asc
+  </select>
+  
+  
+  <insert id="insert" parameterType="book">
+    insert into ml_book(title,author,press,feed,read_date,page,price) 
+    values(#{title},#{author},#{press},#{feed},#{readDate},#{page},#{price})
+  </insert>
+
+
+  <select id="findByNo" resultMap="bookMap" parameterType="int">
+    select
+      book_no,
+      title,
+      author,
+      press,
+      feed,
+      read_date,
+      page,
+      price
+    from
+      ml_book
+    where 
+      book_no=#{no}
+  </select>
+  
+  
+  <update id="update" parameterType="book">
+    update ml_board set
+      title=#{title},
+      author=#{author},
+      press=#{press},
+      feed=#{feed},
+      read_date=#{readDate},
+      page=#{page},
+      price=#{price}
+    where
+      book_no=#{no}
+  </update>
+
+  
+  <delete id="delete" parameterType="int">
+    delete 
+      from ml_book
+    where 
+      book_no=#{no}
+  </delete>
+
+</mapper>
+
+
+
+
+
+
+
+

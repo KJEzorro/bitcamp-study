@@ -10,6 +10,7 @@
 <table id="x-book-table" border="1">
 <thead>
   <tr>
+    <th>번호</th>
     <th>책</th>
     <th>저자</th>
     <th>출판사</th>
@@ -29,10 +30,11 @@
     })
     .then(function(books) {
       console.log(books);
-      for (var i = 0; i < books.length; i++) {
-        var book = books[i];
+      for (var book of books) {
         var tr = document.createElement("tr");
-        tr.innerHTML = `<td><a href="view.html?index=${i}">${book.title}</a></td>
+        tr.innerHTML = `
+        <td>${book.no}</td>
+        <td><a href="view.html?no=${book.no}">${book.title}</a></td>
         <td>${book.author}</td>
         <td>${book.press}</td>
         <td>${book.page}</td>`;
