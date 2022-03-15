@@ -6,7 +6,7 @@
 <mapper namespace="com.eomcs.mylist.dao.ContactDao">
   
 
-  <resultMap type="contact" id="ContactMap">
+  <resultMap type="contact" id="contactMap">
     <id column="contact_no" property="no"/>
     <result column="name" property="name"/>
     <result column="tel" property="tel"/>
@@ -20,62 +20,84 @@
   </select>
 
 
-  <select id="findAll" resultMap="bookMap">
+  <select id="findAll" resultMap="contactMap">
     select 
-      book_no,
-      title,
-      author,
-      press,
-      page
+      contact_no,
+      name,
+      tel,
+      email,
+      company
     from 
-      ml_book 
+      ml_contact
     order by 
-      title asc
+      name asc
   </select>
   
   
-  <insert id="insert" parameterType="book">
-    insert into ml_book(title,author,press,feed,read_date,page,price) 
-    values(#{title},#{author},#{press},#{feed},#{readDate},#{page},#{price})
+  <insert id="insert" parameterType="contact">
+    insert into ml_contact(name,tel,email,company) 
+    values(#{name},#{tel},#{email},#{company})
   </insert>
 
 
-  <select id="findByNo" resultMap="bookMap" parameterType="int">
-    select
-      book_no,
-      title,
-      author,
-      press,
-      feed,
-      read_date,
-      page,
-      price
+  <select id="findByNo" resultMap="contactMap" parameterType="int">
+    select 
+      contact_no,
+      name,
+      tel,
+      email,
+      company
     from
-      ml_book
+      ml_contact
     where 
-      book_no=#{no}
+      contact_no=#{no}
   </select>
   
   
-  <update id="update" parameterType="book">
-    update ml_board set
-      title=#{title},
-      author=#{author},
-      press=#{press},
-      feed=#{feed},
-      read_date=#{readDate},
-      page=#{page},
-      price=#{price}
+  <select id="findByEmail" resultMap="contactMap" parameterType="string">
+    select 
+      contact_no,
+      name,
+      tel,
+      email,
+      company
+    from
+      ml_contact
+    where 
+      email=#{email}
+  </select>
+  
+  
+  <select id="findByName" resultMap="contactMap" parameterType="string">
+    select 
+      contact_no,
+      name,
+      tel,
+      email,
+      company
+    from
+      ml_contact
+    where 
+      name=#{name}
+  </select>
+  
+  
+  <update id="update" parameterType="contact">
+    update ml_contact set
+      name=#{name},
+      tel=#{tel},
+      email=#{email},
+      company=#{company}
     where
-      book_no=#{no}
+      contact_no=#{no}
   </update>
 
   
   <delete id="delete" parameterType="int">
     delete 
-      from ml_book
+      from ml_contact
     where 
-      book_no=#{no}
+      contact_no=#{no}
   </delete>
 
 </mapper>

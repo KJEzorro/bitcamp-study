@@ -9,7 +9,6 @@
 <h1>독서록 상세</h1>
 
 <form>
-번호: <input id="x-no" type="text" readonly><br>
 제목*: <input id="x-title" type="text"><br>
 저자*: <input id="x-author" type="text"><br>
 출판사*: <input id="x-press" type="text"><br>
@@ -46,7 +45,7 @@
     throw "파라미터 오류!";
   }
   console.log(no);
-  var xNo = document.querySelector("#x-no");
+
   var xTitle = document.querySelector("#x-title");
   var xAuthor = document.querySelector("#x-author");
   var xPress = document.querySelector("#x-press");
@@ -62,14 +61,13 @@
     })
     .then(function(book) {
       // 4) 연락처 상세 정보를 화면에 출력한다.
-      xNo.value = book.no;
       xTitle.value = book.title;
       xAuthor.value = book.author;
       xPress.value = book.press;
-      xFeed.value = book.feed;
-      xReadDate.value = book.readDate;
       xPage.value = book.page;
       xPrice.value = book.price;
+      xReadDate.value = book.readDate;
+      xFeed.value = book.feed;
     });
 
   document.querySelector("#x-update-btn").onclick = function() {

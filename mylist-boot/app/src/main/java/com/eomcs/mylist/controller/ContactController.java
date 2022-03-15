@@ -39,8 +39,8 @@ public class ContactController {
 
 
   @RequestMapping("/contact/get")
-  public Object get(String email) throws Exception {
-    Contact contact = contactDao.findByEmail(email);
+  public Object get(int no) throws Exception {
+    Contact contact = contactDao.findByNo(no);
     return contact != null ? contact : "";
   }
 
@@ -50,8 +50,8 @@ public class ContactController {
   }
 
   @RequestMapping("/contact/delete")
-  public Object delete(String email) throws Exception {
-    return contactDao.delete(email);
+  public Object delete(int no) throws Exception {
+    return contactDao.delete(no);
   }
 
 }

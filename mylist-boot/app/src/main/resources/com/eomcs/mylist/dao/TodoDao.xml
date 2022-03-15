@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.eomcs.mylist.dao.BookDao">
+
+  <resultMap type="todo" id="todoMap">
+    <id column="todo_no" property="no"/>
+    <result column="title" property="title"/>
+    <result column="done" property="done"/>
+  </resultMap>
+
+  <select id="countAll" resultType="int">
+    select count(*) from ml_todo
+  </select>
+  
+  <select id="findAll" resultMap="todoMap">
+    select 
+      todo_no,
+      title,
+      done
+    from 
+      ml_todo 
+    order by 
+      no asc
+  </select>
+  
+  <insert id="insert" parameterType="todo">
+    insert into ml_todo(title) 
+    values(#{title})
+  </insert>
+  
+  <select id="findByNo" resultMap="todoMap" parameterType="int">
+    select 
+      todo_no,
+      title,
+      done
+    from 
+      ml_todo
+    where 
+      todo_no=#{no}
+  </select>
+
+  <update id="update" parameterType="todo">
+    update ml_book set 
+      title=#{title}
+    where 
+      todo_no=#{no}
+  </update>
+  
+    <update id="updateDone" parameterType="todo">
+    update ml_book set 
+      title=#{title},
+      done=#{done}
+    where 
+      todo_no=#{no}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    delete from ml_todo 
+    where todo_no=#{no}
+  </delete>
+
+</mapper>
+
+
+
+
+
+
+
+

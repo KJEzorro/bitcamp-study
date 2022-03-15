@@ -12,6 +12,7 @@
   <table id="x-contact-table" border="1">
     <thead>
       <tr>
+        <th>번호</th>
         <th>이름</th>
         <th>이메일</th>
         <th>전화</th>
@@ -35,7 +36,9 @@
         for (var contact of contacts) {
           console.log(contact);
           var tr = document.createElement("tr");
-          tr.innerHTML = `<td><a href="view.html?email=${contact.email}">${contact.name}</a></td>
+          tr.innerHTML = `
+          <td>${contact.no}</td>
+          <td><a href="view.html?no=${contact.no}">${contact.name}</a></td>
         <td>${contact.email}</td>
         <td>${contact.tel}</td>
         <td>${contact.company}</td>`;

@@ -31,8 +31,7 @@
     .then(function(books) {
       for (var book of books) {
         var tr = document.createElement("tr");
-        tr.innerHTML = `
-        <td>${book.no}</td>
+        tr.innerHTML = `<td>${book.no}</td>
         <td><a href="view.html?no=${book.no}">${book.title}</a></td>
         <td>${book.author}</td>
         <td>${book.press}</td>
