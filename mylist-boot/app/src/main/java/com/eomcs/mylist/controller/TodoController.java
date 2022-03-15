@@ -6,48 +6,36 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.mylist.dao.TodoDao;
 import com.eomcs.mylist.domain.Todo;
 
-@RestController 
+@RestController
 public class TodoController {
 
   @Autowired
   TodoDao todoDao;
 
-
-  public TodoController() {
-    System.out.println("TodoController() 호출됨!");
-
-  }
-
   @RequestMapping("/todo/list")
   public Object list() {
-    return todoDao.findAll(); 
+    return todoDao.findAll();
   }
 
   @RequestMapping("/todo/add")
-  public Object add(Todo todo) {
+  public Object add(Todo todo) throws Exception {
     todoDao.insert(todo);
     return todoDao.countAll();
   }
 
   @RequestMapping("/todo/update")
-  public Object update(Todo todo) {
+  public Object update(Todo todo) throws Exception {
     return todoDao.update(todo);
   }
 
   @RequestMapping("/todo/check")
-  public Object check(int no, boolean done) {
+  public Object check(int no, boolean done) throws Exception {
     return todoDao.updateDone(no, done);
   }
 
   @RequestMapping("/todo/delete")
-  public Object delete(int no) {
+  public Object delete(int no) throws Exception {
     return todoDao.delete(no);
-
   }
 
-
 }
-
-
-
-

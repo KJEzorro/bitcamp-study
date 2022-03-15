@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
   <meta charset="utf-8">
-  <title>Todo</title>
+  <title>To-do</title>
   <style>
-    .todo-checked {
-      text-decoration: line-through;
-      background-color: yellow;
-    }
+  .todo-checked {
+    text-decoration: line-through;
+    color: gray;
+  }
   </style>
 </head>
-
 <body>
-  <h1>Todo</h1>
+<h1>To-do</h1>
 
-  <p>할 일 <input id="x-todo-input" type="text"></p>
-  <table id="x-todo-table" border="1">
-    <thead>
-      <tr>
-        <th></th>
-        <th>해야 할 일</th>
-        <th>변경</th>
-        <th>삭제</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+<p>할 일 <input id="x-todo-input" type="text"></p>
+<table id="x-todo-table" border="1">
+<thead>
+  <tr>
+    <th></th>
+    <th>해야 할 일</th>
+    <th>변경</th>
+    <th>삭제</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
 
-  <input type="text" id="x-title-input">
+<input type="text" id="x-title-input">
 
-  <script type="text/javascript">
-    "use strict"
+<script type="text/javascript">
+  "use strict"
 
-    var titleInput = document.querySelector("#x-title-input")
-    titleInput.style["display"] = "none"
+  var titleInput = document.querySelector("#x-title-input");
+  titleInput.style["display"] = "none";
 
-    var tbody = document.querySelector("#x-todo-table tbody")
+  var tbody = document.querySelector("#x-todo-table tbody");
 
-    document.querySelector("#x-todo-input").onkeyup = function(e) {
-      if (e.key === "Escape") {
-        e.target.value = ""
+  document.querySelector("#x-todo-input").onkeyup = function(e) {
+    if (e.keyCode == 27) {
+      e.target.value = "";
 
-      } else if (e.key == "Enter"){
+    } else if (e.keyCode == 13) {
       if (e.target.value == "") {
         window.alert("필수 입력 항목이 비어 있습니다.");
         return;
@@ -55,153 +53,114 @@
         })
         .then(function(text) {
           console.log(text);
-          location.reload()
+          location.reload();
         });
     }
-  }
+  };
 
-    /*
-        // 삭제 버튼을 클릭 했을 때 호출될 리스너 등록하기
-        // => 삭제 버튼은 동적으로 생성된다.
-        // => 따라서 부모 태그에 리스너를 등록해야 한다.
-        tbody.onclick = function(e) {
-          // if (e.target.localName == "button") { // 아래 방법이나 이 방법 중 아무거나 사용해도 괜찮다.
-          if (e.target instanceof HTMLButtonElement) {
-            var no = e.target.getAttribute("data-no")
-            fetch(`/todo/delete?index=${no}`)
-              .then(function(response) {
-                return response.json();
-              })
-              .then(function(result) {
-                if (result == 0) {
-                  alert("삭제하지 못했습니다.")
-                } else {
-                  location.reload() // 새로고침 refresh와 같다.
-                }
-              });
-          }
+  fetch("/todo/list")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(todoList) {
+      console.log(todoList);
+      for (var todo of todoList) {
+        var tr = document.createElement("tr");
+        tr.setAttribute("data-no", todo.no);
+        var checkedOption = "";
+        var titleTdOption = "";
+        if (todo.done) {
+          checkedOption = "checked";
+          titleTdOption = "class='todo-checked'";
         }
-    */
-
-
-
-    fetch("/todo/list")
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(todoList) {
-        console.log(todoList);
-        for (var i = 0; i < todoList.length; i++) {
-          var tr = document.createElement("tr");
-          tr.setAttribute("data-no", i)
-          var checkedOption = ""
-          var titleTdOption = ""
-          if (todoList[i].done) {
-            checkedOption = "checked"
-            titleTdOption = "class='todo-checked'"
-          }
-
-          tr.innerHTML = `
-          <td><input type="checkbox" ${checkedOption} onchange="checkTodo(${i}, event.target.checked)"></td>
-          <td class="todo-title"><span ${titleTdOption}>${todoList[i].title}</span></td>
-          <td><button type="button" onclick="updateTodo(${i})">변경</button></td>
-          <td><button type="button" onclick="deleteTodo(${i})">삭제</button></td>`
-          tbody.appendChild(tr);
-        }
-        document.querySelector("#x-todo-input").focus()
-      });
-
-    function deleteTodo(no) {
-      fetch(`/todo/delete?index=${no}`)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(result) {
-          if (result == 0) {
-            alert("삭제하지 못했습니다.")
-          } else {
-            location.reload() // 새로고침 refresh와 같다.
-          }
-        });
-    }
-
-    function checkTodo(no, checked) {
-      console.log(no, checked);
-      fetch(`/todo/check?index=${no}&done=${checked}`)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(result) {
-          if (result == 0) {
-            alert("변경하지 못했습니다.")
-          } else {
-            var titleSpan = document.querySelector(`tr[data-no="${no}"] > td.todo-title > span`)
-            if (checked) {
-              titleSpan.classList.add("todo-checked")
-            } else {
-              titleSpan.classList.remove("todo-checked")
-            }
-            /*
-            checked == true ?
-            titleTd.style["text-decoration"] = "line-through" : titleTd.style["text-decoration"] = "none"
-            */
-
-          }
-        });
-    }
-
-    function updateTodo(no) {
-
-      // 현재 Todo 항목을 편집 중인 상태에서 변경 버튼을 눌렀다면
-      if (titleInput.parentNode instanceof HTMLTableCellElement) {
-        // 다른 항목을 편집하기 위해 이동하기 전에 편집 전의 상태로 되돌린다.
-        titleInput.parentNode.querySelector("span").style["display"] = ""
+        tr.innerHTML = `<td><input type="checkbox" ${checkedOption} onchange="checkTodo(${todo.no}, event.target.checked)"></td>
+        <td class="todo-title"><span ${titleTdOption}>${todo.title}</span></td>
+        <td><button type="button" onclick="updateTodo(${todo.no})">변경</button></td>
+        <td><button type="button" onclick="deleteTodo(${todo.no})">삭제</button></td>`;
+        tbody.appendChild(tr);
       }
-      var titleTd = document.querySelector(`tr[data-no="${no}"] > td.todo-title`)
-      var titleSpan = titleTd.querySelector("span")
-      titleSpan.style["display"] = "none"
-      titleInput.value = titleSpan.innerHTML
-      titleInput.setAttribute("data-no", no)
-      titleTd.appendChild(titleInput)
-      titleInput.style["display"] = "";
-    }
+      document.querySelector("#x-todo-input").focus();
+    });
 
+ function deleteTodo(no) {
+   fetch(`/todo/delete?no=${no}`)
+     .then(function(response) {
+       return response.json();
+     })
+     .then(function(result) {
+       if (result == 0) {
+         window.alert("삭제하지 못했습니다!");
+       } else {
+         location.reload();
+       }
+     });
+ }
 
-    titleInput.onkeyup = function(e) {
-      var no = titleInput.getAttribute("data-no")
-      var titleSpan = titleInput.parentNode.querySelector("span")
-      var originTitle = titleSpan.innerHTML
+ function checkTodo(no, checked) {
+   console.log(no, checked);
+   fetch(`/todo/check?no=${no}&done=${checked}`)
+     .then(function(response) {
+       return response.json();
+     })
+     .then(function(result) {
+       if (result == 0) {
+         window.alert("변경하지 못했습니다!");
+       } else {
+         var titleSpan = document.querySelector(`tr[data-no="${no}"] > td.todo-title > span`);
+         if (checked) {
+           titleSpan.classList.add("todo-checked");
+         } else {
+           titleSpan.classList.remove("todo-checked")
+         }
+       }
+     });
+ }
 
-      if (e.key == "Escape" /* 아니면 e.keyCode == 27 */ ) { /// ESC 키를 눌러 편집을 취소한다면
-        cancelTodoEditing()
-      }
+ function updateTodo(no) {
+   // 현재 Todo 항목을 편집 중인 상태에서 변경 버튼을 눌렀다면
+   if (titleInput.parentNode instanceof HTMLTableCellElement) {
+     // 다른 항목을 편집하기 위해 이동하기 전에 편집 전의 상태로 되돌린다.
+     titleInput.parentNode.querySelector("span").style["display"] = "";
+   }
+   var titleTd = document.querySelector(`tr[data-no="${no}"] > td.todo-title`);
+   var titleSpan = titleTd.querySelector("span");
+   titleSpan.style["display"] = "none";
+   titleInput.value = titleSpan.innerHTML;
+   titleInput.setAttribute("data-no", no);
+   titleTd.appendChild(titleInput);
+   titleInput.style["display"] = "";
+ }
 
-      if (e.key == "Enter" /* 아니면 e.keyCode == 13 */ && titleInput.value != "" &&
-        originTitle != titleInput.value) {
-        fetch(`/todo/update?index=${no}&title=${titleInput.value}`)
-          .then(function(response) {
-            return response.json();
-          })
-          .then(function(result) {
-            if (result == 0) {
-              alert("변경하지 못했습니다.")
-            } else {
-              console.log("변경했습니다.");
-              titleSpan.innerHTML = titleInput.value
-              cancelTodoEditing()
-            }
-          });
-      }
-    }
+ titleInput.onkeyup = function(e) {
+   var no = titleInput.getAttribute("data-no");
+   var titleSpan = titleInput.parentNode.querySelector("span");
+   var originTitle = titleSpan.innerHTML;
 
-    function cancelTodoEditing() {
-      titleInput.parentNode.querySelector("span").style["display"] = ""
-      titleInput.style["display"] = "none"
-      document.body.appendChild(titleInput)
+   if (e.keyCode == 27) { // ESC 키를 눌러 편집을 취소한다면
+     cancelTodoEditing();
+   } else if (e.keyCode == 13 && titleInput.value != "" && originTitle != titleInput.value) {
+     fetch(`/todo/update?no=${no}&title=${titleInput.value}`)
+       .then(function(response) {
+         return response.json();
+       })
+       .then(function(result) {
+         if (result == 0) {
+           window.alert("변경하지 못했습니다!");
+         } else {
+           console.log("변경했습니다.");
+           titleSpan.innerHTML = titleInput.value;
+           cancelTodoEditing();
+         }
+       });
+   }
+ };
 
-    }
-  </script>
+ function cancelTodoEditing() {
+   titleInput.parentNode.querySelector("span").style["display"] = "";
+   titleInput.style["display"] = "none";
+   document.body.appendChild(titleInput);
+ }
+</script>
 
 </body>
-
 </html>

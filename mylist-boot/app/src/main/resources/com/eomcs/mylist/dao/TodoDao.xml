@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-<mapper namespace="com.eomcs.mylist.dao.BookDao">
+
+<mapper namespace="com.eomcs.mylist.dao.TodoDao">
 
   <resultMap type="todo" id="todoMap">
     <id column="todo_no" property="no"/>
@@ -14,60 +14,51 @@
   <select id="countAll" resultType="int">
     select count(*) from ml_todo
   </select>
-  
+
   <select id="findAll" resultMap="todoMap">
-    select 
+    select
       todo_no,
       title,
       done
-    from 
-      ml_todo 
-    order by 
-      no asc
+    from
+      ml_todo
+    order by
+      title asc
   </select>
-  
+
   <insert id="insert" parameterType="todo">
-    insert into ml_todo(title) 
+    insert into ml_todo(title)
     values(#{title})
   </insert>
-  
+
   <select id="findByNo" resultMap="todoMap" parameterType="int">
-    select 
+    select
       todo_no,
       title,
       done
-    from 
+    from
       ml_todo
-    where 
+    where
       todo_no=#{no}
   </select>
 
   <update id="update" parameterType="todo">
-    update ml_book set 
+    update ml_todo set
       title=#{title}
-    where 
+    where
       todo_no=#{no}
   </update>
-  
-    <update id="updateDone" parameterType="todo">
-    update ml_book set 
-      title=#{title},
+
+  <update id="updateDone">
+    update ml_todo set
       done=#{done}
-    where 
+    where
       todo_no=#{no}
   </update>
 
   <delete id="delete" parameterType="int">
-    delete from ml_todo 
+    delete from ml_todo
     where todo_no=#{no}
   </delete>
 
 </mapper>
-
-
-
-
-
-
-
-
