@@ -29,7 +29,6 @@
       return response.json();
     })
     .then(function(books) {
-      console.log(books);
       for (var book of books) {
         var tr = document.createElement("tr");
         tr.innerHTML = `
