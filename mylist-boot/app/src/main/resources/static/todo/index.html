@@ -29,7 +29,7 @@
 
 <input type="text" id="x-title-input">
 
-<script type="text/javascript" src="../myQuery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
   "use strict"
 
@@ -111,9 +111,9 @@
        } else {
          var titleSpan = $(`tr[data-no="${no}"] > td.todo-title > span`);
          if (checked) {
-           titleSpan.classList.add("todo-checked");
+           titleSpan.addClass("todo-checked");
          } else {
-           titleSpan.classList.remove("todo-checked")
+           titleSpan.removeClass("todo-checked")
          }
        }
      });
@@ -121,7 +121,7 @@
 
  function updateTodo(no) {
    // 현재 Todo 항목을 편집 중인 상태에서 변경 버튼을 눌렀다면
-   if (titleInput.parentNode instanceof HTMLTableCellElement) {
+   if (titleInput.parent()[0] instanceof HTMLTableCellElement) {
      // 다른 항목을 편집하기 위해 이동하기 전에 편집 전의 상태로 되돌린다.
      titleInput.parent().find("span").css("display","");
    }
