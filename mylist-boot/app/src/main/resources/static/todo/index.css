@@ -1,0 +1,4 @@
+.todo-checked {
+  text-decoration: line-through;
+  color: gray;
+}
