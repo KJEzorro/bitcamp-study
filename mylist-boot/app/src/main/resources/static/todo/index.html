@@ -29,15 +29,17 @@
 
 <input type="text" id="x-title-input">
 
+<script type="text/javascript" src="../myQuery.js"></script>
 <script type="text/javascript">
   "use strict"
 
-  var titleInput = document.querySelector("#x-title-input");
-  titleInput.style["display"] = "none";
+  var titleInput = $("#x-title-input");
+  // titleInput.style["display"] = "none"; // 아래 코드로 변경.
+  titleInput.css("display", "none")
 
-  var tbody = document.querySelector("#x-todo-table tbody");
+  var tbody = $("#x-todo-table tbody");
 
-  document.querySelector("#x-todo-input").onkeyup = function(e) {
+  $("#x-todo-input").onkeyup = function(e) {
     if (e.keyCode == 27) {
       e.target.value = "";
 
@@ -79,7 +81,7 @@
         <td><button type="button" onclick="deleteTodo(${todo.no})">삭제</button></td>`;
         tbody.appendChild(tr);
       }
-      document.querySelector("#x-todo-input").focus();
+      $("#x-todo-input").focus();
     });
 
  function deleteTodo(no) {
@@ -106,7 +108,7 @@
        if (result == 0) {
          window.alert("변경하지 못했습니다!");
        } else {
-         var titleSpan = document.querySelector(`tr[data-no="${no}"] > td.todo-title > span`);
+         var titleSpan = $(`tr[data-no="${no}"] > td.todo-title > span`);
          if (checked) {
            titleSpan.classList.add("todo-checked");
          } else {
@@ -122,13 +124,13 @@
      // 다른 항목을 편집하기 위해 이동하기 전에 편집 전의 상태로 되돌린다.
      titleInput.parentNode.querySelector("span").style["display"] = "";
    }
-   var titleTd = document.querySelector(`tr[data-no="${no}"] > td.todo-title`);
-   var titleSpan = titleTd.querySelector("span");
-   titleSpan.style["display"] = "none";
-   titleInput.value = titleSpan.innerHTML;
-   titleInput.setAttribute("data-no", no);
+   var titleTd = $(`tr[data-no="${no}"] > td.todo-title`);
+   var titleSpan = titleTd.find("span");
+   titleSpan.css("display", "none");
+   titleInput.val(titleSpan.html());
+   titleInput.attr("data-no", no);
    titleTd.appendChild(titleInput);
-   titleInput.style["display"] = "";
+   titleInput.css("display", "");
  }
 
  titleInput.onkeyup = function(e) {
