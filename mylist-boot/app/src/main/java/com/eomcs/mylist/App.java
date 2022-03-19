@@ -26,7 +26,6 @@ public class App {
         System.out.printf("---->%03d: %s%n", i + 1, bean.getClass().getName());
       }
     };
-
   }
 
   @RequestMapping("/hello")

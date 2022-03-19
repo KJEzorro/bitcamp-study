@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.mylist.dao.ContactDao;
 import com.eomcs.mylist.domain.Contact;
+import com.eomcs.mylist.domain.ContactTel;
 
 //1) 생성자에서 FileReader 객체를 준비한다.
 //2) 파일에서 문자를 읽어 출력한다.
@@ -32,9 +33,13 @@ public class ContactController {
   }
 
   @RequestMapping("/contact/add")
-  public Object add(Contact contact) throws Exception {
+  public Object add(Contact contact, String[] tel) throws Exception {
     contactDao.insert(contact);
-    return contactDao.countAll();
+    for (int i = 0; i < tel.length; i++) {
+      String[] value = tel[i].split(","); 
+      contactDao.insertTel(new ContactTel(contact.getNo(),Integer.parseInt(value[0]), value[1]));
+    }
+    return 1;
   }
 
 

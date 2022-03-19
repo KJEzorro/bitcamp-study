@@ -38,8 +38,9 @@
       name asc
   </select>
   
-  
-  <insert id="insert" parameterType="contact">
+  <!-- 자동 증가된 PK 값을 받고 싶을 때! -->
+  <insert id="insert" parameterType="contact" 
+  keyProperty="no" keyColumn="contact_no" useGeneratedKeys="true">
     insert into ml_contact(name,email,company) 
     values(#{name},#{email},#{company})
   </insert>

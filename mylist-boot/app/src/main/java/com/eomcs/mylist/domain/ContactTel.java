@@ -6,6 +6,14 @@ public class ContactTel {
   int telTypeNo;
   String tel;
 
+  public ContactTel() {}
+
+  public ContactTel(int contactNo, int telTypeNo, String tel) {
+    this.contactNo = contactNo;
+    this.telTypeNo = telTypeNo;
+    this.tel = tel;
+  }
+
   @Override
   public String toString() {
     return "ContactTel [no=" + no + ", contactNo=" + contactNo + ", telTypeNo=" + telTypeNo
