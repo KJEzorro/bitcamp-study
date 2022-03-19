@@ -3,6 +3,7 @@ package com.eomcs.mylist.dao;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import com.eomcs.mylist.domain.Contact;
+import com.eomcs.mylist.domain.ContactTel;
 
 @Mapper
 public interface ContactDao {  
@@ -27,6 +28,13 @@ public interface ContactDao {
 
   int delete(int no);
 
+  List<ContactTel> findByContactNo(int contactNo);
+
+  int insertTel(ContactTel tel);
+
+  int updateTel(ContactTel tel);
+
+  int deleteTel(int telNo);
 
 }
 
