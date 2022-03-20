@@ -60,8 +60,6 @@ insert into ml_tel_type(tt_no, title)
 
 
 
-
-
 -- 연락처 기본 정보 등록
 insert into ml_contact(contact_no,name,email,company)
   values(1,'사람1','user1@test.com','비트캠프');
@@ -81,6 +79,7 @@ insert into ml_cont_tel(ct_no, contact_no, tt_no, tel)
   values(4, 2, 3, '010-1111-2222');
 insert into ml_cont_tel(ct_no, contact_no, tt_no, tel)
   values(5, 3, 3, '010-1111-3333');
+
 
 
 
