@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.mylist.domain.Contact;
 import com.eomcs.mylist.domain.ContactTel;
-import com.eomcs.mylist.service.ContactServiceTransaction2;
+import com.eomcs.mylist.service.ContactService;
 
 //1) 생성자에서 FileReader 객체를 준비한다.
 //2) 파일에서 문자를 읽어 출력한다.
@@ -22,7 +22,7 @@ import com.eomcs.mylist.service.ContactServiceTransaction2;
 public class ContactController {
 
   @Autowired
-  ContactServiceTransaction2 contactService;
+  ContactService contactService; // 클래스 대신 인터페이스를 지정한다.
 
   public ContactController() {
     System.out.println("ContactController() 호출됨!");
