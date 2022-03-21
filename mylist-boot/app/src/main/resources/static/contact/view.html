@@ -99,7 +99,7 @@
         var xTelType = xTelDiv.querySelector("select");
         var xTel = xTelDiv.querySelector("input");
 
-        qs += `&tel=${xTelType.value},${xTel.value}`;
+        qs += `&tel=${xTelType.value}_${xTel.value}`;
       }
       console.log(qs);
 
