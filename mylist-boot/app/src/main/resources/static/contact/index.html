@@ -40,20 +40,12 @@
           <td>${contact.no}</td>
           <td><a href="view.html?no=${contact.no}">${contact.name}</a></td>
         <td>${contact.email}</td>
-        <td>${contact.tel}</td>
+        <td>${contact.tels.length > 0 ? contact.tels[0].tel : ""}</td>
         <td>${contact.company}</td>`;
           tbody.appendChild(tr);
         }
       });
   </script>
-
-
-
-
-
-
-
-
 
 </body>
 

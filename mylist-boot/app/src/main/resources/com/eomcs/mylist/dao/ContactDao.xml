@@ -102,7 +102,7 @@
       contact_no=#{no}
   </delete>
   
-  <select id="findByContactNo" resultMap="contactTelMap" parameterType="int">
+  <select id="findTelByContactNo" resultMap="contactTelMap" parameterType="int">
     select
       ct_no,
       contact_no,
@@ -130,6 +130,11 @@
   <delete id="deleteTel" parameterType="int">
     delete from ml_cont_tel
     where ct_no=#{no}
+  </delete>
+  
+  <delete id="deleteTelByContactNo" parameterType="int">
+    delete from ml_cont_tel
+    where contact_no=#{no}
   </delete>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.eomcs.mylist.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,33 +30,55 @@ public class ContactController {
 
   @RequestMapping("/contact/list")
   public Object list() {
-    return contactDao.findAll(); 
+    List<Contact> contacts = contactDao.findAll();
+    for (Contact contact : contacts) {
+      contact.setTels(contactDao.findTelByContactNo(contact.getNo()));
+    }
+    return contacts;
   }
 
   @RequestMapping("/contact/add")
-  public Object add(Contact contact, String[] tel) throws Exception {
+  public Object add(Contact contact, String[] tel) {
     contactDao.insert(contact);
     for (int i = 0; i < tel.length; i++) {
       String[] value = tel[i].split(","); 
+      if (value[1].length() == 0) {
+        continue;
+      }
       contactDao.insertTel(new ContactTel(contact.getNo(),Integer.parseInt(value[0]), value[1]));
     }
     return 1;
   }
 
-
   @RequestMapping("/contact/get")
-  public Object get(int no) throws Exception {
+  public Object get(int no) {
     Contact contact = contactDao.findByNo(no);
-    return contact != null ? contact : "";
+    if (contact == null) {
+      return "";
+    }
+    contact.setTels(contactDao.findTelByContactNo(no));
+    return contact;
   }
 
   @RequestMapping("/contact/update")
-  public Object update(Contact contact) throws Exception {
-    return contactDao.update(contact);
+  public Object update(Contact contact, String[] tel) throws Exception {
+    int count = contactDao.update(contact);
+    if (count > 0) {
+      contactDao.deleteTelByContactNo(contact.getNo());
+      for (int i = 0; i < tel.length; i++) {
+        String[] value = tel[i].split(","); 
+        if (value[1].length() == 0) {
+          continue;
+        } 
+        contactDao.insertTel(new ContactTel(contact.getNo(),Integer.parseInt(value[0]), value[1]));
+      }
+    }
+    return count;
   }
 
   @RequestMapping("/contact/delete")
   public Object delete(int no) throws Exception {
+    contactDao.deleteTelByContactNo(no);
     return contactDao.delete(no);
   }
 

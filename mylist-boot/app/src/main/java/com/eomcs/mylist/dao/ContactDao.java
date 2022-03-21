@@ -28,13 +28,15 @@ public interface ContactDao {
 
   int delete(int no);
 
-  List<ContactTel> findByContactNo(int contactNo);
+  List<ContactTel> findTelByContactNo(int contactNo);
 
   int insertTel(ContactTel tel);
 
   int updateTel(ContactTel tel);
 
   int deleteTel(int telNo);
+
+  int deleteTelByContactNo(int contactNo);
 
 }
 
