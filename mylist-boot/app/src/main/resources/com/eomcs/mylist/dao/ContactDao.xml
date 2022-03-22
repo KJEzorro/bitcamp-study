@@ -7,10 +7,18 @@
   
 
   <resultMap type="contact" id="contactMap">
+  
     <id column="contact_no" property="no"/>
     <result column="name" property="name"/>
     <result column="email" property="email"/>
     <result column="company" property="company"/>
+    
+    <collection property="tels" ofType="contactTel">
+      <id column="ct_no" property="no"/>
+      <result column="tt_no" property="telTypeNo"/>
+      <result column="tel" property="tel"/>
+    </collection>
+    
   </resultMap>
   
   <resultMap type="contactTel" id="contactTelMap">
@@ -28,14 +36,18 @@
 
   <select id="findAll" resultMap="contactMap">
     select 
-      contact_no,
-      name,
-      email,
-      company
+      c.contact_no,
+      c.name,
+      c.email,
+      c.company,
+      t.ct_no,
+      t.tt_no,
+      t.tel
     from 
-      ml_contact
+      ml_contact c
+      left outer join ml_cont_tel t on c.contact_no=t.contact_no
     order by 
-      name asc
+      c.name asc
   </select>
   
   <!-- 자동 증가된 PK 값을 받고 싶을 때! -->
@@ -48,40 +60,52 @@
 
   <select id="findByNo" resultMap="contactMap" parameterType="int">
     select 
-      contact_no,
-      name,
-      email,
-      company
+      c.contact_no,
+      c.name,
+      c.email,
+      c.company,
+      t.ct_no,
+      t.tt_no,
+      t.tel
     from
-      ml_contact
+      ml_contact c
+      left outer join ml_cont_tel t on c.contact_no=t.contact_no
     where 
-      contact_no=#{no}
+      c.contact_no=#{no}
   </select>
   
   
   <select id="findByEmail" resultMap="contactMap" parameterType="string">
     select 
-      contact_no,
-      name,
-      email,
-      company
+      c.contact_no,
+      c.name,
+      c.email,
+      c.company,
+      t.ct_no,
+      t.tt_no,
+      t.tel
     from
-      ml_contact
+      ml_contact c
+      left outer join ml_cont_tel t on c.contact_no=t.contact_no
     where 
-      email=#{email}
+      c.email=#{email}
   </select>
   
   
   <select id="findByName" resultMap="contactMap" parameterType="string">
     select 
-      contact_no,
-      name,
-      email,
-      company
+      c.contact_no,
+      c.name,
+      c.email,
+      c.company,
+      t.ct_no,
+      t.tt_no,
+      t.tel
     from
-      ml_contact
+      ml_contact c
+      left outer join ml_cont_tel t on c.contact_no=t.contact_no
     where 
-      name=#{name}
+      c.name=#{name}
   </select>
   
   
@@ -117,6 +141,14 @@
   <insert id="insertTel" parameterType="contactTel">
     insert into ml_cont_tel(contact_no,tt_no,tel)
     values(#{contactNo},#{telTypeNo},#{tel})
+  </insert>
+  
+  <insert id="insertTels">
+    insert into ml_cont_tel(contact_no,tt_no,tel)
+    values
+     <foreach collection="tels" item="contactTel" separator=",">
+    (#{contactNo}, #{contactTel.telTypeNo}, #{contactTel.tel})
+     </foreach>
   </insert>
   
   <update id="updateTel" parameterType="contactTel">
