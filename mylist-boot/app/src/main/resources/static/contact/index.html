@@ -23,30 +23,48 @@
     </tbody>
   </table>
 
+  <script id="tr-template" type="text/x-handlebars-template">
+    {{#each this}}
+      <tr>
+        <td>{{no}}</td>
+        <td><a href="view.html?no={{no}}">{{name}}</a></td>
+        <td>{{email}}</td>
+        <td>{{tels.[0].tel}}</td>
+        <td>{{company}}</td>
+      </tr>
+    {{/each}}
+  </script>
+
+  <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
   <script type="text/javascript">
     var tbody = document.querySelector("#x-contact-table tbody")
+    // 템플릿 엔진에서 사용할 HTML 조각을 가져오기
+    var trTemplate = document.querySelector("#tr-template")
+
+    // 컴파일 엔진준비
+    var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
 
     fetch("/contact/list")
       .then(function(response) {
-        console.log(response);
         return response.json();
       })
       .then(function(contacts) {
-        console.log(contacts);
-        for (var contact of contacts) {
-          console.log(contact);
-          var tr = document.createElement("tr");
-          tr.innerHTML = `
-          <td>${contact.no}</td>
-          <td><a href="view.html?no=${contact.no}">${contact.name}</a></td>
-        <td>${contact.email}</td>
-        <td>${contact.tels.length > 0 ? contact.tels[0].tel : ""}</td>
-        <td>${contact.company}</td>`;
-          tbody.appendChild(tr);
-        }
+        // 서버에서 받은 연락처 배열을 가지고 템플릿 엔진을 실행하여 tbody 콘텐트를 생성한다.
+        tbody.innerHTML = htmlGenerator(contacts);
       });
   </script>
 
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+<!--  -->
