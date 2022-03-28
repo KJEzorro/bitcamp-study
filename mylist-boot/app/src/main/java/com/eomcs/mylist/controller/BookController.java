@@ -24,7 +24,7 @@ public class BookController {
   BookService bookService;
 
   @RequestMapping("/book/list")
-  public Object list() {
+  public Object list() throws Exception {
     return bookService.list();
   }
 
@@ -96,6 +96,7 @@ public class BookController {
       //
       //      return 응답데이터; // 포장한 응답 데이터를 클라이언트로 리턴한다.
 
+      // 위 코드를 아래 코드로 간략하게 할 수 있다.
       return ResponseEntity.ok() // HTTP 응답 프로토콜에 따라 응답을 수행할 생성기를 준비한다.
           .headers(header) // 응답 헤더를 설정한다.
           .contentLength(downloadFile.length()) // 응답할 파일의 크기를 설정한다.
@@ -103,7 +104,8 @@ public class BookController {
           .body(resource); // 응답 콘텐트를 생성한 후 리턴한다.
 
     } catch (Exception e) {
-      e.printStackTrace();
+      //      e.printStackTrace();
+      System.out.println("요청한 파일이 없습니다");
       return null;
     }
   }
@@ -119,6 +121,8 @@ public class BookController {
       if (dotIndex != -1) {
         filename += file.getOriginalFilename().substring(dotIndex);
       }
+      System.out.println("=>>" + dotIndex);
+      System.out.println("filename->" + filename);
 
       // 파일을 지정된 폴더에 저장한다.
       File photoFile = new File("./upload/book/" + filename); // App 클래스를 실행하는 프로젝트 폴더
