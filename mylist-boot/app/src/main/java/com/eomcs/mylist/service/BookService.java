@@ -15,10 +15,3 @@ public interface BookService {
 
   int delete(int no);
 }
-
-
-
-
-
-
-

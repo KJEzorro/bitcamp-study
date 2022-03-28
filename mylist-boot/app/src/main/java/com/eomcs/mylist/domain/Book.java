@@ -12,6 +12,7 @@ public class Book {
   int page;
   int price;
   String photo;
+
   public int getNo() {
     return no;
   }
@@ -66,12 +67,14 @@ public class Book {
   public void setPhoto(String photo) {
     this.photo = photo;
   }
+
   @Override
   public String toString() {
     return "Book [no=" + no + ", title=" + title + ", author=" + author + ", press=" + press
         + ", feed=" + feed + ", readDate=" + readDate + ", page=" + page + ", price=" + price
         + ", photo=" + photo + "]";
   }
+
 
 
 }
