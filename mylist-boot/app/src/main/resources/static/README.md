@@ -89,4 +89,17 @@ insert into ml_cont_tel(ct_no, contact_no, tt_no, tel)
 
 
 
+
+alter table ml_book
+  add column photo varchar(255);
+
+
+
+
+
+
+
+
+
+
 ```
