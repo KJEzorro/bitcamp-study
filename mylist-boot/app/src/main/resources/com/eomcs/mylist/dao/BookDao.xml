@@ -64,8 +64,10 @@
       feed=#{feed},
       read_date=#{readDate},
       page=#{page},
-      price=#{price},
-      photo=#{photo}
+      price=#{price}
+    <if test="photo != null">
+      ,photo=#{photo}
+    </if>
     where
       book_no=#{no}
   </update>

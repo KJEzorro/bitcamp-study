@@ -1,119 +1,134 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
   <meta charset="utf-8">
   <title>독서록</title>
+  <style>
+    #x-photo {
+      height: 150px;
+    }
+  </style>
 </head>
-
 <body>
 
-  <h1>독서록 상세</h1>
+<h1>독서록 상세</h1>
 
-  <form>
-    제목*: <input id="x-title" type="text"><br>
-    저자*: <input id="x-author" type="text"><br>
-    출판사*: <input id="x-press" type="text"><br>
-    페이지: <input id="x-page" type="number" value="0"><br>
-    가격: <input id="x-price" type="number" value="0"><br>
-    독서일: <input id="x-readDate" type="date"><br>
-    소감*: <textarea id="x-feed" cols="60" rows="10"></textarea><br>
-    별표(*) 항목은 필수 입력입니다.<br>
-    <button id="x-update-btn" type="button">변경</button>
-    <button id="x-delete-btn" type="button">삭제</button>
-    <button id="x-cancel-btn" type="button">취소</button>
-  </form>
+<form name="form1">
+<img id="x-photo" src="photo?filename=default.png"><br>
+제목*: <input name="title" type="text"><br>
+저자*: <input name="author" type="text"><br>
+출판사*: <input name="press" type="text"><br>
+사진: <input name="file" type="file"><br>
+페이지: <input name="page" type="number" value="0"><br>
+가격: <input name="price" type="number" value="0"><br>
+독서일: <input name="readDate" type="date"><br>
+소감*: <textarea name="feed" cols="60" rows="10"></textarea><br>
+별표(*) 항목은 필수 입력입니다.<br>
+<button id="x-update-btn" type="button">변경</button>
+<button id="x-delete-btn" type="button">삭제</button>
+<button id="x-cancel-btn" type="button">취소</button>
+</form>
 
-  <script type="text/javascript">
-    // 1) URL에서 쿼리스트링(query string)을 추출한다.
-    var arr = location.href.split("?");
-    console.log(arr);
+<script type="text/javascript">
 
-    if (arr.length == 1) {
-      alert("요청 형식이 옳바르지 않습니다.")
-      throw "URL 형식 오류!";
-    }
+  // 1) URL에서 쿼리스트링(query string)을 추출한다.
+  var arr = location.href.split("?");
+  console.log(arr);
 
-    var qs = arr[1];
-    console.log(qs);
+  if (arr.length == 1) {
+    alert("요청 형식이 옳바르지 않습니다.")
+    throw "URL 형식 오류!";
+  }
 
-    // 2) 쿼리 스트링에서 email 값을 추출한다.
-    var params = new URLSearchParams(qs);
-    var no = params.get("no");
+  var qs = arr[1];
+  console.log(qs);
 
-    if (no == null) {
-      alert("독서록 번호가 없습니다.");
-      throw "파라미터 오류!";
-    }
-    console.log(no);
+  // 2) 쿼리 스트링에서 email 값을 추출한다.
+  var params = new URLSearchParams(qs);
+  var no = params.get("no");
 
-    var xTitle = document.querySelector("#x-title");
-    var xAuthor = document.querySelector("#x-author");
-    var xPress = document.querySelector("#x-press");
-    var xPage = document.querySelector("#x-page");
-    var xPrice = document.querySelector("#x-price");
-    var xReadDate = document.querySelector("#x-readDate");
-    var xFeed = document.querySelector("#x-feed");
+  if (no == null) {
+    alert("독서록 번호가 없습니다.");
+    throw "파라미터 오류!";
+  }
+  console.log(no);
 
-    // 3) 서버에서 데이터 가져오기
-    fetch(`/book/get?no=${no}`)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(book) {
-        // 4) 연락처 상세 정보를 화면에 출력한다.
-        xTitle.value = book.title;
-        xAuthor.value = book.author;
-        xPress.value = book.press;
-        xPage.value = book.page;
-        xPrice.value = book.price;
-        xReadDate.value = book.readDate;
-        xFeed.value = book.feed;
-      });
+  var xPhoto = document.querySelector("#x-photo");
+  var xTitle = document.querySelector("input[name=title]");
+  var xAuthor = document.querySelector("input[name=author]");
+  var xPress = document.querySelector("input[name=press]");
+  var xPage = document.querySelector("input[name=page]");
+  var xPrice = document.querySelector("input[name=price]");
+  var xReadDate = document.querySelector("input[name=readDate]");
+  var xFeed = document.querySelector("textarea");
 
-    document.querySelector("#x-update-btn").onclick = function() {
-      if (xTitle.value == "" ||
+  // 3) 서버에서 데이터 가져오기
+  fetch(`/book/get?no=${no}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(book) {
+      // 4) 연락처 상세 정보를 화면에 출력한다.
+      xTitle.value = book.title;
+      xAuthor.value = book.author;
+      xPress.value = book.press;
+      xPage.value = book.page;
+      xPrice.value = book.price;
+      xReadDate.value = book.readDate;
+      xFeed.value = book.feed;
+
+      if (book.photo != null) {
+    	  xPhoto.src = "photo?filename=" + book.photo;
+      }
+    });
+
+  document.querySelector("#x-update-btn").onclick = function() {
+	  if (xTitle.value == "" ||
         xAuthor.value == "" ||
         xPress.value == "" ||
         xFeed.value == "") {
-        window.alert("필수 입력 항목이 비어 있습니다.");
-        return;
-      }
+      window.alert("필수 입력 항목이 비어 있습니다.");
+      return;
+    }
 
-      var qs = `no=${no}&title=${xTitle.value}&author=${xAuthor.value}&press=${xPress.value}`;
-      qs += `&page=${xPage.value}&price=${xPrice.value}&feed=${xFeed.value}`;
+	  var fd = new FormData(document.forms.namedItem("form1"));
 
-      // 독서일을 입력했을 때만 서버에 보낸다.
-      if (xReadDate.value != "") {
-        qs += `&readDate=${xReadDate.value}`;
-      }
+    if (xReadDate.value == "") { // 독서일을 지정하지 않았으면 서버에 보내지 않는다.
+      fd.delete("readDate");
+    }
 
-      fetch(`/book/update?${qs}`)
-        .then(function(response) {
-          return response.text();
-        })
-        .then(function(text) {
-          console.log(text);
-          location.href = "index.html";
-        });
-    };
+    // 변경할 독서록 데이터의 PK 값을 FormData에 추가한다.
+    fd.append("no", no);
 
-    document.querySelector("#x-cancel-btn").onclick = function() {
-      window.location.href = "index.html";
-    };
+    fetch("/book/update", {
+        method: "POST",
+        body: fd
+      })
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(text) {
+        console.log(text);
+        location.href = "index.html";
+      });
+  };
 
-    document.querySelector("#x-delete-btn").onclick = function() {
-      fetch(`/book/delete?no=${no}`)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(result) {
-          console.log(result);
-          location.href = "index.html";
-        });
-    };
-  </script>
+  document.querySelector("#x-cancel-btn").onclick = function() {
+    window.location.href = "index.html";
+  };
+
+  document.querySelector("#x-delete-btn").onclick = function() {
+    fetch(`/book/delete?no=${no}`)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(result) {
+        console.log(result);
+        location.href = "index.html";
+      });
+  };
+
+</script>
 
 </body>
-
 </html>
