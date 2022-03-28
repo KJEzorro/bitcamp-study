@@ -11,7 +11,7 @@ public interface BookDao {
 
   List<Book> findAll();
 
-  void insert(Book book);
+  int insert(Book book);
 
   Book findByNo(int no);
 
@@ -19,3 +19,14 @@ public interface BookDao {
 
   int delete(int no);
 }
+
+
+
+
+
+
+
+
+
+
+

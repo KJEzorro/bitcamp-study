@@ -11,8 +11,7 @@ public class Book {
   Date readDate;
   int page;
   int price;
-
-
+  String photo;
   public int getNo() {
     return no;
   }
@@ -37,6 +36,18 @@ public class Book {
   public void setPress(String press) {
     this.press = press;
   }
+  public String getFeed() {
+    return feed;
+  }
+  public void setFeed(String feed) {
+    this.feed = feed;
+  }
+  public Date getReadDate() {
+    return readDate;
+  }
+  public void setReadDate(Date readDate) {
+    this.readDate = readDate;
+  }
   public int getPage() {
     return page;
   }
@@ -49,21 +60,18 @@ public class Book {
   public void setPrice(int price) {
     this.price = price;
   }
-  public Date getReadDate() {
-    return readDate;
+  public String getPhoto() {
+    return photo;
   }
-  public void setReadDate(Date readDate) {
-    this.readDate = readDate;
-  }
-  public String getFeed() {
-    return feed;
-  }
-  public void setFeed(String feed) {
-    this.feed = feed;
+  public void setPhoto(String photo) {
+    this.photo = photo;
   }
   @Override
   public String toString() {
     return "Book [no=" + no + ", title=" + title + ", author=" + author + ", press=" + press
-        + ", page=" + page + ", price=" + price + ", readDate=" + readDate + ", feed=" + feed + "]";
+        + ", feed=" + feed + ", readDate=" + readDate + ", page=" + page + ", price=" + price
+        + ", photo=" + photo + "]";
   }
+
+
 }
