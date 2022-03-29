@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+  
 <mapper namespace="com.eomcs.mylist.dao.BookDao">
 
   <resultMap type="book" id="bookMap">
@@ -20,27 +20,27 @@
   <select id="countAll" resultType="int">
     select count(*) from ml_book
   </select>
-
+  
   <select id="findAll" resultMap="bookMap">
-    select
+    select 
       book_no,
       title,
       author,
       press,
       photo
-    from
-      ml_book
-    order by
+    from 
+      ml_book 
+    order by 
       title asc
   </select>
-
+  
   <insert id="insert" parameterType="book">
-    insert into ml_book(title,author,press,feed,read_date,page,price,photo)
+    insert into ml_book(title,author,press,feed,read_date,page,price,photo) 
     values(#{title},#{author},#{press},#{feed},#{readDate},#{page},#{price},#{photo})
   </insert>
-
+  
   <select id="findByNo" resultMap="bookMap" parameterType="int">
-    select
+    select 
       book_no,
       title,
       author,
@@ -50,15 +50,15 @@
       page,
       price,
       photo
-    from
-      ml_book
-    where
+    from 
+      ml_book 
+    where 
       book_no=#{no}
   </select>
 
   <update id="update" parameterType="book">
-    update ml_book set
-      title=#{title},
+    update ml_book set 
+      title=#{title}, 
       author=#{author},
       press=#{press},
       feed=#{feed},
@@ -68,13 +68,21 @@
     <if test="photo != null">
       ,photo=#{photo}
     </if>
-    where
+    where 
       book_no=#{no}
   </update>
 
   <delete id="delete" parameterType="int">
-    delete from ml_book
+    delete from ml_book 
     where book_no=#{no}
   </delete>
 
 </mapper>
+
+
+
+
+
+
+
+

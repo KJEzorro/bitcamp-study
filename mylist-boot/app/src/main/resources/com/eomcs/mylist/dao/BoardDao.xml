@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <!--
-  namespace = "인터페이스의 패키지 및 이름"과 일치해야 한다.
-  -->
+<!-- 
+  namespace => 인터페이스의 패키지 및 이름과 일치해야 한다.
+ -->
 <mapper namespace="com.eomcs.mylist.dao.BoardDao">
-  
+
   <!-- 테이블의 컬럼과 객체 필드를 연결한다. -->
   <resultMap type="board" id="boardMap">
     <id column="board_no" property="no"/>
@@ -16,12 +16,10 @@
     <result column="created_date" property="createdDate"/>
     <result column="view_count" property="viewCount"/>
   </resultMap>
-    
-  
-  
-  <!--
-  id => 인터페이스의 메서드 이름과 일치해야 한다.
-  -->
+
+  <!-- 
+    id => 인터페이스의 메서드 이름과 일치해야 한다.
+   -->
   <select id="findAll" resultMap="boardMap">
     select 
       board_no,
@@ -34,52 +32,51 @@
       board_no desc
   </select>
   
-  <!--
-  parameterType => 메서드의 파라미터 타입 및 개수와 일치해야 한다.
-  -->
+  <!-- 
+    parameterType => 메서드의 파라미터 타입 및 개수와 일치해야 한다.
+   -->
   <select id="findByNo" resultMap="boardMap" parameterType="int">
-    select
+    select 
       board_no,
       title,
       content,
       created_date,
       view_count
-    from
+    from 
       ml_board 
     where 
       board_no=#{no}
   </select>
-  
+
   <insert id="insert" parameterType="Board">
     insert into ml_board(title,content) 
     values(#{title},#{content})
   </insert>
-  
-  <update id="update" parameterType="Board">
-    update ml_board set
-      title=#{title},
-      content=#{content}
-    where
-      board_no=#{no}
-  </update>
 
-    <select id="countAll" resultType="int">
-    select count(*) from ml_board
-  </select>
-  
-  <delete id="delete" parameterType="int">
-    delete 
-      from ml_board
+  <update id="update" parameterType="Board">
+    update ml_board set 
+      title=#{title}, 
+      content=#{content} 
     where 
       board_no=#{no}
-  </delete>
-  
-  <update id="increaseViewCount" parameterType="int">
-    update ml_board set
-      view_count=view_count + 1
-    where board_no=#{no}
   </update>
   
+  <select id="countAll" resultType="int">
+    select count(*) from ml_board
+  </select>
+
+  <delete id="delete" parameterType="int">
+    delete from ml_board 
+    where board_no=#{no}
+  </delete>
+
+  <update id="increaseViewCount" parameterType="int">
+    update ml_board set 
+      view_count=view_count + 1 
+    where board_no=#{no}
+  </update>
+
+
 </mapper>
 
 

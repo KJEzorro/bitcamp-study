@@ -2,7 +2,7 @@ package com.eomcs.mylist.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import com.eomcs.mylist.domain.Board;
+import com.eomcs.mylist.domain.Member;
 
 @Mapper
 // => Mybatis에서 DAO 구현체를 자동으로 생성한다.
@@ -11,19 +11,17 @@ import com.eomcs.mylist.domain.Board;
 // => 인터페이스의 메서드가 호출될 때 사용할 SQL ID는 메서드 이름과 일치해야 한다.
 //    예) <select id="countAll">...</select>
 //
-public interface BoardDao {
+public interface MemberDao {
 
-  int countAll();
+  List<Member> findAll();
 
-  List<Board> findAll();
+  int insert(Member member);
+  //
+  //  Board findByNo(int no);
+  //
+  //  int update(Member member);
+  //
+  //  int delete(int no);
 
-  int insert(Board board);
 
-  Board findByNo(int no);
-
-  int update(Board board);
-
-  int delete(int no);
-
-  int increaseViewCount(int no);
 }

@@ -2,9 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.eomcs.mylist.dao.ContactDao">
   
+<mapper namespace="com.eomcs.mylist.dao.ContactDao">
 
   <resultMap type="contact" id="contactMap">
   
@@ -27,13 +26,11 @@
     <result column="tt_no" property="telTypeNo"/>
     <result column="tel" property="tel"/>
   </resultMap>
-    
-  
-    <select id="countAll" resultType="int">
+
+  <select id="countAll" resultType="int">
     select count(*) from ml_contact
   </select>
-
-
+  
   <select id="findAll" resultMap="contactMap">
     select 
       c.contact_no,
@@ -51,13 +48,11 @@
   </select>
   
   <!-- 자동 증가된 PK 값을 받고 싶을 때! -->
-  <insert id="insert" parameterType="contact" 
-  keyProperty="no" keyColumn="contact_no" useGeneratedKeys="true">
+  <insert id="insert" parameterType="contact" keyProperty="no" keyColumn="contact_no" useGeneratedKeys="true">
     insert into ml_contact(name,email,company) 
     values(#{name},#{email},#{company})
   </insert>
-
-
+  
   <select id="findByNo" resultMap="contactMap" parameterType="int">
     select 
       c.contact_no,
@@ -67,14 +62,13 @@
       t.ct_no,
       t.tt_no,
       t.tel
-    from
+    from 
       ml_contact c
       left outer join ml_cont_tel t on c.contact_no=t.contact_no
     where 
       c.contact_no=#{no}
   </select>
-  
-  
+
   <select id="findByEmail" resultMap="contactMap" parameterType="string">
     select 
       c.contact_no,
@@ -84,14 +78,13 @@
       t.ct_no,
       t.tt_no,
       t.tel
-    from
+    from 
       ml_contact c
       left outer join ml_cont_tel t on c.contact_no=t.contact_no
     where 
       c.email=#{email}
   </select>
-  
-  
+
   <select id="findByName" resultMap="contactMap" parameterType="string">
     select 
       c.contact_no,
@@ -101,74 +94,71 @@
       t.ct_no,
       t.tt_no,
       t.tel
-    from
+    from 
       ml_contact c
       left outer join ml_cont_tel t on c.contact_no=t.contact_no
     where 
       c.name=#{name}
   </select>
   
-  
   <update id="update" parameterType="contact">
-    update ml_contact set
-      name=#{name},
+    update ml_contact set 
+      name=#{name}, 
       email=#{email},
       company=#{company}
-    where
+    where 
       contact_no=#{no}
   </update>
 
-  
   <delete id="delete" parameterType="int">
-    delete 
-      from ml_contact
-    where 
-      contact_no=#{no}
+    delete from ml_contact 
+    where contact_no=#{no}
   </delete>
-  
-  <select id="findTelByContactNo" resultMap="contactTelMap" parameterType="int">
-    select
+
+  <select id="findTelByContactNo" 
+          parameterType="int" resultMap="contactTelMap">
+    select 
       ct_no,
       contact_no,
       tt_no,
       tel
-    from
+    from 
       ml_cont_tel
     where
       contact_no=#{no}
   </select>
-  
+
   <insert id="insertTel" parameterType="contactTel">
-    insert into ml_cont_tel(contact_no,tt_no,tel)
-    values(#{contactNo},#{telTypeNo},#{tel})
+    insert into ml_cont_tel(contact_no, tt_no, tel)
+    values(#{contactNo}, #{telTypeNo}, #{tel}) 
   </insert>
   
   <insert id="insertTels">
-    insert into ml_cont_tel(contact_no,tt_no,tel)
+    insert into ml_cont_tel(contact_no, tt_no, tel)
     values
-     <foreach collection="tels" item="contactTel" separator=",">
-    (#{contactNo}, #{contactTel.telTypeNo}, #{contactTel.tel})
-     </foreach>
+    <foreach collection="tels" item="contactTel" separator=",">
+      (#{contactNo}, #{contactTel.telTypeNo}, #{contactTel.tel}) 
+    </foreach>
   </insert>
   
   <update id="updateTel" parameterType="contactTel">
     update ml_cont_tel set
       tt_no=#{telTypeNo},
       tel=#{tel}
-    where
+    where 
       ct_no=#{no}
   </update>
   
   <delete id="deleteTel" parameterType="int">
-    delete from ml_cont_tel
+    delete from ml_cont_tel 
     where ct_no=#{no}
   </delete>
   
   <delete id="deleteTelByContactNo" parameterType="int">
-    delete from ml_cont_tel
+    delete from ml_cont_tel 
     where contact_no=#{no}
   </delete>
-
+  
 </mapper>
 
 

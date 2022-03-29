@@ -1,150 +1,149 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
   <meta charset="utf-8">
   <title>연락처</title>
 </head>
-
 <body>
 
-  <h1>연락처 상세</h1>
+<h1>연락처 상세</h1>
 
-  <form>
-    이름*: <input id="x-name" type="text"><br>
-    <div id="x-tel-div-container">
-      <div class="x-tel-div">
-        전화*: <select>
-          <option value="1">전화</option>
-          <option value="2">팩스</option>
-          <option value="3">휴대전화</option>
-          <option value="4">직장전화</option>
-          <option value="5">직장팩스</option>
-        </select>
-        <input type="text">
-        <button type="button" onclick="deleteDiv(event)">삭제</button>
-      </div>
-    </div>
-    <button type="button" id="x-add-tel-btn">전화번호 추가입력</button><br>
-    이메일*: <input id="x-email" type="text"><br>
-    회사: <input id="x-company" type="text"><br>
-    별표(*) 항목은 필수 입력입니다.<br>
-    <button id="x-update-btn" type="button">변경</button>
-    <button id="x-delete-btn" type="button">삭제</button>
-    <button id="x-cancel-btn" type="button">취소</button>
-  </form>
+<form>
+이름*: <input id="x-name" type="text"><br>
+<div id="x-tel-div-container">
+<div class="x-tel-div">
+전화*: <select>
+        <option value="1">전화</option>
+        <option value="2">팩스</option>
+        <option value="3">휴대전화</option>
+        <option value="4">직장전화</option>
+        <option value="5">직장팩스</option>
+       </select> 
+       <input type="text">
+       <button type="button" onclick="deleteDiv(event)">삭제</button>
+</div>
+</div>
+<button type="button" id="x-add-tel-btn">전화번호 추가입력</button><br>
+이메일*: <input id="x-email" type="text"><br>
+회사: <input id="x-company" type="text"><br>
+별표(*) 항목은 필수 입력입니다.<br>
+<button id="x-update-btn" type="button">변경</button>
+<button id="x-delete-btn" type="button">삭제</button>
+<button id="x-cancel-btn" type="button">취소</button>
+</form>
 
-  <script type="text/javascript">
-    // 1) URL에서 쿼리스트링(query string)을 추출한다.
-    var arr = location.href.split("?");
-    console.log(arr);
+<script type="text/javascript">
 
-    if (arr.length == 1) {
-      alert("요청 형식이 옳바르지 않습니다.")
-      throw "URL 형식 오류!";
+  // 1) URL에서 쿼리스트링(query string)을 추출한다.
+  var arr = location.href.split("?");
+  console.log(arr);
+
+  if (arr.length == 1) {
+    alert("요청 형식이 옳바르지 않습니다.")
+    throw "URL 형식 오류!";
+  }
+
+  var qs = arr[1];
+  console.log(qs);
+
+  // 2) 쿼리 스트링에서 email 값을 추출한다.
+  var params = new URLSearchParams(qs);
+  var no = params.get("no");
+
+  if (no == null) {
+    alert("해당 번호의 연락처가 없습니다.");
+    throw "파라미터 오류!";
+  }
+  console.log(no);
+
+  var xName = document.querySelector("#x-name");
+  var xEmail = document.querySelector("#x-email");
+  var xCompany = document.querySelector("#x-company");
+  var xTelDivContainer = document.querySelector("#x-tel-div-container");
+  
+  // 3) 서버에서 데이터 가져오기
+  fetch(`/contact/get?no=${no}`)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(contact) {
+      // 4) 연락처 상세 정보를 화면에 출력한다.
+      xName.value = contact.name;
+      xEmail.value = contact.email;
+      xCompany.value = contact.company;
+      
+      for (var i = 1; i < contact.tels.length; i++) {
+    	  document.querySelector("#x-add-tel-btn").click();
+      }
+      
+      // 준비된 전화번호 입력항목을 가져온다.
+      var xTelDivList = xTelDivContainer.querySelectorAll(".x-tel-div");
+      
+      for (var i = 0; i < contact.tels.length; i++) {
+    	  var xTelType = xTelDivList[i].querySelector("select");
+    	  var xTel = xTelDivList[i].querySelector("input");
+    	  
+    	  xTelType.value = contact.tels[i].telTypeNo;
+    	  xTel.value = contact.tels[i].tel;
+      }
+    });
+
+  document.querySelector("#x-update-btn").onclick = function() {
+	  var xTelDivList = xTelDivContainer.querySelectorAll(".x-tel-div");
+	  var firstTel = xTelDivList[0].querySelector("input"); // 첫번째 전화번호
+	  if (xName.value == "" || xEmail.value == "" || firstTel.value == "") {
+      window.alert("필수 입력 항목이 비어 있습니다.");
+      return;
     }
 
-    var qs = arr[1];
+	  var qs = `no=${no}&name=${xName.value}&email=${xEmail.value}&company=${xCompany.value}`;
+    for (var xTelDiv of xTelDivList) {
+      var xTelType = xTelDiv.querySelector("select");
+      var xTel = xTelDiv.querySelector("input");
+      
+      qs += `&tel=${xTelType.value}_${xTel.value}`;
+    }
     console.log(qs);
+	    
+    fetch(`/contact/update?${qs}`)
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(text) {
+        console.log(text);
+        location.href = "index.html";
+      });
+  };
 
-    // 2) 쿼리 스트링에서 email 값을 추출한다.
-    var params = new URLSearchParams(qs);
-    var no = params.get("no");
+  document.querySelector("#x-cancel-btn").onclick = function() {
+    window.location.href = "index.html";
+  };
 
-    if (no == null) {
-      alert("해당 번호에 연락처가 없습니다.");
-      throw "파라미터 오류!";
-    }
-    console.log(no);
-
-    var xName = document.querySelector("#x-name");
-    var xEmail = document.querySelector("#x-email");
-    var xCompany = document.querySelector("#x-company");
-    var xTelDivContainer = document.querySelector("#x-tel-div-container");
-
-    // 3) 서버에서 데이터 가져오기
-    fetch(`/contact/get?no=${no}`)
+  document.querySelector("#x-delete-btn").onclick = function() {
+    fetch(`/contact/delete?no=${no}`)
       .then(function(response) {
         return response.json();
       })
-      .then(function(contact) {
-        // 4) 연락처 상세 정보를 화면에 출력한다.
-        xName.value = contact.name
-        xEmail.value = contact.email
-        xCompany.value = contact.company
-
-        for (var i = 1; i < contact.tels.length; i++) {
-          document.querySelector("#x-add-tel-btn").click()
-        }
-
-        // 준비된 전화번호 입력항목을 가져온다.
-        var xTelDivList = xTelDivContainer.querySelectorAll(".x-tel-div");
-
-        for (var i = 0; i < contact.tels.length; i++) {
-          var xTelType = xTelDivList[i].querySelector("select")
-          var xTel = xTelDivList[i].querySelector("input")
-
-          xTelType.value = contact.tels[i].telTypeNo
-          xTel.value = contact.tels[i].tel
-        }
+      .then(function(result) {
+        console.log(result);
+        location.href = "index.html";
       });
-
-    document.querySelector("#x-update-btn").onclick = function() {
-      var xTelDivList = xTelDivContainer.querySelectorAll(".x-tel-div");
-      var firstTel = xTelDivList[0].querySelector("input"); // 첫번째 전화번호
-      if (xName.value == "" || xEmail.value == "" || firstTel.value == "") {
-        window.alert("필수 입력 항목이 비어 있습니다.");
-        return;
-      }
-
-      var qs = `no=${no}&name=${xName.value}&email=${xEmail.value}&company=${xCompany.value}`;
-      for (var xTelDiv of xTelDivList) {
-        var xTelType = xTelDiv.querySelector("select");
-        var xTel = xTelDiv.querySelector("input");
-
-        qs += `&tel=${xTelType.value}_${xTel.value}`;
-      }
-      console.log(qs);
-
-      fetch(`/contact/update?${qs}`)
-        .then(function(response) {
-          return response.text();
-        })
-        .then(function(text) {
-          console.log(text);
-          location.href = "index.html";
-        });
-    };
-
-    document.querySelector("#x-cancel-btn").onclick = function() {
-      window.location.href = "index.html";
-    };
-
-    document.querySelector("#x-delete-btn").onclick = function() {
-      fetch(`/contact/delete?no=${no}`)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(result) {
-          console.log(result);
-          location.href = "index.html";
-        });
-    };
-
-    document.querySelector("#x-add-tel-btn").onclick = function() {
-      var telDiv = xTelDivContainer.querySelector(".x-tel-div").cloneNode(true)
-      telDiv.querySelector("select").value = 1
-      telDiv.querySelector("input").value = ""
-      xTelDivContainer.appendChild(telDiv);
+  };
+  
+  document.querySelector("#x-add-tel-btn").onclick = function() {
+    var telDiv = xTelDivContainer.querySelector(".x-tel-div").cloneNode(true);
+    telDiv.querySelector("select").value = 1;
+    telDiv.querySelector("input").value = "";
+    xTelDivContainer.appendChild(telDiv);
+  };
+  
+  function deleteDiv(e) {
+    if (xTelDivContainer.childElementCount > 1) {
+      xTelDivContainer.removeChild(e.target.parentNode);
     }
+  }
 
-    function deleteDiv(event) {
-      if (xTelDivContainer.childElementCount > 1) {
-        xTelDivContainer.removeChild(event.target.parentNode)
-      }
-    }
-  </script>
+</script>
 
 </body>
-
 </html>

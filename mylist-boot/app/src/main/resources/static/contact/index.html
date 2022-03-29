@@ -1,70 +1,66 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
   <meta charset="utf-8">
   <title>연락처</title>
 </head>
-
 <body>
-  <h1>연락처</h1>
-  <a href="form.html">새 연락처</a>
-  <table id="x-contact-table" border="1">
-    <thead>
-      <tr>
-        <th>번호</th>
-        <th>이름</th>
-        <th>이메일</th>
-        <th>전화</th>
-        <th>회사</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+<h1>연락처</h1>
+<a href="form.html">새 연락처</a>
+<table id="x-contact-table" border="1">
+<thead>
+  <tr>
+    <th>번호</th>
+    <th>이름</th>
+    <th>이메일</th>
+    <th>전화</th>
+    <th>회사</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
 
-  <script id="tr-template" type="text/x-handlebars-template">
-    {{#each this}}
-      <tr>
-        <td>{{no}}</td>
-        <td><a href="view.html?no={{no}}">{{name}}</a></td>
-        <td>{{email}}</td>
-        <td>{{tels.[0].tel}}</td>
-        <td>{{company}}</td>
-      </tr>
-    {{/each}}
-  </script>
+<script id="tr-template" type="text/x-handlebars-template">
+{{#each this}}
+  <tr>
+    <td>{{no}}</td>
+    <td><a href="view.html?no={{no}}">{{name}}</a></td>
+    <td>{{email}}</td>
+    <td>{{tels.[0].tel}}</td>
+    <td>{{company}}</td>
+  </tr>
+{{/each}}
+</script>
 
-  <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
-  <script type="text/javascript">
-    var tbody = document.querySelector("#x-contact-table tbody")
-    // 템플릿 엔진에서 사용할 HTML 조각을 가져오기
-    var trTemplate = document.querySelector("#tr-template")
+<script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+<script type="text/javascript">
+  var tbody = document.querySelector("#x-contact-table tbody")
 
-    // 컴파일 엔진준비
-    var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
+  // 템플릿 엔진에서 사용할 HTML 조각을 가져오기
+  var trTemplate = document.querySelector("#tr-template");
 
-    fetch("/contact/list")
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(contacts) {
-        // 서버에서 받은 연락처 배열을 가지고 템플릿 엔진을 실행하여 tbody 콘텐트를 생성한다.
-        tbody.innerHTML = htmlGenerator(contacts);
-      });
-  </script>
+  //템플릿 엔진 준비
+  var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
+
+  fetch("/contact/list")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(contacts) {
+      // 서버에서 받은 연락처 배열을 가지고 템플릿 엔진을 실행하여 tbody 콘텐트를 생성한다.
+      tbody.innerHTML = htmlGenerator(contacts);
+    });
+
+</script>
+
+
+
+
+
+
+
+
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-<!--  -->

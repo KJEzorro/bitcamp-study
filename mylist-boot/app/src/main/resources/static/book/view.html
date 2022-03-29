@@ -76,35 +76,34 @@
       xPrice.value = book.price;
       xReadDate.value = book.readDate;
       xFeed.value = book.feed;
-
-
+      
       if (book.photo != null) {
     	  xPhoto.src = "photo?filename=" + book.photo;
       }
     });
 
   document.querySelector("#x-update-btn").onclick = function() {
-	  if (xTitle.value == "" ||
+	  if (xTitle.value == "" || 
         xAuthor.value == "" ||
         xPress.value == "" ||
         xFeed.value == "") {
       window.alert("필수 입력 항목이 비어 있습니다.");
       return;
     }
-
+	  
 	  var fd = new FormData(document.forms.namedItem("form1"));
-
+	    
     if (xReadDate.value == "") { // 독서일을 지정하지 않았으면 서버에 보내지 않는다.
       fd.delete("readDate");
     }
-
+    
     // 변경할 독서록 데이터의 PK 값을 FormData에 추가한다.
     fd.append("no", no);
-
-    fetch("/book/update", {
+    
+    fetch("/book/update", { 
         method: "POST",
         body: fd
-      })
+      }) 
       .then(function(response) {
         return response.text();
       })
