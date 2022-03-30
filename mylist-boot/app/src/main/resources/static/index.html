@@ -17,7 +17,7 @@
 
     #login-btn {
       position: absolute;
-      right: 90px;
+      right: 10px;
     }
 
     #logout-btn {
@@ -28,6 +28,11 @@
     #app-title {
       font-size: 1.5em;
       font-weight: bold;
+    }
+
+    #user-name {
+      position: absolute;
+      right: 90px;
     }
 
     .container {
@@ -43,9 +48,9 @@
 
     <div id="header">
       <span id="app-title">MyList</span>
-      <span id="user-name"></span>
-      <button id="login-btn" type="button">로그인</button>
-      <button id="logout-btn" type="button">로그아웃</button>
+      <button id="login-btn" type="button" class="not-login">로그인</button>
+      <span id="user-name" class="login"></span>
+      <button id="logout-btn" type="button" class="login">로그아웃</button>
     </div>
 
 
@@ -61,6 +66,9 @@
   </div>
 
   <script>
+    css(".login", "display", "none")
+
+
     fetch("/member/getLoginUser")
       .then(function(response) {
         return response.json()
@@ -68,10 +76,29 @@
       .then(function(result) {
         if (result.status == "success") {
           document.querySelector("#user-name").innerHTML = result.data.name;
-
+          css(".login", "display", "")
+          css(".not-login", "display", "none")
         }
-
       })
+
+    function css(selector, name, value) {
+      var el = document.querySelectorAll(selector)
+      for (var e of el) {
+        e.style[name] = value
+      }
+    }
+
+    document.querySelector("#login-btn").onclick = function() {
+      location.href = "/member/signin.html"
+    }
+
+    document.querySelector("#logout-btn").onclick = function() {
+      fetch("/member/signout")
+      .then(function(response) {
+         location.href = "/index.html"
+      })
+    }
+
   </script>
 </body>
 

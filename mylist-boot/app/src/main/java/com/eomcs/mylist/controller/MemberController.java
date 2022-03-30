@@ -53,6 +53,13 @@ public class MemberController {
 
   }
 
+  @RequestMapping("/member/signout")
+  public Object signout(String email, String password, HttpSession session) {
+    session.invalidate();
+    return new ResultMap().setStatus(SUCCESS);
+
+  }
+
 
 
 
