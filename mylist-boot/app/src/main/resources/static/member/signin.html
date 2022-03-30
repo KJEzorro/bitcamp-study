@@ -8,25 +8,22 @@
 
 <body>
 
-  <h1>회원가입</h1>
+  <h1>로그인</h1>
 
   <form name="form1">
-    이름*: <input name="name" type="text"><br>
-    이메일*: <input name="email" type="email"><br>
-    비밀번호*: <input name="password" type="password" autocomplete="off"><br>
-    별표(*) 항목은 필수 입력입니다.<br>
-    <button id="x-add-btn">확인</button>
+    이메일: <input name="email" type="email"><br>
+    비밀번호: <input name="password" type="password" autocomplete="off"><br>
+    <button id="x-add-btn">로그인</button>
     <button id="x-cancel-btn" type="button">취소</button>
   </form>
 
   <script type="text/javascript">
-    var xName = document.querySelector("input[name=name]");
     var xEmail = document.querySelector("input[name=email]");
     var xPassword = document.querySelector("input[name=password]");
 
 
     document.querySelector("form[name=form1]").onsubmit = function() {
-      if (xName.value == "" ||
+      if (
         xEmail.value == "" ||
         xPassword.value == ""
       ) {
@@ -37,7 +34,7 @@
       var fd = new FormData(document.forms.namedItem("form1"));
 
 
-      fetch("/member/signup", {
+      fetch("/member/signin", {
           method: "POST",
           body: new URLSearchParams(fd)
         })
