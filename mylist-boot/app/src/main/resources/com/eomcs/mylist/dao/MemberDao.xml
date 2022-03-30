@@ -8,10 +8,28 @@
  -->
 <mapper namespace="com.eomcs.mylist.dao.MemberDao">
 
+  <resultMap type="member" id="memberMap">
+    <id column="no" property="no"/>
+    <result column="name" property="name"/>
+    <result column="email" property="email"/>
+    <result column="regist_date" property="registDate"/>
+  </resultMap>
+
   <insert id="insert" parameterType="member">
     insert into ml_member(name,email,password) 
     values(#{name},#{email},password(#{password}))
   </insert>
+  
+  <select id="findByEmailAndPassword" resultMap="memberMap">
+    select
+      no,
+      name,
+      email
+    from
+      ml_member
+    where
+      email=#{email} and password=password(#{password})
+  </select>
 
 
 

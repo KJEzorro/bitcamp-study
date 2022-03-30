@@ -1,7 +1,7 @@
 package com.eomcs.mylist.dao;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import com.eomcs.mylist.domain.Member;
 
 @Mapper
@@ -13,15 +13,19 @@ import com.eomcs.mylist.domain.Member;
 //
 public interface MemberDao {
 
-  List<Member> findAll();
 
   int insert(Member member);
-  //
+
+  Member findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+
+  //  List<Member> findAll();
+
   //  Board findByNo(int no);
   //
   //  int update(Member member);
   //
   //  int delete(int no);
+
 
 
 }
