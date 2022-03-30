@@ -42,8 +42,8 @@ public class DefaultBoardService implements BoardService {
 
   @Override
   @Transactional
-  public int delete(int no) {
-    return boardDao.delete(no);
+  public int delete(Board board) {
+    return boardDao.delete(board);
   }
 }
 

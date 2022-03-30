@@ -23,7 +23,7 @@ public interface BoardDao {
 
   int update(Board board);
 
-  int delete(int no);
+  int delete(Board board);
 
   int increaseViewCount(int no);
 }

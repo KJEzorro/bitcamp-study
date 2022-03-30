@@ -13,7 +13,7 @@ public interface BoardService {
 
   int update(Board board);
 
-  int delete(int no);
+  int delete(Board board);
 }
 
 
