@@ -43,6 +43,7 @@
 
     <div id="header">
       <span id="app-title">MyList</span>
+      <span id="user-name"></span>
       <button id="login-btn" type="button">로그인</button>
       <button id="logout-btn" type="button">로그아웃</button>
     </div>
@@ -65,7 +66,10 @@
         return response.json()
       })
       .then(function(result) {
-        console.log(result);
+        if (result.status == "success") {
+          document.querySelector("#user-name").innerHTML = result.data.name;
+
+        }
 
       })
   </script>
