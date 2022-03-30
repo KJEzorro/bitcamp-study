@@ -16,7 +16,11 @@ public class MemberController {
 
   @RequestMapping("/member/signup")
   public Object signUp(Member member) {
-    return memberService.add(member);
+    if (memberService.add(member) == 1) {
+      return "success";
+    } else {
+      return "fail";
+    }
   }
 
   @RequestMapping("/member/signin")
@@ -31,5 +35,23 @@ public class MemberController {
     session.setAttribute("loginUser", loginUser);
     return "success";
   }
+
+  @RequestMapping("/member/getLoginUser")
+  public Object getLoginUser(HttpSession session) {
+    Object member = session.getAttribute("loginUser");
+    if (member != null) {
+      return new ResultMap()
+          .setStatus("success")
+          .setData(member);
+    } else {
+      return new ResultMap()
+          .setStatus("fail")
+          .setData("로그인 하지 않았습니다.");
+    }
+
+  }
+
+
+
 
 }

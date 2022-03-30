@@ -4,20 +4,71 @@
 <head>
   <meta charset="UTF-8">
   <title>MyList!</title>
+  <style>
+    #header {
+      display: flex;
+      position: relative;
+      background-color: navy;
+      color: white;
+      height: 50px;
+      align-items: center;
+      padding: 0px 10px;
+    }
+
+    #login-btn {
+      position: absolute;
+      right: 90px;
+    }
+
+    #logout-btn {
+      position: absolute;
+      right: 10px;
+    }
+
+    #app-title {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .container {
+      width: 600px;
+      margin: 0px auto;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>MyList에 오신 걸 환영합니다!</h1>
-  <p>이 프로젝트는 자바 실전 프로그래밍을 경험하기 위해 만든 프로젝트입니다.</p>
-  <ul>
-    <li><a href="contact/index.html">연락처</a></li>
-    <li><a href="my1/index.html">음식점</a></li>
-    <li><a href="todo/index.html">해야 할 일</a></li>
-    <li><a href="board/index.html">게시판</a></li>
-    <li><a href="book/index.html">독서록</a></li>
+  <div class="container">
 
 
-  </ul>
+    <div id="header">
+      <span id="app-title">MyList</span>
+      <button id="login-btn" type="button">로그인</button>
+      <button id="logout-btn" type="button">로그아웃</button>
+    </div>
+
+
+    <h1>MyList에 오신 걸 환영합니다!</h1>
+    <p>이 프로젝트는 자바 실전 프로그래밍을 경험하기 위해 만든 프로젝트입니다.</p>
+    <ul>
+      <li><a href="contact/index.html">연락처</a></li>
+      <li><a href="my1/index.html">음식점</a></li>
+      <li><a href="todo/index.html">해야 할 일</a></li>
+      <li><a href="board/index.html">게시판</a></li>
+      <li><a href="book/index.html">독서록</a></li>
+    </ul>
+  </div>
+
+  <script>
+    fetch("/member/getLoginUser")
+      .then(function(response) {
+        return response.json()
+      })
+      .then(function(result) {
+        console.log(result);
+
+      })
+  </script>
 </body>
 
 </html>
