@@ -1,101 +1,116 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="utf-8">
   <title>게시글</title>
 </head>
+
 <body>
 
-<h1>게시글 상세</h1>
+  <h1>게시글 상세</h1>
 
-<form>
-번호: <input id="x-no" type="text" readonly><br>
-제목*: <input id="x-title" type="text"><br>
-내용*: <textarea id="x-content" cols="60" rows="10"></textarea><br>
-조회수: <span id="x-viewCount"></span><br>
-등록일: <span id="x-createdDate"></span><br>
-별표(*) 항목은 필수 입력입니다.<br>
-<button id="x-update-btn" type="button">변경</button>
-<button id="x-delete-btn" type="button">삭제</button>
-<button id="x-cancel-btn" type="button">취소</button>
-</form>
+  <form name="form1">
+    번호: <input name="no" type="text" readonly><br>
+    제목*: <input name="title" type="text"><br>
+    내용*: <textarea name="content" cols="60" rows="10"></textarea><br>
+    작성자: <span id="x-writer"></span><br>
+    조회수: <span id="x-viewCount"></span><br>
+    등록일: <span id="x-createdDate"></span><br>
+    별표(*) 항목은 필수 입력입니다.<br>
+    <button id="x-update-btn" type="button">변경</button>
+    <button id="x-delete-btn" type="button">삭제</button>
+    <button id="x-cancel-btn" type="button">취소</button>
+  </form>
 
-<script type="text/javascript">
+  <script type="text/javascript">
+    // 1) URL에서 쿼리스트링(query string)을 추출한다.
+    var arr = location.href.split("?");
+    console.log(arr);
 
-  // 1) URL에서 쿼리스트링(query string)을 추출한다.
-  var arr = location.href.split("?");
-  console.log(arr);
-
-  if (arr.length == 1) {
-    alert("요청 형식이 옳바르지 않습니다.")
-    throw "URL 형식 오류!";
-  }
-
-  var qs = arr[1];
-  console.log(qs);
-
-  // 2) 쿼리 스트링에서 email 값을 추출한다.
-  var params = new URLSearchParams(qs);
-  var no = params.get("no");
-
-  if (no == null) {
-    alert("게시물 번호가 없습니다.");
-    throw "파라미터 오류!";
-  }
-  console.log(no);
-
-  var xNo = document.querySelector("#x-no");
-  var xTitle = document.querySelector("#x-title");
-  var xContent = document.querySelector("#x-content");
-  var xViewCount = document.querySelector("#x-viewCount");
-  var xCreatedDate = document.querySelector("#x-createdDate");
-
-  // 3) 서버에서 데이터 가져오기
-  fetch(`/board/get?no=${no}`)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(board) {
-      // 4) 연락처 상세 정보를 화면에 출력한다.
-      xNo.value = board.no;
-      xTitle.value = board.title;
-      xContent.value = board.content;
-      xViewCount.innerHTML = board.viewCount;
-      xCreatedDate.innerHTML = board.createdDate;
-    });
-
-  document.querySelector("#x-update-btn").onclick = function() {
-    if (xTitle.value == "" || xContent.value == "") {
-      window.alert("필수 입력 항목이 비어 있습니다.");
-      return;
+    if (arr.length == 1) {
+      alert("요청 형식이 옳바르지 않습니다.")
+      throw "URL 형식 오류!";
     }
 
-    fetch(`/board/update?no=${no}&title=${xTitle.value}&content=${xContent.value}`)
-      .then(function(response) {
-        return response.text();
-      })
-      .then(function(text) {
-        console.log(text);
-        location.href = "index.html";
-      });
-  };
+    var qs = arr[1];
+    console.log(qs);
 
-  document.querySelector("#x-cancel-btn").onclick = function() {
-    window.location.href = "index.html";
-  };
+    // 2) 쿼리 스트링에서 email 값을 추출한다.
+    var params = new URLSearchParams(qs);
+    var no = params.get("no");
 
-  document.querySelector("#x-delete-btn").onclick = function() {
-    fetch(`/board/delete?no=${no}`)
+    if (no == null) {
+      alert("게시물 번호가 없습니다.");
+      throw "파라미터 오류!";
+    }
+    console.log(no);
+    var xNo = document.querySelector("input[name=no]");
+    var xTitle = document.querySelector("input[name=title]");
+    var xContent = document.querySelector("textarea");
+    var xWriter = document.querySelector("#x-writer");
+    var xViewCount = document.querySelector("#x-viewCount");
+    var xCreatedDate = document.querySelector("#x-createdDate");
+
+    // 3) 서버에서 데이터 가져오기
+    fetch(`/board/get?no=${no}`)
       .then(function(response) {
         return response.json();
       })
-      .then(function(result) {
-        console.log(result);
-        location.href = "index.html";
+      .then(function(board) {
+        // 4) 연락처 상세 정보를 화면에 출력한다.
+        xNo.value = board.no;
+        xTitle.value = board.title;
+        xContent.value = board.content;
+        xWriter.innerHTML = board.writer.name;
+        xViewCount.innerHTML = board.viewCount;
+        xCreatedDate.innerHTML = board.createdDate;
       });
-  };
 
-</script>
+    document.querySelector("#x-update-btn").onclick = function() {
+      if (xTitle.value == "" || xContent.value == "") {
+        window.alert("필수 입력 항목이 비어 있습니다.");
+        return;
+      }
+
+      var fd = new FormData(document.forms.namedItem("form1"))
+      fetch("/board/update", {
+          method: "POST",
+          body: new URLSearchParams(fd)
+        })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(result) {
+          if (result.status == "success") {
+            location.href = "index.html"
+          } else {
+            window.alert("게시글 변경 실패")
+            console.log(result.data);
+          }
+        });
+    };
+
+    document.querySelector("#x-cancel-btn").onclick = function() {
+      window.location.href = "index.html";
+    };
+
+    document.querySelector("#x-delete-btn").onclick = function() {
+      fetch(`/board/delete?no=${no}`)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(result) {
+          if (result.status == "success") {
+            location.href = "index.html"
+          } else {
+            window.alert("게시글 삭제 실패")
+            console.log(result.data);
+          }
+        });
+    };
+  </script>
 
 </body>
+
 </html>

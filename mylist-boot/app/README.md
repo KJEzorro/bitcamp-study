@@ -88,6 +88,22 @@
 
 #
 
+delete from ml_board;
+
+alter table ml_board
+  add column writer int not null,
+  add constraint ml_board_fk foreign key (writer) references ml_member(no);
+
+
+
+
+
+
+
+
+
+
+
 
 create table ml_book(
   no int not null,

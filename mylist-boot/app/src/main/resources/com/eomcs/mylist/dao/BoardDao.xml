@@ -15,7 +15,11 @@
     <result column="content" property="content"/>
     <result column="created_date" property="createdDate"/>
     <result column="view_count" property="viewCount"/>
-    <result column="writer" property="writer"/>
+    
+    <association property="writer" javaType="member">
+    <id column="no" property="no"/>
+    <result column="name" property="name"/>
+    </association>
   </resultMap>
 
   <!-- 
@@ -23,15 +27,17 @@
    -->
   <select id="findAll" resultMap="boardMap">
     select 
-      board_no,
-      title,
-      created_date,
-      view_count,
-      writer
+      b.board_no,
+      b.title,
+      b.created_date,
+      b.view_count,
+      m.no,
+      m.name
     from 
-      ml_board 
+      ml_board b
+      inner join ml_member m on (b.writer = m.no)
     order by 
-      board_no desc
+      b.board_no desc
   </select>
   
   <!-- 
@@ -39,21 +45,23 @@
    -->
   <select id="findByNo" resultMap="boardMap" parameterType="int">
     select 
-      board_no,
-      title,
-      content,
-      created_date,
-      view_count,
-      writer
+      b.board_no,
+      b.title,
+      b.content,
+      b.created_date,
+      b.view_count,
+      m.no,
+      m.name
     from 
-      ml_board 
+      ml_board b
+      inner join ml_member m on (b.writer = m.no)
     where 
       board_no=#{no}
   </select>
 
   <insert id="insert" parameterType="Board">
     insert into ml_board(title,content,writer) 
-    values(#{title},#{content},#{writer})
+    values(#{title},#{content},#{writer.no})
   </insert>
 
   <update id="update" parameterType="Board">
@@ -61,7 +69,7 @@
       title=#{title}, 
       content=#{content} 
     where 
-      board_no=#{no} and writer=#{writer}
+      board_no=#{no} and writer=#{writer.no}
   </update>
   
   <select id="countAll" resultType="int">
@@ -70,7 +78,7 @@
 
   <delete id="delete" parameterType="board">
     delete from ml_board 
-    where board_no=#{no} and writer=#{writer}
+    where board_no=#{no} and writer=#{writer.no}
   </delete>
 
   <update id="increaseViewCount" parameterType="int">
