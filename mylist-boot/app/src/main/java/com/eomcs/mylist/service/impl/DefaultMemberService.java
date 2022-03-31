@@ -23,5 +23,10 @@ public class DefaultMemberService implements MemberService {
     return memberDao.findByEmailAndPassword(email, password);
   }
 
+  @Override
+  public Member get(String email) {
+    return memberDao.findByEmail(email);
+  }
+
 
 }

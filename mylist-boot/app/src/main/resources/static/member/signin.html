@@ -16,9 +16,11 @@
     <div>
       <button id="x-add-btn">로그인</button>
       <button id="x-cancel-btn" type="button">취소</button>
+      <a href="form.html">회원가입</a>
     </div>
     <div>
-      <a href="form.html">회원가입</a>
+      <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+      </fb:login-button>
     </div>
   </form>
 
@@ -60,6 +62,57 @@
     document.querySelector("#x-cancel-btn").onclick = function() {
       window.location.href = "../index.html";
     };
+
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '394993095383103', // 개발자가 등록한 앱 ID
+        cookie: true,
+        xfbml: true,
+        version: 'v13.0'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') { // 로그인이 정상적으로 되었을 때,
+          console.log(response.authResponse.accessToken);
+
+          var params = new URLSearchParams();
+          params.append("accessToken", response.authResponse.accessToken);
+
+          fetch("/member/facebookLogin", {
+              method: "POST",
+              body: params
+            })
+            .then(function(response) {
+              return response.json();
+            })
+            .then(function(result) {
+              if (result.status == "success") {
+                console.log(result.data);
+                location.href = "../index.html";
+              } else {
+                window.alert("페이스북 로그인 실패");
+                console.log(result.data);
+              }
+            })
+
+        } else { // 로그인이 되지 않았을 때,
+          console.log("로그인 되지 않았음");
+        }
+      });
+    }
   </script>
 
 </body>

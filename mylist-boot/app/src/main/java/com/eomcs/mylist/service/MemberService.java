@@ -8,6 +8,8 @@ public interface MemberService {
 
   Member get(String email, String password);
 
+  Member get(String email);
+
 
 }
 

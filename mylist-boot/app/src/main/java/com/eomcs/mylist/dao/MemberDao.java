@@ -18,6 +18,8 @@ public interface MemberDao {
 
   Member findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
+  Member findByEmail(String email);
+
   //  List<Member> findAll();
 
   //  Board findByNo(int no);
