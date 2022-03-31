@@ -7,24 +7,11 @@
 <body>
 <h1>페이스북 로그인</h1>
 
-<fb:login-button scope="public_profile,email"
-                 onlogin="checkLoginState();">
-</fb:login-button>
+<fb:login-button scope="public_profile,email"></fb:login-button>
 
 <script type="text/javascript">
-// 페이스북 로그인 버튼을 클릭한 후, 로그인 여부를 조사한다.
-function checkLoginState() {
-
-    // 로그인 상태를 가져올 것을 요청한다.
-    // => 그리고 로그인 정보를 가져 왔을 때 호출될 함수를 등록한다.
-    FB.getLoginStatus(function(response) {
-      // 로그인 상태 정보를 가져왔으면 이 함수가 호출된다.
-      console.log(response);
-    });
-
-    console.log("checkLoginState() 호출완료!");
-}
-
+// 페이스북 로그인 버튼을 화면에 붙인다.
+// => 로그인 버튼을 누르면 페이스북 사이트의 로그인 페이지가 출력된다.
 
 window.fbAsyncInit = function() {
   console.log("window.fbAsyncInit() 호출됨!");
@@ -34,7 +21,7 @@ window.fbAsyncInit = function() {
     xfbml      : true,
     version    : 'v13.0'
   });
-  FB.AppEvents.logPageView();
+  //FB.AppEvents.logPageView();
 };
 
 (function(d, s, id) {
