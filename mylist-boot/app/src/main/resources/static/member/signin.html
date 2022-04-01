@@ -13,6 +13,7 @@
   <form name="form1">
     이메일: <input name="email" type="email"><br>
     비밀번호: <input name="password" type="password" autocomplete="off"><br>
+    <input name="saveEmail" type="checkbox">이메일 저장<br>
     <div>
       <button id="x-add-btn">로그인</button>
       <button id="x-cancel-btn" type="button">취소</button>
@@ -113,6 +114,17 @@
         }
       });
     }
+
+  </script>
+
+  <script src="/node_modules/js-cookie/dist/js.cookie.js"></script>
+  <script>
+  // userEmail 쿠키가 있다면 값을 꺼내서 이메일 입력 상자에 넣는다.
+  var userEmail = Cookies.get('userEmail');
+  if (userEmail != undefined) {
+    console.log("실행 했음");
+    xEmail.value = userEmail;
+  }
   </script>
 
 </body>
