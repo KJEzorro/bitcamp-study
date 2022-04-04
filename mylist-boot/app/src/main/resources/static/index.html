@@ -6,33 +6,13 @@
   <title>MyList!</title>
   <style>
     #header {
-      display: flex;
       position: relative;
       background-color: navy;
       color: white;
       height: 50px;
+      display: flex;
       align-items: center;
       padding: 0px 10px;
-    }
-
-    #login-btn {
-      position: absolute;
-      right: 10px;
-    }
-
-    #logout-btn {
-      position: absolute;
-      right: 10px;
-    }
-
-    #app-title {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    #user-name {
-      position: absolute;
-      right: 90px;
     }
 
     .container {
@@ -43,63 +23,41 @@
 </head>
 
 <body>
+
   <div class="container">
 
-
-    <div id="header">
-      <span id="app-title">MyList</span>
-      <button id="login-btn" type="button" class="not-login">로그인</button>
-      <span id="user-name" class="login"></span>
-      <button id="logout-btn" type="button" class="login">로그아웃</button>
-    </div>
+    <div id="header"></div>
 
 
     <h1>MyList에 오신 걸 환영합니다!</h1>
-    <p>이 프로젝트는 자바 실전 프로그래밍을 경험하기 위해 만든 프로젝트입니다.</p>
+    <p>이 프로젝트는 자바 실전 프로그래밍을 경험하기 위해 만든 프로젝트 입니다.</p>
     <ul>
       <li><a href="contact/index.html">연락처</a></li>
-      <li><a href="my1/index.html">음식점</a></li>
       <li><a href="todo/index.html">해야 할 일</a></li>
-      <li><a href="board/index.html">게시판</a></li>
+      <li><a href="board/index.html">게시글</a></li>
       <li><a href="book/index.html">독서록</a></li>
+      <li><a href="etc/student-selector/index.html">발표자 추첨</a></li>
     </ul>
   </div>
 
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
   <script>
-    css(".login", "display", "none")
+    //$("#header").load("header.html");
 
 
-    fetch("/member/getLoginUser")
-      .then(function(response) {
-        return response.json()
+    fetch("/header.html").then(function(response) {
+        return response.text();
       })
-      .then(function(result) {
-        if (result.status == "success") {
-          document.querySelector("#user-name").innerHTML = result.data.name;
-          css(".login", "display", "")
-          css(".not-login", "display", "none")
-        }
-      })
-
-    function css(selector, name, value) {
-      var el = document.querySelectorAll(selector)
-      for (var e of el) {
-        e.style[name] = value
-      }
-    }
-
-    document.querySelector("#login-btn").onclick = function() {
-      location.href = "/member/signin.html"
-    }
-
-    document.querySelector("#logout-btn").onclick = function() {
-      fetch("/member/signout")
-      .then(function(response) {
-         location.href = "/index.html"
-      })
-    }
-
+      .then(function(html) {
+        document.querySelector("#header").innerHTML = html;
+        var s = document.querySelector("#header").querySelector("script");
+        var s2 = document.createElement("script");
+        s2.innerHTML = s.innerHTML;
+        s.parentNode.removeChild(s);
+        document.body.appendChild(s2);
+      });
   </script>
+
 </body>
 
 </html>
