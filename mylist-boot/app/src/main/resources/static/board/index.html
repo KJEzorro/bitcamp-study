@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <title>게시글</title>
-</head>
-<body>
 <h1>게시글</h1>
-<a href="form.html">새 게시글</a>
+<a href="?content=/board/form.html">새 게시글</a>
 <table id="x-board-table" border="1">
 <thead>
   <tr>
@@ -33,7 +26,7 @@
       for (var board of boards) {
         var tr = document.createElement("tr");
         tr.innerHTML = `<td>${board.no}</td>
-        <td><a href="view.html?no=${board.no}">${board.title}</a></td>
+        <td><a href="?content=/board/view.html&no=${board.no}">${board.title}</a></td>
         <td>${board.writer.name}</td>
         <td>${board.viewCount}</td>
         <td>${board.createdDate}</td>`;
@@ -41,14 +34,3 @@
       }
     });
 </script>
-
-
-
-
-
-
-
-
-
-</body>
-</html>

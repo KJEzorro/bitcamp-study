@@ -1,58 +1,42 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<h1>새 게시글</h1>
 
-<head>
-  <meta charset="utf-8">
-  <title>게시글</title>
-</head>
+<form name="form1">
+제목*: <input type="text" name="title"><br>
+내용*: <textarea cols="60" rows="10" name="content"></textarea><br>
+별표(*) 항목은 필수 입력입니다.<br>
+<button id="x-add-btn" type="button">등록</button>
+<button id="x-cancel-btn" type="button">취소</button>
+</form>
 
-<body>
+<script type="text/javascript">
+  var xTitle = document.querySelector("input[name=title]");
+  var xContent = document.querySelector("textarea");
 
-  <h1>새 게시글</h1>
+  document.querySelector("#x-add-btn").onclick = function() {
+    if (xTitle.value == "" || xContent.value == "") {
+      window.alert("필수 입력 항목이 비어 있습니다.");
+      return;
+    }
 
-  <form name="form1">
-    제목*: <input type="text" name="title"><br>
-    내용*: <textarea cols="60" rows="10" name="content"></textarea><br>
-    별표(*) 항목은 필수 입력입니다.<br>
-    <button id="x-add-btn" type="button">등록</button>
-    <button id="x-cancel-btn" type="button">취소</button>
-  </form>
+    var fd = new FormData(document.forms.namedItem("form1"));
+    
+    fetch("/board/add", {
+    	  method: "POST",
+    	  body: new URLSearchParams(fd)
+      }).then(function(response) {
+        return response.json();
+      })
+      .then(function(result) {
+        if (result.status == "success") {
+        	location.href = "?content=/board/index.html";
+        } else {
+        	window.alert("게시글 등록 실패!");
+        	console.log(result.data);
+        }
+      });
+  };
 
-  <script type="text/javascript">
-    var xTitle = document.querySelector("input[name=title]");
-    var xContent = document.querySelector("textarea");
-
-    document.querySelector("#x-add-btn").onclick = function() {
-      if (xTitle.value == "" || xContent.value == "") {
-        window.alert("필수 입력 항목이 비어 있습니다.");
-        return;
-      }
-
-      var fd = new FormData(document.forms.namedItem("form1"))
-
-
-      fetch("/board/add", {
-          method: "POST",
-          body: new URLSearchParams(fd)
-        })
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(result) {
-          if (result.status == "success") {
-            location.href = "index.html";
-          } else {
-            window.alert("게시글 등록 실패")
-            console.log(result.data);
-          }
-        });
-    };
-
-    document.querySelector("#x-cancel-btn").onclick = function() {
-      window.location.href = "index.html";
-    };
-  </script>
-
-</body>
-
-</html>
+  document.querySelector("#x-cancel-btn").onclick = function() {
+    window.location.href = "?content=/board/index.html";
+  };
+</script>
