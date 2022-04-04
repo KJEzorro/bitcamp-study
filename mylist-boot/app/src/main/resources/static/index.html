@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>MyList!</title>
-  <link rel="stylesheet" href="/css/common.css">
+  <link href="/css/common.css" rel="stylesheet">
 </head>
 
 <body>
@@ -19,10 +19,10 @@
       <h1>MyList에 오신 걸 환영합니다!</h1>
       <p>이 프로젝트는 자바 실전 프로그래밍을 경험하기 위해 만든 프로젝트 입니다.</p>
       <ul>
-        <li><a href="contact/index.html">연락처</a></li>
-        <li><a href="todo/index.html">해야 할 일</a></li>
-        <li><a href="board/index.html">게시글</a></li>
-        <li><a href="book/index.html">독서록</a></li>
+        <li><a href="template/page1.html?content=/contact/index.html">연락처</a></li>
+        <li><a href="template/page1.html?content=/todo/index.html">해야 할 일</a></li>
+        <li><a href="template/page1.html?content=/board/index.html">게시글</a></li>
+        <li><a href="template/page1.html?content=/book/index.html">독서록</a></li>
         <li><a href="etc/student-selector/index.html">발표자 추첨</a></li>
       </ul>
     </div>
@@ -31,24 +31,24 @@
 
   </div>
 
-
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
   <script>
     $("#header").load("header.html");
     $("#footer").load("footer.html");
     $("#sidebar").load("sidebar.html");
 
-    // fetch("/header.html").then(function(response) {
-    //     return response.text();
-    //   })
-    //   .then(function(html) {
-    //     document.querySelector("#header").innerHTML = html;
-    //     var s = document.querySelector("#header").querySelector("script");
-    //     var s2 = document.createElement("script");
-    //     s2.innerHTML = s.innerHTML;
-    //     s.parentNode.removeChild(s);
-    //     document.body.appendChild(s2);
-    //   });
+    /*
+    fetch("/header.html").then(function(response) {
+    	return response.text();
+    }).then(function(html) {
+    	document.querySelector("#header").innerHTML = html;
+    	var s = document.querySelector("#header").querySelector("script");
+    	var s2 = document.createElement("script");
+    	s2.innerHTML = s.innerHTML;
+    	s.parentNode.removeChild(s);
+    	document.body.appendChild(s2);
+    });
+    */
   </script>
 
 </body>

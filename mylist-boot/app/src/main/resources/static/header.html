@@ -12,6 +12,8 @@
   #app-title {
     font-size: 1.5em;
     font-weight: bold;
+    font-style: none;
+    color: white;
   }
 
   #user-name {
@@ -20,7 +22,7 @@
   }
 </style>
 
-<span id="app-title">MyList</span>
+<a href="/index.html"><span id="app-title">MyList</span></a>
 <button id="login-btn" type="button" class="not-login">로그인</button>
 <span id="user-name" class="login"></span>
 <button id="logout-btn" type="button" class="login">로그아웃</button>
@@ -46,7 +48,7 @@
   }
 
   document.querySelector("#login-btn").onclick = function() {
-    location.href = "/member/signin.html";
+    location.href = "template/page1.html?content=/member/signin.html";
   };
 
   document.querySelector("#logout-btn").onclick = function() {

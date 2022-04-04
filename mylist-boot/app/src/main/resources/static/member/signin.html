@@ -1,132 +1,106 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<h1>로그인</h1>
 
-<head>
-  <meta charset="utf-8">
-  <title>회원가입</title>
-</head>
+<form name="form1">
+  이메일: <input name="email" type="email"><br>
+  암호: <input name="password" type="password"><br>
+  <input name="saveEmail" type="checkbox"> 이메일 저장<br>
+  <div>
+    <button id="x-add-btn">로그인</button>
+    <button id="x-cancel-btn" type="button">취소</button>
+    <a href="?content=/member/form.html">회원가입</a>
+  </div>
+  <div>
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+  </div>
+</form>
 
-<body>
+<script type="text/javascript">
+  var xEmail = document.querySelector("input[name=email]");
+  var xPassword = document.querySelector("input[name=password]");
 
-  <h1>로그인</h1>
+  document.querySelector("form[name=form1]").onsubmit = function() {
+    if (xEmail.value == "" ||
+      xPassword.value == "") {
+      window.alert("필수 입력 항목이 비어 있습니다.");
+      return false;
+    }
 
-  <form name="form1">
-    이메일: <input name="email" type="email"><br>
-    비밀번호: <input name="password" type="password" autocomplete="off"><br>
-    <input name="saveEmail" type="checkbox">이메일 저장<br>
-    <div>
-      <button id="x-add-btn">로그인</button>
-      <button id="x-cancel-btn" type="button">취소</button>
-      <a href="form.html">회원가입</a>
-    </div>
-    <div>
-      <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-      </fb:login-button>
-    </div>
-  </form>
+    var fd = new FormData(document.forms.namedItem("form1"));
 
-  <script type="text/javascript">
-    var xEmail = document.querySelector("input[name=email]");
-    var xPassword = document.querySelector("input[name=password]");
+    fetch("/member/signin", {
+        method: "POST",
+        body: new URLSearchParams(fd)
+      })
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(text) {
+        if (text == "success") {
+          location.href = "/index.html";
+        } else {
+          window.alert("로그인 실패!")
+        }
+      });
+    return false;
+  };
 
+  document.querySelector("#x-cancel-btn").onclick = function() {
+    window.location.href = "/index.html";
+  };
 
-    document.querySelector("form[name=form1]").onsubmit = function() {
-      if (
-        xEmail.value == "" ||
-        xPassword.value == ""
-      ) {
-        window.alert("필수 입력 항목이 비어 있습니다.");
-        return false;
-      }
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '272674241595180', // 개발자가 등록한 앱 ID
+      cookie: true,
+      xfbml: true,
+      version: 'v13.0'
+    });
+    FB.AppEvents.logPageView();
+  };
 
-      var fd = new FormData(document.forms.namedItem("form1"));
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') { // 로그인이 정상적으로 되었을 때,
 
-      fetch("/member/signin", {
+        var params = new URLSearchParams();
+        params.append("accessToken", response.authResponse.accessToken);
+
+        fetch("/member/facebookLogin", {
           method: "POST",
-          body: new URLSearchParams(fd)
-        })
-        .then(function(response) {
-          return response.text();
-        })
-        .then(function(text) {
-          if (text == "success") {
-            location.href = "../index.html"
+          body: params
+        }).then(function(response) {
+          return response.json();
+        }).then(function(result) {
+          if (result.status == "success") {
+            console.log(result.data)
+            location.href = "/index.html";
           } else {
-            window.alert("로그인 실패")
+            window.alert("페이스북 로그인 실패!");
+            console.log(result.data);
           }
         });
 
-      return false;
-    };
+      } else { // 로그인이 되지 않았을 때,
+        console.log("로그인 되지 않았음");
+      }
+    });
+  }
+</script>
 
-    document.querySelector("#x-cancel-btn").onclick = function() {
-      window.location.href = "../index.html";
-    };
-
-
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId: '394993095383103', // 개발자가 등록한 앱 ID
-        cookie: true,
-        xfbml: true,
-        version: 'v13.0'
-      });
-      FB.AppEvents.logPageView();
-    };
-
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    function checkLoginState() {
-      FB.getLoginStatus(function(response) {
-        if (response.status === 'connected') { // 로그인이 정상적으로 되었을 때,
-          console.log(response.authResponse.accessToken);
-
-          var params = new URLSearchParams();
-          params.append("accessToken", response.authResponse.accessToken);
-
-          fetch("/member/facebookLogin", {
-              method: "POST",
-              body: params
-            })
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(result) {
-              if (result.status == "success") {
-                console.log(result.data);
-                location.href = "../index.html";
-              } else {
-                window.alert("페이스북 로그인 실패");
-                console.log(result.data);
-              }
-            })
-
-        } else { // 로그인이 되지 않았을 때,
-          console.log("로그인 되지 않았음");
-        }
-      });
-    }
-
-  </script>
-
-  <script src="/node_modules/js-cookie/dist/js.cookie.js"></script>
-  <script>
-  // userEmail 쿠키가 있다면 값을 꺼내서 이메일 입력 상자에 넣는다.
+<script src="/node_modules/js-cookie/dist/js.cookie.js"></script>
+<script>
+  //userEmail 쿠키가 있다면 값을 꺼내서 이메일 입력 상자에 넣는다.
   var userEmail = Cookies.get('userEmail');
   if (userEmail != undefined) {
-    console.log("실행 했음");
     xEmail.value = userEmail;
   }
-  </script>
-
-</body>
-
-</html>
+</script>
