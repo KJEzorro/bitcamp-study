@@ -16,7 +16,6 @@
 
 <script type="text/javascript">
   var tbody = document.querySelector("#x-board-table tbody")
-
   fetch("/board/list")
     .then(function(response) {
       return response.json();

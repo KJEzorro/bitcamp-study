@@ -48,9 +48,9 @@
   }
   console.log(no);
 
-  var xName = document.querySelector("#x-name");
-  var xEmail = document.querySelector("#x-email");
-  var xCompany = document.querySelector("#x-company");
+  var xName            = document.querySelector("#x-name");
+  var xEmail           = document.querySelector("#x-email");
+  var xCompany         = document.querySelector("#x-company");
   var xTelDivContainer = document.querySelector("#x-tel-div-container");
 
   // 3) 서버에서 데이터 가져오기
@@ -60,8 +60,8 @@
     })
     .then(function(contact) {
       // 4) 연락처 상세 정보를 화면에 출력한다.
-      xName.value = contact.name;
-      xEmail.value = contact.email;
+      xName.value    = contact.name;
+      xEmail.value   = contact.email;
       xCompany.value = contact.company;
 
       for (var i = 1; i < contact.tels.length; i++) {

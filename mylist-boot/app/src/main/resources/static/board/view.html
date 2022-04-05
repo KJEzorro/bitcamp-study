@@ -36,11 +36,11 @@
   }
   console.log(no);
 
-  var xNo = document.querySelector("input[name=no]");
-  var xTitle = document.querySelector("input[name=title]");
-  var xContent = document.querySelector("textarea");
-  var xWriter = document.querySelector("#x-writer");
-  var xViewCount = document.querySelector("#x-viewCount");
+  var xNo          = document.querySelector("input[name=no]");
+  var xTitle       = document.querySelector("input[name=title]");
+  var xContent     = document.querySelector("textarea");
+  var xWriter      = document.querySelector("#x-writer");
+  var xViewCount   = document.querySelector("#x-viewCount");
   var xCreatedDate = document.querySelector("#x-createdDate");
 
   // 3) 서버에서 데이터 가져오기
@@ -57,7 +57,7 @@
       }
 
       var board = result.data;
-      
+
       xNo.value = board.no;
       xTitle.value = board.title;
       xContent.value = board.content;

@@ -9,7 +9,7 @@
 </form>
 
 <script type="text/javascript">
-  var xTitle = document.querySelector("input[name=title]");
+  var xTitle   = document.querySelector("input[name=title]");
   var xContent = document.querySelector("textarea");
 
   document.querySelector("#x-add-btn").onclick = function() {
@@ -17,7 +17,6 @@
       window.alert("필수 입력 항목이 비어 있습니다.");
       return;
     }
-
     var fd = new FormData(document.forms.namedItem("form1"));
 
     fetch("/board/add", {
@@ -27,11 +26,11 @@
         return response.json();
       })
       .then(function(result) {
+        console.log(result);
         if (result.status == "success") {
           location.href = "?content=/board/index.html";
         } else {
-          window.alert("게시글 등록 실패!");
-          console.log(result.data);
+          window.alert(result.data);
         }
       });
   };
