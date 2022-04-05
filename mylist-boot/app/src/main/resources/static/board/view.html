@@ -48,8 +48,16 @@
     .then(function(response) {
       return response.json();
     })
-    .then(function(board) {
+    .then(function(result) {
       // 4) 연락처 상세 정보를 화면에 출력한다.
+      if (result.status == "fail") {
+        window.alert("서버 요청 오류")
+        console.log(result.data);
+        return;
+      }
+
+      var board = result.data;
+      
       xNo.value = board.no;
       xTitle.value = board.title;
       xContent.value = board.content;

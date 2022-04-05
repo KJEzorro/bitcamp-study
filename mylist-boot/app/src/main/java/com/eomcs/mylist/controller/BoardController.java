@@ -18,7 +18,7 @@ public class BoardController {
 
   @RequestMapping("/board/list")
   public Object list() {
-    return boardService.list();
+    return new ResultMap().setStatus(SUCCESS).setData(boardService.list());
   }
 
   @RequestMapping("/board/add")
@@ -37,9 +37,9 @@ public class BoardController {
   public Object get(int no) {
     Board board = boardService.get(no);
     if (board == null) {
-      return "";
+      return new ResultMap().setStatus(FAIL).setData("해당 번호의 게시글이 없습니다.");
     }
-    return board;
+    return new ResultMap().setStatus(SUCCESS).setData(board);
   }
 
   @RequestMapping("/board/update")
