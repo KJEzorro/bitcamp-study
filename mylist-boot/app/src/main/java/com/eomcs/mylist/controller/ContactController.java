@@ -1,5 +1,7 @@
 package com.eomcs.mylist.controller;
 
+import static com.eomcs.mylist.controller.ResultMap.FAIL;
+import static com.eomcs.mylist.controller.ResultMap.SUCCESS;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,7 @@ public class ContactController {
 
   @RequestMapping("/contact/list")
   public Object list() {
-    return contactService.list();
+    return new ResultMap().setStatus(SUCCESS).setData(contactService.list());
   }
 
   @RequestMapping("/contact/add")
@@ -34,40 +36,18 @@ public class ContactController {
     }
     contact.setTels(telList);
 
-    // 서비스 객체 실행
-    return contactService.add(contact);
+    contactService.add(contact);
 
-    /*
-    // 1) 트랜잭션으로 묶어서 실행할 작업을 정의
-    // => 스프링 프레임워크에서 정한 규칙에 따라 정의해야 한다.
-    class ContactAddTransaction implements TransactionCallback {
-      @Override
-      public Object doInTransaction(TransactionStatus status) {
-        // 트랜잭션으로 묶어서 할 작업을 기술한다.
-        contactDao.insert(contact);
-        for (int i = 0; i < tel.length; i++) {
-          String[] value = tel[i].split("_");
-          if (value[1].length() == 0) {
-            continue;
-          }
-          contactDao.insertTel(new ContactTel(contact.getNo(), Integer.parseInt(value[0]), value[1]));
-        }
-        return 1;
-      }
-    }
-
-    // 2) 트랜잭션 작업을 수행한다.
-    return transactionTemplate.execute(new ContactAddTransaction());
-     */
+    return new ResultMap().setStatus(SUCCESS);
   }
 
   @RequestMapping("/contact/get")
   public Object get(int no) {
     Contact contact = contactService.get(no);
     if (contact == null) {
-      return ""; // 컨트롤러는 서비스 객체의 리턴 값에 따라 응답 데이터를 적절히 가공하여 리턴한다.
+      return new ResultMap().setStatus(FAIL).setData("해당 번호의 연락처가 없습니다.");
     }
-    return contact;
+    return new ResultMap().setStatus(SUCCESS).setData(contact);
   }
 
   @RequestMapping("/contact/update")
@@ -87,12 +67,24 @@ public class ContactController {
     contact.setTels(telList);
 
     // 서비스 객체 실행
-    return contactService.update(contact);
+    int count = contactService.update(contact);
+
+    if (count == 1) {
+      return new ResultMap().setStatus(SUCCESS);
+    } else {
+      return new ResultMap().setStatus(FAIL).setData("연락처 번호가 유효하지 않거나 연락처 등록자가 아닙니다.");
+    }
   }
 
   @RequestMapping("/contact/delete")
   public Object delete(int no) throws Exception {
-    return contactService.delete(no);
+    int count = contactService.delete(no);
+
+    if (count == 1) {
+      return new ResultMap().setStatus(SUCCESS);
+    } else {
+      return new ResultMap().setStatus(FAIL).setData("연락처 번호가 유효하지 않거나 연락처 등록자가 아닙니다.");
+    }
   }
 
 }

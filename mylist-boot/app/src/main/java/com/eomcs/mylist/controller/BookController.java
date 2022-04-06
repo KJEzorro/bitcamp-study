@@ -1,8 +1,14 @@
 package com.eomcs.mylist.controller;
 
+import static com.eomcs.mylist.controller.ResultMap.FAIL;
+import static com.eomcs.mylist.controller.ResultMap.SUCCESS;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -20,23 +26,29 @@ import net.coobird.thumbnailator.geometry.Positions;
 @RestController
 public class BookController {
 
+  private static final Logger log = LoggerFactory.getLogger(BookController.class);
+
   @Autowired
   BookService bookService;
 
   @RequestMapping("/book/list")
   public Object list() {
-    return bookService.list();
+    return new ResultMap().setStatus(SUCCESS).setData(bookService.list());
   }
 
   @RequestMapping("/book/add")
   public Object add(Book book, MultipartFile file) {
     try {
       book.setPhoto(saveFile(file));
-      return bookService.add(book);
+      bookService.add(book);
+      return new ResultMap().setStatus(SUCCESS);
 
     } catch (Exception e) {
-      e.printStackTrace();
-      return "error!";
+      StringWriter out = new StringWriter();
+      e.printStackTrace(new PrintWriter(out));
+      log.error(out.toString());
+
+      return new ResultMap().setStatus(FAIL);
     }
   }
 
@@ -44,24 +56,38 @@ public class BookController {
   @RequestMapping("/book/get")
   public Object get(int no) {
     Book book = bookService.get(no);
-    return book != null ? book : "";
+    if (book == null) {
+      return new ResultMap().setStatus(FAIL).setData("해당 번호의 독서록이 없습니다.");
+    }
+    return new ResultMap().setStatus(SUCCESS).setData(book);
   }
 
   @RequestMapping("/book/update")
   public Object update(Book book, MultipartFile file) {
     try {
       book.setPhoto(saveFile(file));
-      return bookService.update(book);
+      int count = bookService.update(book);
 
+      if (count == 1) {
+        return new ResultMap().setStatus(SUCCESS);
+      } else {
+        return new ResultMap().setStatus(FAIL).setData("독서록 번호가 유효하지 않거나 독서록 작성자가 아닙니다.");
+      }
     } catch (Exception e) {
       e.printStackTrace();
-      return "error!";
+      return new ResultMap().setStatus(FAIL).setData(e.getMessage());
     }
   }
 
   @RequestMapping("/book/delete")
   public Object delete(int no) {
-    return bookService.delete(no);
+    int count = bookService.delete(no);
+
+    if (count == 1) {
+      return new ResultMap().setStatus(SUCCESS);
+    } else {
+      return new ResultMap().setStatus(FAIL).setData("독서록 번호가 유효하지 않거나 독서록 작성자가 아닙니다.");
+    }
   }
 
   @RequestMapping("/book/photo")
@@ -103,8 +129,7 @@ public class BookController {
           .body(resource); // 응답 콘텐트를 생성한 후 리턴한다.
 
     } catch (Exception e) {
-      //e.printStackTrace();
-      System.out.println("요청한 파일이 없습니다!");
+
       return null;
     }
   }

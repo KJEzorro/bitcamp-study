@@ -27,20 +27,11 @@ dependencies {
 
   // Mybatis 프레임워크(스프링 스타터로 간접 구성)
   implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
-  
-  // log4j2
-  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
   implementation 'org.springframework.boot:spring-boot-starter-jdbc'
   implementation 'org.springframework.boot:spring-boot-starter-web'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-configurations {
-    all {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
 }
 
 
