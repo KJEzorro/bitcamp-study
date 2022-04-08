@@ -39,3 +39,9 @@ eclipse {
       javaRuntimeName = "JavaSE-11"
     }
 }
+
+// 배포파일(.war)의 이름을 설정
+// => 웹애플리케이션의 context root 이름으로도 사용된다.
+war {
+    archiveBaseName = "web"
+}
