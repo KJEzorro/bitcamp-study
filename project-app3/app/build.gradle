@@ -1,0 +1,41 @@
+
+plugins {
+    id 'java'
+    // 이클립스 웹 프로젝트를 다룰 수 있는 기능 추가
+    id 'eclipse-wtp'
+
+    // 웹 애플리케이션 배포파일(.war)을 생성할 수 있는 기능 추가
+    id 'war'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Servlet API 라이브러리
+    // => 컴파일 할 때만 사용하고, 배포할 때는 제외할 라이브러리
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'com.google.guava:guava:30.1.1-jre'
+}
+
+// CLI 에서 빌드 할 때 사용할 설정 정보
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+}
+
+// Eclipse IDE에서 빌드할 때 사용할 설정 정보
+eclipse {
+    project {
+        name = "project-app3"
+    }
+    jdt {
+      sourceCompatibility = 11
+      targetCompatibility = 11
+      javaRuntimeName = "JavaSE-11"
+    }
+}

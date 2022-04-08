@@ -1,103 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="utf-8">
   <title>게시판</title>
 
 </head>
+
 <body>
 
 
-<h1>게시판 상세</h1>
+  <h1>게시판 상세</h1>
 
-<form>
-  제목*: <input id="x-title" type="text" readonly><br>
-  내용: <td><textarea id="x-content" cols=80 rows=20></textarea></td><br>
-  <input id="x-viewcount" type="text" style="display:none;" readonly><br>
-  <input id="x-createddate" type="text" style="display:none;" readonly><br>
-  <button id="x-update-btn" type="button">수정</button>
-  <button id="x-delete-btn" type="button">삭제</button>
-  <button id="x-cancel-btn" type="button">나가기</button>
-</form>
+  <form>
+    제목*: <input id="x-title" type="text" readonly><br>
+    내용: <td><textarea id="x-content" cols=80 rows=20></textarea></td><br>
+    <input id="x-viewcount" type="text" style="display:none;" readonly><br>
+    <input id="x-createddate" type="text" style="display:none;" readonly><br>
+    <button id="x-update-btn" type="button">수정</button>
+    <button id="x-delete-btn" type="button">삭제</button>
+    <button id="x-cancel-btn" type="button">나가기</button>
+  </form>
 
-<script type="text/javascript">
+  <script type="text/javascript">
+    // 1) URL에서 쿼리스트링(query string)을 추출한다.
+    var arr = location.href.split("?");
+    console.log(arr);
 
-  // 1) URL에서 쿼리스트링(query string)을 추출한다.
-  var arr = location.href.split("?");
-  console.log(arr);
-
-  if (arr.length == 1) {
-    alert("요청 형식이 옳바르지 않습니다.")
-    throw "URL 형식 오류!";
-  }
-
-  var qs = arr[1];
-  console.log(qs);
-
-  var params = new URLSearchParams(qs);
-  var title = params.get("title");
-
-  if (title == null) {
-    alert("타이틀 값이 없습니다.");
-    throw "파라미터 오류!";
-  }
-
-  console.log(title);
-
-  var xTitle = document.querySelector("#x-title");
-  var xContent = document.querySelector("#x-content");
-  var xViewCount = document.querySelector("#x-viewcount");
-  var xCreatedDate = document.querySelector("#x-createddate");
-
-  // 3) 서버에서 데이터 가져오기
-  fetch(`/board/get?title=${title}`)
-    .then(function(response) {
-      console.log(response);
-      return response.json();
-    })
-    .then(function(contact) {
-      console.log(contact);
-      // 4) 연락처 상세 정보를 화면에 출력한다.
-      xTitle.value = contact.title
-      xContent.value = contact.content
-      xViewCount.value = contact.viewCount
-      xCreatedDate.value = contact.createdDate
-
-
-    });
-
-  document.querySelector("#x-update-btn").onclick = function() {
-    if (xTitle.value == "") {
-      window.alert("필수 입력 항목이 비어 있습니다.");
-      return;
+    if (arr.length == 1) {
+      alert("요청 형식이 옳바르지 않습니다.")
+      throw "URL 형식 오류!";
     }
 
-    fetch(`/board/update?title=${xTitle.value}&content=${xContent.value}&viewCount=${xViewCount.value}&createdDate=${xCreatedDate.value}`)
+    var qs = arr[1];
+    console.log(qs);
+
+    var params = new URLSearchParams(qs);
+    var title = params.get("title");
+
+    if (title == null) {
+      alert("타이틀 값이 없습니다.");
+      throw "파라미터 오류!";
+    }
+
+    console.log(title);
+
+    var xTitle = document.querySelector("#x-title");
+    var xContent = document.querySelector("#x-content");
+    var xViewCount = document.querySelector("#x-viewcount");
+    var xCreatedDate = document.querySelector("#x-createddate");
+
+    // 3) 서버에서 데이터 가져오기
+    fetch(`/board/get?title=${title}`)
       .then(function(response) {
+        console.log(response);
         return response.json();
       })
-      .then(function(text) {
-        console.log(text);
-        location.href = "index(my).html";
+      .then(function(contact) {
+        console.log(contact);
+        // 4) 연락처 상세 정보를 화면에 출력한다.
+        xTitle.value = contact.title
+        xContent.value = contact.content
+        xViewCount.value = contact.viewCount
+        xCreatedDate.value = contact.createdDate
+
+
       });
-  };
 
-  document.querySelector("#x-cancel-btn").onclick = function() {
-    window.location.href = "index(my).html";
-  };
+    document.querySelector("#x-update-btn").onclick = function() {
+      if (xTitle.value == "") {
+        window.alert("필수 입력 항목이 비어 있습니다.");
+        return;
+      }
 
-  document.querySelector("#x-delete-btn").onclick = function() {
-    fetch(`/board/delete?title=${title}`)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(result) {
-        console.log(result);
-        location.href = "index(my).html";
-      });
-  };
+      fetch(`/board/update?title=${xTitle.value}&content=${xContent.value}&viewCount=${xViewCount.value}&createdDate=${xCreatedDate.value}`)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(text) {
+          console.log(text);
+          location.href = "index(my).html";
+        });
+    };
 
-</script>
+    document.querySelector("#x-cancel-btn").onclick = function() {
+      window.location.href = "index(my).html";
+    };
+
+    document.querySelector("#x-delete-btn").onclick = function() {
+      fetch(`/board/delete?title=${title}`)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(result) {
+          console.log(result);
+          location.href = "index(my).html";
+        });
+    };
+  </script>
 
 </body>
+
 </html>
