@@ -13,22 +13,29 @@ import javax.servlet.annotation.WebServlet;
 // Servlet API 규칙에 따라 작성해야 한다.
 // 
 
-@WebServlet("/hello")
+@WebServlet("/hello") // 서블릿 컨테이너에게 이 클래스가 /hello 요청을 처리하는 서블릿임을 알려준다.
 public class HelloServlet implements Servlet {
+
+  ServletConfig config;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
+    System.out.println("init() 호출");
+    this.config = config;
 
   }
 
   @Override
   public ServletConfig getServletConfig() {
-    return null;
+    System.out.println("getServletConfig() 호출");
+    return this.config;
   }
 
   @Override
   public void service(ServletRequest req, ServletResponse res)
       throws ServletException, IOException {
+
+    System.out.println("service() 호출");
 
     // HTTP 클라이언트가 name이란 이름으로 보내 온 값을 읽는다.
     String name = req.getParameter("name");
@@ -46,11 +53,13 @@ public class HelloServlet implements Servlet {
 
   @Override
   public String getServletInfo() {
-    return null;
+    System.out.println("getServletInfo() 호출");
+    return "HelloServlet";
   }
 
   @Override
   public void destroy() {
+    System.out.println("destroy() 호출");
   }
 
 }
