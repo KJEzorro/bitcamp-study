@@ -38,6 +38,25 @@ eclipse {
       targetCompatibility = 11
       javaRuntimeName = "JavaSE-11"
     }
+    
+    wtp {
+        facet {
+            // 웹애플리케이션을 실행할 컨테이너의 자바 버전을 설정한다.
+            facet name: 'jst.java', version: '11'
+        }
+        facet {
+            // 웹애플리케이션을 실행할 컨테이너의 Servlet/JSP 버전을 설정한다.
+            facet name: 'jst.web', version: '4.0'
+        }
+        
+        component {
+            // 웹애플리케이션의 컨텍스트 루트 경로를 설정한다.
+            // => 즉 이 웹 애플리케이션에 접근할 때 '/'를 사용할 것이라는 의미이다. 
+            contextPath = '/'
+
+        }
+
+    }
 }
 
 // 배포파일(.war)의 이름을 설정
@@ -45,3 +64,6 @@ eclipse {
 war {
     archiveBaseName = "web"
 }
+
+
+
