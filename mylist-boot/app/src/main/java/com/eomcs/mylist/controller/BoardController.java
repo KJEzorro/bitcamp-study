@@ -12,7 +12,7 @@ import com.eomcs.mylist.domain.Board;
 import com.eomcs.mylist.domain.Member;
 import com.eomcs.mylist.service.BoardService;
 
-@RestController
+@RestController 
 public class BoardController {
 
   // log를 출력하는 도구 준비
@@ -83,3 +83,7 @@ public class BoardController {
     }
   }
 }
+
+
+
+

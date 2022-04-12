@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>발표자 선택</title>
+  <style>
+  .item {
+      border: 1px solid black;
+      width: 80px;
+      height: 40px;
+      text-align: center;
+      padding-top: 10px;
+      margin: 5px;
+      box-sizing: border-box;
+      display: inline-block;
+  }
+  .selected {
+    background-color: yellow;
+    color: blue;
+    font-weight: bold;
+  }
+  </style>
+</head>
+<body>
+<h1>발표자 추첨</h1>
+<div id="x-list"></div>
+
+<script>
+var students = ["강동우","곽민규","김기현","김민수","김재원",
+  "김주은","김지현","명준호","박경현","박력",
+  "서영범","양성은","양승범","오민현","오승지",
+  "이상준","이장일","이재훈","임성현","장창훈",
+  "장효범","전영민","정요섭","정창성","조원석",
+  "채다해","최리나","한상은","허정윤","김규범"]
+
+var listDiv = document.querySelector("#x-list");
+
+for (var name of students) {
+  var div = document.createElement("div");
+  div.classList.add("item");
+  div.innerHTML = `${name}`;
+  listDiv.appendChild(div);
+}
+
+var items = document.querySelectorAll(".item");
+var currNo = 0;
+var count = 0;
+
+var timerId = window.setInterval(function() {
+  items[currNo].classList.remove("selected");
+  var no = Math.floor(Math.random() * 30); // 0 * 30 <= no < 1 * 30
+  items[no].classList.add("selected");
+  currNo = no;
+  count++;
+  if (count % 50 == 0) {
+    clearInterval(timerId);
+  }
+}, 100);
+</script>
+</body>
+</html>

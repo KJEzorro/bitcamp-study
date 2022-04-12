@@ -12,7 +12,6 @@ public class DefaultMemberService implements MemberService {
   @Autowired
   MemberDao memberDao;
 
-
   @Override
   public int add(Member member) {
     return memberDao.insert(member);
@@ -27,6 +26,5 @@ public class DefaultMemberService implements MemberService {
   public Member get(String email) {
     return memberDao.findByEmail(email);
   }
-
 
 }

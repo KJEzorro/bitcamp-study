@@ -35,7 +35,7 @@ public class MemberController {
       return new ResultMap().setStatus(FAIL);
     }
 
-    // 로그인이 성공하면,
+    // 로그인이 성공하면, 
     // 다른 요청을 처리할 때 로그인 회원의 정보를 사용할 있도록 세션에 보관한다.
     session.setAttribute("loginUser", loginUser);
 
@@ -78,8 +78,8 @@ public class MemberController {
     // 1) accessToken을 가지고 페이스북으로 가서 로그인 사용자 정보를 가져온다.
     RestTemplate restTemplate = new RestTemplate();
     Map<String,String> result = restTemplate.getForObject(
-        "https://graph.facebook.com/v13.0/me?access_token={value1}&fields={value2}", // 요청할 URL
-        Map.class, // 서버에서 받은 결과의 타입
+        "https://graph.facebook.com/v13.0/me?access_token={value1}&fields={value2}", // 요청할 URL 
+        Map.class, // 서버에서 받은 결과의 타입 
         accessToken, // URL의 첫 번째 자리에 들어갈 값
         "id,name,email,gender" // 페이스북 측에 요청하는 로그인 사용자 정보
         );
@@ -108,3 +108,13 @@ public class MemberController {
   }
 
 }
+
+
+
+
+
+
+
+
+
+

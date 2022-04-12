@@ -23,7 +23,7 @@ import com.eomcs.mylist.service.BookService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 
-@RestController
+@RestController 
 public class BookController {
 
   private static final Logger log = LoggerFactory.getLogger(BookController.class);
@@ -116,10 +116,10 @@ public class BookController {
       //      http응답생성기.headers(header); // HTTP 응답 헤더를 설정한다.
       //      http응답생성기.contentLength(downloadFile.length()); // 응답 콘텐트의 파일 크기를 설정한다.
       //      http응답생성기.contentType(MediaType.APPLICATION_OCTET_STREAM); // 응답 데이터의 MIME 타입을 설정한다.
-      //
+      //      
       //      // 응답 데이터를 포장한다.
       //      ResponseEntity<Resource> 응답데이터 = http응답생성기.body(resource);
-      //
+      //      
       //      return 응답데이터; // 포장한 응답 데이터를 클라이언트로 리턴한다.
 
       return ResponseEntity.ok() // HTTP 응답 프로토콜에 따라 응답을 수행할 생성기를 준비한다.
@@ -136,7 +136,7 @@ public class BookController {
 
 
   private String saveFile(MultipartFile file) throws Exception {
-    if (file != null && file.getSize() > 0) {
+    if (file != null && file.getSize() > 0) { 
       // 파일을 저장할 때 사용할 파일명을 준비한다.
       String filename = UUID.randomUUID().toString();
 
@@ -166,3 +166,6 @@ public class BookController {
 
 
 }
+
+
+

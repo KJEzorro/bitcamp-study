@@ -16,5 +16,4 @@ public class Book {
   int page;
   int price;
   String photo;
-
 }

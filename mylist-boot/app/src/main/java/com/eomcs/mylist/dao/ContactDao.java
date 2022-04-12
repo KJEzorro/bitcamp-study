@@ -9,7 +9,7 @@ import com.eomcs.mylist.domain.ContactTel;
 @Mapper
 public interface ContactDao {
 
-  int countAll();
+  int countAll(); 
 
   List<Contact> findAll();
 
@@ -37,3 +37,14 @@ public interface ContactDao {
 
   int deleteTelByContactNo(int contactNo);
 }
+
+
+
+
+
+
+
+
+
+
+

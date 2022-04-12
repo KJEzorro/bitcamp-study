@@ -1,21 +1,22 @@
 <h1>게시글 상세</h1>
 
 <form name="form1">
-  번호: <input name="no" type="text" readonly><br>
-  제목*: <input name="title" type="text"><br>
-  내용*: <textarea name="content" cols="50" rows="10"></textarea><br>
-  작성자: <span id="x-writer"></span><br>
-  조회수: <span id="x-viewCount"></span><br>
-  등록일: <span id="x-createdDate"></span><br>
-  별표(*) 항목은 필수 입력입니다.<br>
-  <button id="x-update-btn" type="button">변경</button>
-  <button id="x-delete-btn" type="button">삭제</button>
-  <button id="x-cancel-btn" type="button">취소</button>
+번호: <input name="no" type="text" readonly><br>
+제목*: <input name="title" type="text"><br>
+내용*: <textarea name="content" cols="50" rows="10"></textarea><br>
+작성자: <span id="x-writer"></span><br>
+조회수: <span id="x-viewCount"></span><br>
+등록일: <span id="x-createdDate"></span><br>
+별표(*) 항목은 필수 입력입니다.<br>
+<button id="x-update-btn" type="button">변경</button>
+<button id="x-delete-btn" type="button">삭제</button>
+<button id="x-cancel-btn" type="button">취소</button>
 </form>
 
 <script type="text/javascript">
+
   // 1) URL에서 쿼리스트링(query string)을 추출한다.
-  var arr = location.href.split("?");
+  var arr = location.href.split("?"); 
   console.log(arr);
 
   if (arr.length == 1) {
@@ -36,11 +37,11 @@
   }
   console.log(no);
 
-  var xNo          = document.querySelector("input[name=no]");
-  var xTitle       = document.querySelector("input[name=title]");
-  var xContent     = document.querySelector("textarea");
-  var xWriter      = document.querySelector("#x-writer");
-  var xViewCount   = document.querySelector("#x-viewCount");
+  var xNo = document.querySelector("input[name=no]");
+  var xTitle = document.querySelector("input[name=title]");
+  var xContent = document.querySelector("textarea");
+  var xWriter = document.querySelector("#x-writer");
+  var xViewCount = document.querySelector("#x-viewCount");
   var xCreatedDate = document.querySelector("#x-createdDate");
 
   // 3) 서버에서 데이터 가져오기
@@ -51,13 +52,13 @@
     .then(function(result) {
       // 4) 연락처 상세 정보를 화면에 출력한다.
       if (result.status == "fail") {
-        window.alert("서버 요청 오류")
-        console.log(result.data);
-        return;
+    	  window.alert("서버 요청 오류!");
+    	  console.log(result.data);
+    	  return;
       }
-
+      
       var board = result.data;
-
+      
       xNo.value = board.no;
       xTitle.value = board.title;
       xContent.value = board.content;
@@ -71,21 +72,21 @@
       window.alert("필수 입력 항목이 비어 있습니다.");
       return;
     }
-
+    
     var fd = new FormData(document.forms.namedItem("form1"));
-
+    
     fetch("/board/update", {
-        method: "POST",
-        body: new URLSearchParams(fd)
+    	  method: "POST",
+    	  body: new URLSearchParams(fd)
       }).then(function(response) {
         return response.json();
       })
       .then(function(result) {
         if (result.status == "success") {
-          location.href = "?content=/board/index.html";
+        	location.href = "?content=/board/index.html";
         } else {
-          window.alert("게시글 변경 실패!");
-          console.log(result.data);
+        	window.alert("게시글 변경 실패!");
+        	console.log(result.data);
         }
       });
   };
@@ -100,7 +101,7 @@
         return response.json();
       })
       .then(function(result) {
-        if (result.status == "success") {
+    	  if (result.status == "success") {
           location.href = "?content=/board/index.html";
         } else {
           window.alert("게시글 삭제 실패!");
@@ -108,4 +109,6 @@
         }
       });
   };
+
 </script>
+

@@ -1,27 +1,27 @@
 <style>
   .x-photo-box {
     display: inline-block;
-    text-align: center;
+    text-align: center; 
     vertical-align: middle;
     width: 50px;
     height: 50px;
-  }
+  } 
 </style>
 
 <h1>독서록</h1>
 <a href="?content=/book/form.html">새 독서록</a>
 <table id="x-book-table" border="1">
-  <thead>
-    <tr>
-      <th>번호</th>
-      <th>책</th>
-      <th>저자</th>
-      <th>출판사</th>
-      <th>페이지</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
+<thead>
+  <tr>
+    <th>번호</th>
+    <th>책</th>
+    <th>저자</th>
+    <th>출판사</th>
+    <th>페이지</th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
 </table>
 
 <script type="text/javascript">
@@ -31,10 +31,16 @@
     .then(function(response) {
       return response.json();
     })
-    .then(function(books) {
-      for (var book of books) {
+    .then(function(result) {
+      if (result.status == "fail") {
+          window.alert("서버 요청 오류!");
+          console.log(result.data);
+          return;
+      }
+        
+      for (var book of result.data) {
         if (book.photo == null) {
-          book.photo = "default.jpg";
+        	book.photo = "default.jpg";
         }
         var tr = document.createElement("tr");
         tr.innerHTML = `<td>${book.no}</td>
@@ -49,3 +55,4 @@
       }
     });
 </script>
+

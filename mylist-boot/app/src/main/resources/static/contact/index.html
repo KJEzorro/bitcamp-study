@@ -32,17 +32,22 @@
 
   // 템플릿 엔진에서 사용할 HTML 조각을 가져오기
   var trTemplate = document.querySelector("#tr-template");
-
+  
   //템플릿 엔진 준비
   var htmlGenerator = Handlebars.compile(trTemplate.innerHTML);
-
+  
   fetch("/contact/list")
     .then(function(response) {
       return response.json();
     })
-    .then(function(contacts) {
+    .then(function(result) {
       // 서버에서 받은 연락처 배열을 가지고 템플릿 엔진을 실행하여 tbody 콘텐트를 생성한다.
-      tbody.innerHTML = htmlGenerator(contacts);
+      if (result.status == "fail") {
+          window.alert("서버 요청 오류!");
+          console.log(result.data);
+          return;
+      }
+      tbody.innerHTML = htmlGenerator(result.data);
     });
 
 </script>

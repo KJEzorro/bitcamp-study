@@ -7,22 +7,23 @@
 <h1>독서록 상세</h1>
 
 <form name="form1">
-  <img id="x-photo" src="photo?filename=default.png"><br>
-  제목*: <input name="title" type="text"><br>
-  저자*: <input name="author" type="text"><br>
-  출판사*: <input name="press" type="text"><br>
-  사진: <input name="file" type="file"><br>
-  페이지: <input name="page" type="number" value="0"><br>
-  가격: <input name="price" type="number" value="0"><br>
-  독서일: <input name="readDate" type="date"><br>
-  소감*: <textarea name="feed" cols="60" rows="10"></textarea><br>
-  별표(*) 항목은 필수 입력입니다.<br>
-  <button id="x-update-btn" type="button">변경</button>
-  <button id="x-delete-btn" type="button">삭제</button>
-  <button id="x-cancel-btn" type="button">취소</button>
+<img id="x-photo" src="photo?filename=default.png"><br>
+제목*: <input name="title" type="text"><br>
+저자*: <input name="author" type="text"><br>
+출판사*: <input name="press" type="text"><br>
+사진: <input name="file" type="file"><br>
+페이지: <input name="page" type="number" value="0"><br>
+가격: <input name="price" type="number" value="0"><br>
+독서일: <input name="readDate" type="date"><br>
+소감*: <textarea name="feed" cols="60" rows="10"></textarea><br>
+별표(*) 항목은 필수 입력입니다.<br>
+<button id="x-update-btn" type="button">변경</button>
+<button id="x-delete-btn" type="button">삭제</button>
+<button id="x-cancel-btn" type="button">취소</button>
 </form>
 
 <script type="text/javascript">
+
   // 1) URL에서 쿼리스트링(query string)을 추출한다.
   var arr = location.href.split("?");
   console.log(arr);
@@ -59,8 +60,16 @@
     .then(function(response) {
       return response.json();
     })
-    .then(function(book) {
+    .then(function(result) {
       // 4) 연락처 상세 정보를 화면에 출력한다.
+      if (result.status == "fail") {
+        window.alert("서버 요청 오류!");
+        console.log(result.data);
+        return;
+      }
+      
+      var book = result.data;
+      
       xTitle.value = book.title;
       xAuthor.value = book.author;
       xPress.value = book.press;
@@ -68,40 +77,44 @@
       xPrice.value = book.price;
       xReadDate.value = book.readDate;
       xFeed.value = book.feed;
-
+      
       if (book.photo != null) {
-        xPhoto.src = "/book/photo?filename=" + book.photo;
+    	  xPhoto.src = "/book/photo?filename=" + book.photo;
       }
     });
 
   document.querySelector("#x-update-btn").onclick = function() {
-    if (xTitle.value == "" ||
-      xAuthor.value == "" ||
-      xPress.value == "" ||
-      xFeed.value == "") {
+	  if (xTitle.value == "" || 
+        xAuthor.value == "" ||
+        xPress.value == "" ||
+        xFeed.value == "") {
       window.alert("필수 입력 항목이 비어 있습니다.");
       return;
     }
-
-    var fd = new FormData(document.forms.namedItem("form1"));
-
+	  
+	  var fd = new FormData(document.forms.namedItem("form1"));
+	    
     if (xReadDate.value == "") { // 독서일을 지정하지 않았으면 서버에 보내지 않는다.
       fd.delete("readDate");
     }
-
+    
     // 변경할 독서록 데이터의 PK 값을 FormData에 추가한다.
     fd.append("no", no);
-
-    fetch("/book/update", {
+    
+    fetch("/book/update", { 
         method: "POST",
         body: fd
-      })
+      }) 
       .then(function(response) {
-        return response.text();
+        return response.json();
       })
-      .then(function(text) {
-        console.log(text);
-        location.href = "?content=/book/index.html";
+      .then(function(result) {
+    	  if (result.status == "success") {
+          location.href = "?content=/book/index.html";
+        } else {
+          window.alert("독서록 변경 실패!");
+          console.log(result.data);
+        }
       });
   };
 
@@ -115,8 +128,13 @@
         return response.json();
       })
       .then(function(result) {
-        console.log(result);
-        location.href = "?content=/book/index.html";
+          if (result.status == "success") {
+            location.href = "?content=/book/index.html";
+          } else {
+            window.alert("독서록 삭제 실패!");
+            console.log(result.data);
+          }
       });
   };
+
 </script>

@@ -10,7 +10,7 @@ import com.eomcs.mylist.domain.Contact;
 import com.eomcs.mylist.domain.ContactTel;
 import com.eomcs.mylist.service.ContactService;
 
-@RestController
+@RestController 
 public class ContactController {
 
   @Autowired
@@ -59,8 +59,8 @@ public class ContactController {
       if (value[1].length() == 0) {
         continue;
       }
-      // 연락처 변경의 경우 이미 연락처 번호를 알기 때문에
-      // 전화번호를 객체에 담을 때 연락처 번호도 함께 저장한다.
+      // 연락처 변경의 경우 이미 연락처 번호를 알기 때문에 
+      // 전화번호를 객체에 담을 때 연락처 번호도 함께 저장한다. 
       ContactTel contactTel = new ContactTel(contact.getNo(), Integer.parseInt(value[0]), value[1]);
       telList.add(contactTel);
     }
@@ -88,3 +88,7 @@ public class ContactController {
   }
 
 }
+
+
+
+

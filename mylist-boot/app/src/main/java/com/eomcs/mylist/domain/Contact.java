@@ -12,6 +12,4 @@ public class Contact {
   String email;
   String company;
   List<ContactTel> tels;
-
-
 }
