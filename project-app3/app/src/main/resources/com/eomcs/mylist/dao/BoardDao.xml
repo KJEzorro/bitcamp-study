@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- 
+  namespace => 인터페이스의 패키지 및 이름과 일치해야 한다.
+ -->
+<mapper namespace="com.eomcs.mylist.dao.BoardDao">
+
+  <!-- 테이블의 컬럼과 객체 필드를 연결한다. -->
+  <resultMap type="board" id="boardMap">
+    <id column="board_no" property="no"/>
+    <result column="title" property="title"/>
+    <result column="content" property="content"/>
+    <result column="created_date" property="createdDate"/>
+    <result column="view_count" property="viewCount"/>
+    
+    <association property="writer" javaType="member">
+    <id column="no" property="no"/>
+    <result column="name" property="name"/>
+    </association>
+  </resultMap>
+
+  <!-- 
+    id => 인터페이스의 메서드 이름과 일치해야 한다.
+   -->
+  <select id="findAll" resultMap="boardMap">
+    select 
+      b.board_no,
+      b.title,
+      b.created_date,
+      b.view_count,
+      m.no,
+      m.name
+    from 
+      ml_board b
+      inner join ml_member m on (b.writer = m.no)
+    order by 
+      b.board_no desc
+  </select>
+  
+  <!-- 
+    parameterType => 메서드의 파라미터 타입 및 개수와 일치해야 한다.
+   -->
+  <select id="findByNo" resultMap="boardMap" parameterType="int">
+    select 
+      b.board_no,
+      b.title,
+      b.content,
+      b.created_date,
+      b.view_count,
+      m.no,
+      m.name
+    from 
+      ml_board b
+      inner join ml_member m on (b.writer = m.no)
+    where 
+      board_no=#{no}
+  </select>
+
+  <insert id="insert" parameterType="Board">
+    insert into ml_board(title,content,writer) 
+    values(#{title},#{content},#{writer.no})
+  </insert>
+
+  <update id="update" parameterType="Board">
+    update ml_board set 
+      title=#{title}, 
+      content=#{content} 
+    where 
+      board_no=#{no} and writer=#{writer.no}
+  </update>
+  
+  <select id="countAll" resultType="int">
+    select count(*) from ml_board
+  </select>
+
+  <delete id="delete" parameterType="board">
+    delete from ml_board 
+    where board_no=#{no} and writer=#{writer.no}
+  </delete>
+
+  <update id="increaseViewCount" parameterType="int">
+    update ml_board set 
+      view_count=view_count + 1 
+    where board_no=#{no}
+  </update>
+
+
+</mapper>
+
+
+
+
+
+
+
+
