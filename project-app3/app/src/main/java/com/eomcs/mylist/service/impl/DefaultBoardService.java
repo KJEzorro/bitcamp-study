@@ -1,49 +1,84 @@
 package com.eomcs.mylist.service.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.mylist.dao.BoardDao;
 import com.eomcs.mylist.domain.Board;
 import com.eomcs.mylist.service.BoardService;
 
-@Service // Spring IoC 컨테이너가 객체를 만들어 저장할 때 클래스 이름을 사용한다. 예) defaultBoardService
 public class DefaultBoardService implements BoardService {
 
-  @Autowired
-  BoardDao boardDao;
+  SqlSessionFactory sqlSessionFactory;
+
+  public DefaultBoardService(SqlSessionFactory sqlSessionFactory) {
+    this.sqlSessionFactory = sqlSessionFactory;
+  }
 
   @Override
-  @Transactional
   public int add(Board board) {
-    return boardDao.insert(board);
+    // 주의!
+    // - 스레드 마다 SqlSession이 구분되어야 한다. 즉 클라이언트 간의 트랜잭션이 분리되어야 한다.
+    // - 따라서 스레드가 서비스 메서드를 호출하는 시점에서 SqlSession을 얻어 DAO를 준비해야 한다.
+    // 
+    try (SqlSession session = sqlSessionFactory.openSession();) {
+      BoardDao boardDao = session.getMapper(BoardDao.class);
+      int count = boardDao.insert(board);
+      session.commit();
+      return count;
+
+    } catch (RuntimeException e) {
+      throw e;
+    }
   }
 
   @Override
   public List<Board> list() {
+    SqlSession session = sqlSessionFactory.openSession();
+    BoardDao boardDao = session.getMapper(BoardDao.class);
     return boardDao.findAll();
   }
 
   @Override
   public Board get(int no) {
-    Board board = boardDao.findByNo(no);
-    if (board != null) {
-      boardDao.increaseViewCount(no);
+    try (SqlSession session = sqlSessionFactory.openSession();) {
+      BoardDao boardDao = session.getMapper(BoardDao.class);
+      Board board = boardDao.findByNo(no);
+      if (board != null) {
+        boardDao.increaseViewCount(no);
+      }
+      session.commit();
+      return board;
+
+    } catch (RuntimeException e) {
+      throw e;
     }
-    return board;
   }
 
   @Override
-  @Transactional
   public int update(Board board) {
-    return boardDao.update(board);
+    try (SqlSession session = sqlSessionFactory.openSession();) {
+      BoardDao boardDao = session.getMapper(BoardDao.class);
+      int count = boardDao.update(board);
+      session.commit();
+      return count;
+
+    } catch (RuntimeException e) {
+      throw e;
+    }
   }
 
   @Override
-  @Transactional
   public int delete(Board board) {
-    return boardDao.delete(board);
+    try (SqlSession session = sqlSessionFactory.openSession();) {
+      BoardDao boardDao = session.getMapper(BoardDao.class);
+      int count = boardDao.delete(board);
+      session.commit();
+      return count;
+
+    } catch (RuntimeException e) {
+      throw e;
+    }
   }
 }
 

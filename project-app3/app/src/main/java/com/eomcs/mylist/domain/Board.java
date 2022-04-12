@@ -12,5 +12,4 @@ public class Board {
   int viewCount;
   java.sql.Date createdDate;
   Member writer;
-
 }

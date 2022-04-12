@@ -10,7 +10,6 @@ public interface MemberService {
 
   Member get(String email);
 
-
 }
 
 
