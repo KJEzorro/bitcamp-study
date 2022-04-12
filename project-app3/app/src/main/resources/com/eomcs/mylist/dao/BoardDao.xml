@@ -15,10 +15,9 @@
     <result column="content" property="content"/>
     <result column="created_date" property="createdDate"/>
     <result column="view_count" property="viewCount"/>
-    
     <association property="writer" javaType="member">
-    <id column="no" property="no"/>
-    <result column="name" property="name"/>
+      <id column="no" property="no"/>
+      <result column="name" property="name"/>
     </association>
   </resultMap>
 
@@ -35,7 +34,7 @@
       m.name
     from 
       ml_board b
-      inner join ml_member m on (b.writer = m.no)
+      inner join ml_member m on (b.writer = m.no) 
     order by 
       b.board_no desc
   </select>
@@ -54,9 +53,9 @@
       m.name
     from 
       ml_board b
-      inner join ml_member m on (b.writer = m.no)
+      inner join ml_member m on (b.writer = m.no) 
     where 
-      board_no=#{no}
+      b.board_no=#{no}
   </select>
 
   <insert id="insert" parameterType="Board">
