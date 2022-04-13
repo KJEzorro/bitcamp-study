@@ -28,14 +28,21 @@ public class BoardDeleteServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    Board board = new Board();
-    board.setNo(Integer.parseInt(req.getParameter("no")));
+    try {
+      Board board = new Board();
+      board.setNo(Integer.parseInt(req.getParameter("no")));
 
-    Member loginUser = (Member) req.getSession().getAttribute("loginUser");
-    board.setWriter(loginUser);
+      Member loginUser = (Member) req.getSession().getAttribute("loginUser");
+      board.setWriter(loginUser);
 
-    boardService.delete(board);
+      boardService.delete(board);
 
-    resp.sendRedirect("list");
+      resp.sendRedirect("list");
+
+    } catch (Exception e) {
+      req.setAttribute("exception", e);
+      // 포워드 하기 전에 출력한 콘텐트가 있다면 모두 버리고 다른 서블릿에게 책임을 위임한다.
+      req.getRequestDispatcher("/error").forward(req, resp);
+    }
   }
 }

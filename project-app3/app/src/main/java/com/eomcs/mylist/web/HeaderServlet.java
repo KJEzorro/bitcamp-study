@@ -15,8 +15,7 @@ public class HeaderServlet extends HttpServlet {
   @Override
   protected void service(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-
-    //service() 메서드는 GET, POST 요청 모두에 대해 호출한다.
+    // service() 메서드는 GET, POST 요청 모두에 대해 호출된다.
 
     resp.setContentType("text/html;charset=UTF-8");
     PrintWriter out = resp.getWriter();
@@ -46,9 +45,6 @@ public class HeaderServlet extends HttpServlet {
     out.println("<button id=\"login-btn\" type=\"button\" class=\"not-login\">로그인</button>");
     out.println("<span id=\"user-name\" class=\"login\"></span>");
     out.println("<button id=\"logout-btn\" type=\"button\" class=\"login\">로그아웃</button>  ");
-    out.println("</div>");
-
-
   }
 }
 
