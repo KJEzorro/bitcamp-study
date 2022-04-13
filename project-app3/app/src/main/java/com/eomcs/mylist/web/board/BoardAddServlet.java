@@ -82,15 +82,6 @@ public class BoardAddServlet extends HttpServlet {
       throws ServletException, IOException {
 
     try {
-      // 웹브라우저가 POST 요청으로 문자열을 보낼 때 어떤 문자집합으로 인코딩 했는지 알려줘야 한다.
-      // 그래야만 getParameter() 메서드에서 웹브라우저가 보낸 파라미터 값을 올바르게 꺼낼 수 있다.
-      // 즉 웹브라우저에서 웹서버에게 데이터를 보낼 때 UTF-8 로 인코딩 해서 보낸다.
-      // 그렇게 인코딩 해서 보낸 문자열을 자바에서 사용하는 UTF-16 으로 바꿔서 리턴하는 것이다.
-      // 주의!
-      // 반드시 getParaemeter() 호출하기 전에 설정해야 한다. 
-      // 단 한 번이라도 getParameter() 호출한 후 설정하게 되면 이 설정은 무시된다.
-      req.setCharacterEncoding("UTF-8");
-
       Board board = new Board();
       board.setTitle(req.getParameter("title"));
       board.setContent(req.getParameter("content"));
