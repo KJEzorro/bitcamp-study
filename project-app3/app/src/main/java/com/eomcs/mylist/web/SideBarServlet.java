@@ -15,7 +15,7 @@ public class SidebarServlet extends HttpServlet {
   @Override
   protected void service(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    // GET, POST 요청 모두에 대응할 수 있도록 service()를 오버라이딩 한다...
+    // GET, POST 요청 모두에 대응할 수 있도록 service()를 오버라이딩 한다.
 
     resp.setContentType("text/html;charset=UTF-8");
     PrintWriter out = resp.getWriter();
