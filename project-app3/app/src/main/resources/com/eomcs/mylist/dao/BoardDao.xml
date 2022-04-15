@@ -37,6 +37,7 @@
       inner join ml_member m on (b.writer = m.no) 
     order by 
       b.board_no desc
+    limit #{offset}, #{rowCount}
   </select>
   
   <!-- 

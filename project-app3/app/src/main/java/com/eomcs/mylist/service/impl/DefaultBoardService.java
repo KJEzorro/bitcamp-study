@@ -33,10 +33,10 @@ public class DefaultBoardService implements BoardService {
   }
 
   @Override
-  public List<Board> list() {
+  public List<Board> list(int pageSize, int pageNo) {
     SqlSession session = sqlSessionFactory.openSession();
     BoardDao boardDao = session.getMapper(BoardDao.class);
-    return boardDao.findAll();
+    return boardDao.findAll(pageSize, ((pageNo - 1) * pageSize));
   }
 
   @Override
@@ -79,6 +79,14 @@ public class DefaultBoardService implements BoardService {
     } catch (RuntimeException e) {
       throw e;
     }
+  }
+
+  @Override
+  public int size() {
+    SqlSession session = sqlSessionFactory.openSession();
+    BoardDao boardDao = session.getMapper(BoardDao.class);
+    return boardDao.countAll();
+
   }
 }
 
