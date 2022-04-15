@@ -79,6 +79,19 @@ for (Board board : boards) {
 %>
 </tbody>
 </table>
+<div>
+<%if (pageNo > 1) { %>
+<a href="list.jsp?pageNo=<%=pageNo - 1%>&pageSize<%=pageSize%>">[이전]</a>
+<%} else {%>
+[이전]
+<%} %>
+<%=pageNo%>
+<%if (pageNo < totalPageSize) { %>
+<a href="list.jsp?pageNo=<%=pageNo + 1%>&pageSize<%=pageSize%>">[다음]</a>
+<%} else {%>
+[다음]
+<%} %>
+</div>
 </div>
 
 <div id="footer">
