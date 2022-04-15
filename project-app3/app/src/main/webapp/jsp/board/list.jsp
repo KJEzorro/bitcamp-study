@@ -1,7 +1,7 @@
 <%@page import="com.eomcs.mylist.domain.Board"%>
 <%@page import="java.util.List"%>
 <%@page import="com.eomcs.mylist.service.BoardService"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" autoFlush="true" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class="container">
+
 <div id="header">
 <jsp:include page="/jsp/header.jsp"></jsp:include>
 </div>
@@ -18,9 +19,10 @@
 <div id="sidebar">
 <jsp:include page="/jsp/sidebar.jsp"></jsp:include>
 </div>
+
 <div id="content">
 <h1>게시글</h1>
-<a href="add">새 게시글</a>
+<a href="form.jsp">새 게시글</a>
 <table id="x-board-table" border="1">
 <thead>
   <tr>
@@ -39,14 +41,14 @@ for (Board board : boards) {
 %>
   <tr>
     <td><%=board.getNo()%></td>
-    <td><a href='detail?no=<%=board.getNo()%>'><%=board.getTitle()%></a></td>
+    <td><a href='view.jsp?no=<%=board.getNo()%>'><%=board.getTitle()%></a></td>
     <td><%=board.getWriter().getName()%></td>
     <td><%=board.getViewCount()%></td>
     <td><%=board.getCreatedDate()%></td>
   </tr>
-  <% 
-  }
-  %>
+<%
+}
+%>
 </tbody>
 </table>
 </div>
@@ -54,7 +56,7 @@ for (Board board : boards) {
 <div id="footer">
 <jsp:include page="/jsp/footer.jsp"></jsp:include>
 </div>
+
 </div>
 </body>
 </html>
-
