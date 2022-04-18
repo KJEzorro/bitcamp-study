@@ -1,4 +1,3 @@
-<%@page import="com.eomcs.mylist.domain.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,17 +18,15 @@
 </div>
 
 <div id="content">
-<%
-Board board = (Board) request.getAttribute("board");
-%>
-<h1>게시글 상세2</h1>
+
+<h1>게시글 상세4(+ JSP 액션 태그 + JSTL + EL)</h1>
 <form action='update' method='post'>
-번호: <input name="no" type="text" value='<%=board.getNo()%>' readonly><br>
-제목*: <input name="title" type="text" value='<%=board.getTitle()%>'><br>
-내용*: <textarea name="content" cols="50" rows="10"><%=board.getContent()%></textarea><br>
-작성자: <span><%=board.getWriter().getName()%></span><br>
-조회수: <span><%=board.getViewCount()%></span><br>
-등록일: <span><%=board.getCreatedDate()%></span><br>
+번호: <input name="no" type="text" value='${board.no}' readonly><br>
+제목*: <input name="title" type="text" value='${board.title}'><br>
+내용*: <textarea name="content" cols="50" rows="10">${board.content}</textarea><br>
+작성자: <span>${board.writer.name}</span><br>
+조회수: <span>${board.viewCount}</span><br>
+등록일: <span>${board.createdDate}</span><br>
 별표(*) 항목은 필수 입력입니다.<br>
 <button>변경</button>
 <button id='delete-btn' type="button">삭제</button>

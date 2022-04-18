@@ -1,6 +1,7 @@
 <%@page import="com.eomcs.mylist.domain.Board"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,7 @@
 </div>
 
 <div id="content">
-<h1>게시글2</h1>
+<h1>게시글6(+ JSP액션태그 + JSTL + EL)</h1>
 <a href="add">새 게시글</a>
 <table id="x-board-table" border="1">
 <thead>
@@ -33,37 +34,37 @@
   </tr>
 </thead>
 <tbody>
-<%
-int pageNo = (int) request.getAttribute("pageNo");
-int pageSize = (int) request.getAttribute("pageSize");
-int totalPageSize = (int) request.getAttribute("totalPageSize");
-List<Board> boards = (List<Board>) request.getAttribute("list");
-for (Board board : boards) {
-%>
+<c:forEach var="board" items="${list}">
   <tr>
-    <td><%=board.getNo()%></td>
-    <td><a href='detail?no=<%=board.getNo()%>'><%=board.getTitle()%></a></td>
-    <td><%=board.getWriter().getName()%></td>
-    <td><%=board.getViewCount()%></td>
-    <td><%=board.getCreatedDate()%></td>
+    <td>${board.no}</td>
+    <td><a href='detail?no=${board.no}'>${board.title}</a></td>
+    <td>${board.writer.name}</td>
+    <td>${board.viewCount}</td>
+    <td>${board.createdDate}</td>
   </tr>
-<%
-}
-%>
+</c:forEach>
 </tbody>
 </table>
 <div>
-<%if (pageNo > 1) { %>
-<a href="list?pageNo=<%=pageNo - 1%>&pageSize<%=pageSize%>">[이전]</a>
-<%} else {%>
-[이전]
-<%} %>
-<%=pageNo%>
-<%if (pageNo < totalPageSize) { %>
-<a href="list?pageNo=<%=pageNo + 1%>&pageSize<%=pageSize%>">[다음]</a>
-<%} else {%>
-[다음]
-<%} %>
+
+<c:if test="${pageNo > 1}">
+  <a href="list?pageNo=${pageNo - 1}&pageSize=${pageSize}">[이전]</a>
+</c:if>
+<c:if test="${pageNo <= 1}">
+  [이전]
+</c:if>
+
+${pageNo}
+
+<c:choose>
+  <c:when test="${pageNo < totalPageSize}"> 
+    <a href="list?pageNo=${pageNo + 1}&pageSize=${pageSize}">[다음]</a>
+  </c:when>
+  <c:otherwise>
+    [다음]
+  </c:otherwise>
+</c:choose>
+
 </div>
 </div>
 

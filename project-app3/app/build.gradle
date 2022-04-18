@@ -18,6 +18,9 @@ dependencies {
     // => 컴파일 할 때만 사용하고, 배포할 때는 제외할 라이브러리
     providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
     
+    // JSTL API(JavaEE) + 구현체(apache.org) 라이브러리
+    implementation 'javax.servlet:jstl:1.2'
+    
     // MariaDB JDBC 드라이버
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.3'
   
