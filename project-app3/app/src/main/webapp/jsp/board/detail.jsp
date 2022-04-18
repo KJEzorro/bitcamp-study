@@ -1,6 +1,5 @@
 <%@page import="com.eomcs.mylist.domain.Board"%>
-<%@page import="com.eomcs.mylist.service.BoardService"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,12 +20,10 @@
 
 <div id="content">
 <%
-int no = Integer.parseInt(request.getParameter("no"));
-BoardService boardService = (BoardService) application.getAttribute("boardService");
-Board board = boardService.get(no);
+Board board = (Board) request.getAttribute("board");
 %>
-<h1>게시글 상세</h1>
-<form action='update.jsp' method='post'>
+<h1>게시글 상세2</h1>
+<form action='update' method='post'>
 번호: <input name="no" type="text" value='<%=board.getNo()%>' readonly><br>
 제목*: <input name="title" type="text" value='<%=board.getTitle()%>'><br>
 내용*: <textarea name="content" cols="50" rows="10"><%=board.getContent()%></textarea><br>
@@ -48,10 +45,10 @@ Board board = boardService.get(no);
 
 <script>
 document.querySelector('#delete-btn').onclick = () => {
-  location.href = 'delete.jsp?no=' + document.querySelector('input[name=no]').value;
+  location.href = 'delete?no=' + document.querySelector('input[name=no]').value;
 }
 document.querySelector('#cancel-btn').onclick = () => {
-  location.href = 'list.jsp';
+  location.href = 'list';
 }
 </script>
 

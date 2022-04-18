@@ -42,7 +42,7 @@ for (Board board : boards) {
 %>
   <tr>
     <td><%=board.getNo()%></td>
-    <td><a href='view?no=<%=board.getNo()%>'><%=board.getTitle()%></a></td>
+    <td><a href='detail?no=<%=board.getNo()%>'><%=board.getTitle()%></a></td>
     <td><%=board.getWriter().getName()%></td>
     <td><%=board.getViewCount()%></td>
     <td><%=board.getCreatedDate()%></td>
