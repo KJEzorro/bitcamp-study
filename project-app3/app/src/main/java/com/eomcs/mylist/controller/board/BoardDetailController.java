@@ -32,12 +32,10 @@ public class BoardDetailController extends HttpServlet {
       Board board = boardService.get(no);
 
       request.setAttribute("board", board);
-      request.getRequestDispatcher("/jsp/board/detail.jsp").forward(request, response);
+      request.setAttribute("viewUrl", "/jsp/board/detail.jsp");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      // 포워드 하기 전에 출력한 콘텐트가 있다면 모두 버리고 다른 서블릿에게 책임을 위임한다.
-      request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
     }
   }
 }
