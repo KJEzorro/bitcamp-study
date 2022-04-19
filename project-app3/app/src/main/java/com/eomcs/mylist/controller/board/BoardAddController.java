@@ -26,7 +26,7 @@ public class BoardAddController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    request.getRequestDispatcher("/jsp/board/form.jsp").forward(request, response);
+    request.setAttribute("viewUrl", "/jsp/board/form.jsp");
   }
 
   @Override
@@ -43,12 +43,10 @@ public class BoardAddController extends HttpServlet {
 
       boardService.add(board);
 
-      response.sendRedirect("list");
+      request.setAttribute("viewUrl", "redirect:list");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);
-      // 포워드 하기 전에 출력한 콘텐트가 있다면 모두 버리고 다른 서블릿에게 책임을 위임한다.
-      request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
     }
   }
 }

@@ -29,7 +29,11 @@ public class DispatcherServlet extends HttpServlet {
       }
 
       String viewUrl = (String) request.getAttribute("viewUrl");
-      request.getRequestDispatcher(viewUrl).include(request, response);
+      if (viewUrl.startsWith("redirect:")) { // 예) redirect:list
+        response.sendRedirect(viewUrl.substring(9)); // 예) list
+      } else {        
+        request.getRequestDispatcher(viewUrl).include(request, response);
+      }
 
     } catch (Exception e) {
       if (request.getAttribute("exception") == null) {
