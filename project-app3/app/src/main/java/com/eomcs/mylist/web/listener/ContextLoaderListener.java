@@ -8,10 +8,13 @@ import javax.servlet.annotation.WebListener;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import com.eomcs.mylist.controller.board.BoardAddController;
+import com.eomcs.mylist.controller.board.BoardDeleteController;
+import com.eomcs.mylist.controller.board.BoardDetailController;
+import com.eomcs.mylist.controller.board.BoardListController;
+import com.eomcs.mylist.controller.board.BoardUpdateController;
 import com.eomcs.mylist.service.BoardService;
-import com.eomcs.mylist.service.MemberService;
 import com.eomcs.mylist.service.impl.DefaultBoardService;
-import com.eomcs.mylist.service.impl.DefaultMemberService;
 
 // 역할:
 // - 웹애플리케이션이 시작될 때 서비스 객체, DAO 객체, Mybatis 객체를 준비한다.
@@ -32,12 +35,17 @@ public class ContextLoaderListener implements ServletContextListener {
 
       // 2) 서비스 객체 생성
       BoardService boardService = new DefaultBoardService(sqlSessionFactory);
-      MemberService memberService = new DefaultMemberService(sqlSessionFactory);
+      //      MemberService memberService = new DefaultMemberService(sqlSessionFactory);
 
-      // 3) 서블릿에서 서비스 객체를 사용할 수 있도록 ServletContext 보관소에 저장한다.
+
+      // 3) 페이지 컨트롤러 객체 생성 및 
+      //    프론트 컨트롤러가 페이지 컨트롤러를 사용할 수 있도록 ServletContext 보관소에 저장한다.
       ServletContext 웹애플리케이션보관소 = sce.getServletContext();
-      웹애플리케이션보관소.setAttribute("boardService", boardService);
-      웹애플리케이션보관소.setAttribute("memberService", memberService);
+      웹애플리케이션보관소.setAttribute("/board/list", new BoardListController(boardService));
+      웹애플리케이션보관소.setAttribute("/board/detail", new BoardDetailController(boardService));
+      웹애플리케이션보관소.setAttribute("/board/update", new BoardUpdateController(boardService));
+      웹애플리케이션보관소.setAttribute("/board/delete", new BoardDeleteController(boardService));
+      웹애플리케이션보관소.setAttribute("/board/add", new BoardAddController(boardService));
 
     } catch (Exception e) {
       e.printStackTrace();

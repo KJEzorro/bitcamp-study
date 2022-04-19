@@ -1,7 +1,7 @@
 package com.eomcs.mylist.controller;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,19 +16,18 @@ public class DispatcherServlet extends HttpServlet {
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    String controllerPath = request.getPathInfo();
+    String controllerPath = request.getPathInfo(); // 예) /board/list
 
     try {
       response.setContentType("text/html; charset=UTF-8");
-      RequestDispatcher 요청배달자 = request.getRequestDispatcher(controllerPath);
-      요청배달자.include(request, response);
 
-      Exception exception = (Exception) request.getAttribute("exception"); 
-      if (exception != null) {
-        throw exception;
-      }
+      // 애플리케이션 보관소에서 페이지 컨트롤러를 찾는다.
+      ServletContext 애플리케이션보관소 = request.getServletContext();
+      Controller pageController= (Controller) 애플리케이션보관소.getAttribute(controllerPath); // 예) /board/list
 
-      String viewUrl = (String) request.getAttribute("viewUrl");
+
+      String viewUrl = pageController.excute(request, response);
+
       if (viewUrl.startsWith("redirect:")) { // 예) redirect:list
         response.sendRedirect(viewUrl.substring(9)); // 예) list
       } else {        
