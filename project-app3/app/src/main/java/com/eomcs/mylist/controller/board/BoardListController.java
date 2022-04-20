@@ -4,12 +4,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.eomcs.mylist.controller.Component;
-import com.eomcs.mylist.controller.Controller;
+import com.eomcs.mylist.controller.RequestMapping;
 import com.eomcs.mylist.domain.Board;
 import com.eomcs.mylist.service.BoardService;
 
 @Component("/board/list")
-public class BoardListController implements Controller {
+public class BoardListController {
 
   BoardService boardService;
 
@@ -17,8 +17,8 @@ public class BoardListController implements Controller {
     this.boardService = boardService;
   }
 
-  @Override
-  public String excute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  @RequestMapping
+  public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
     // 1) 입력 데이터 가공 및 검증
     int pageNo = 1;
     int pageSize = 5;
