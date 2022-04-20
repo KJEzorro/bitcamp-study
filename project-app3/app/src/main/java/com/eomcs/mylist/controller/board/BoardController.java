@@ -1,10 +1,13 @@
 package com.eomcs.mylist.controller.board;
 
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import com.eomcs.mylist.controller.Component;
 import com.eomcs.mylist.controller.RequestMapping;
+import com.eomcs.mylist.controller.RequestParam;
 import com.eomcs.mylist.domain.Board;
 import com.eomcs.mylist.domain.Member;
 import com.eomcs.mylist.service.BoardService;
@@ -20,16 +23,14 @@ public class BoardController {
   }
 
   @RequestMapping("list")
-  public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String list(
+      @RequestParam(value="pageNo", defaultValue="1") int pageNo,
+      @RequestParam(value="pageSize", defaultValue="5")int pageSize,
+      Map<String,Object> model) throws Exception {
 
-    // 1) 입력 데이터 가공 및 검증
-    int pageNo = 1;
-    int pageSize = 5;
     int totalPageSize = 0;
 
-
     try { // pageSize 파라미터 값이 있다면 기본 값을 변경한다.
-      pageSize = Integer.parseInt(request.getParameter("pageSize"));
       if (pageSize < 5 || pageSize > 100) {
         pageSize = 5;
       }
@@ -43,7 +44,6 @@ public class BoardController {
     }
 
     try { // pageNo 파라미터 값이 있다면 기본 값을 변경한다.
-      pageNo = Integer.parseInt(request.getParameter("pageNo"));
       if (pageNo < 1 || pageNo > totalPageSize) { // pageNo 유효성 검증
         pageNo = 1;
       }
@@ -55,34 +55,36 @@ public class BoardController {
 
 
     // 3) 출력 데이터 준비
-    request.setAttribute("list", boards);
-    request.setAttribute("pageNo", pageNo);
-    request.setAttribute("pageSize", pageSize);
-    request.setAttribute("totalPageSize", totalPageSize);
+    model.put("list", boards);
+    model.put("pageNo", pageNo);
+    model.put("pageSize", pageSize);
+    model.put("totalPageSize", totalPageSize);
 
     return "/jsp/board/list.jsp";
   }
 
   @RequestMapping("detail")
-  public String detail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String detail(@RequestParam("no") int no, Map<String, Object> model) throws Exception {
 
-    int no = Integer.parseInt(request.getParameter("no"));
     Board board = boardService.get(no);
-    request.setAttribute("board", board);
-
+    model.put("board", board);
     return "/jsp/board/detail.jsp";
 
   }
 
   @RequestMapping("update")
-  public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String update(
+      @RequestParam("no") int no, 
+      @RequestParam("title") String title, 
+      @RequestParam("content") String content,
+      HttpSession session) throws Exception {
 
     Board board = new Board();
-    board.setNo(Integer.parseInt(request.getParameter("no")));
-    board.setTitle(request.getParameter("title"));
-    board.setContent(request.getParameter("content"));
+    board.setNo(no);
+    board.setTitle(title);
+    board.setContent(content);
 
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    Member loginUser = (Member) session.getAttribute("loginUser");
     board.setWriter(loginUser);
 
     boardService.update(board);
@@ -91,12 +93,12 @@ public class BoardController {
   } 
 
   @RequestMapping("delete")
-  public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String delete(@RequestParam("no") int no, HttpSession session) throws Exception {
 
     Board board = new Board();
-    board.setNo(Integer.parseInt(request.getParameter("no")));
+    board.setNo(no);
 
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    Member loginUser = (Member) session.getAttribute("loginUser");
     board.setWriter(loginUser);
 
     boardService.delete(board);
