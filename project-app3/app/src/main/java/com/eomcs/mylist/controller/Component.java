@@ -9,6 +9,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME) // 현재 정의하는 애노테이션 정보를 JVM 실행 중에 추출할 수 있게 허락한다.
 public @interface Component { // 객체를 자동 생성하고 싶을 때 붙이는 애노테이션
 
-  String value();
-
 }
