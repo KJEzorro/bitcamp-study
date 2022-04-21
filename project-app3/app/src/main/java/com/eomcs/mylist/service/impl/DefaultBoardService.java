@@ -3,10 +3,13 @@ package com.eomcs.mylist.service.impl;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Service;
 import com.eomcs.mylist.dao.BoardDao;
 import com.eomcs.mylist.domain.Board;
 import com.eomcs.mylist.service.BoardService;
 
+
+@Service
 public class DefaultBoardService implements BoardService {
 
   SqlSessionFactory sqlSessionFactory;

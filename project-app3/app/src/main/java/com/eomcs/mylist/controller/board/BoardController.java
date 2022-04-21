@@ -5,14 +5,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.eomcs.mylist.controller.Component;
-import com.eomcs.mylist.controller.RequestMapping;
-import com.eomcs.mylist.controller.RequestParam;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.mylist.domain.Board;
 import com.eomcs.mylist.domain.Member;
 import com.eomcs.mylist.service.BoardService;
 
-@Component
+@Controller
 @RequestMapping("/board/")
 public class BoardController {
 
