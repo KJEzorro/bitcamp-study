@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<!DOCTYPE html> 
 <html>
 <head>
   <meta charset="UTF-8">
@@ -18,7 +18,7 @@
 </div>
 
 <div id="content">
-<h1>실행 오류</h1>
+<h1>실행 오류!</h1>
 <%
 Exception e = (Exception) request.getAttribute("exception");
 %>
@@ -30,7 +30,5 @@ Exception e = (Exception) request.getAttribute("exception");
 </div>
 
 </div>
-
-
 </body>
 </html>
