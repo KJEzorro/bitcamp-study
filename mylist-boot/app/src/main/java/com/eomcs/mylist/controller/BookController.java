@@ -154,7 +154,7 @@ public class BookController {
       Thumbnails.of(photoFile)
       .size(50, 50)
       .crop(Positions.CENTER)
-      .outputFormat("jpg")
+      //      .outputFormat("jpg")
       .toFile(new File("./upload/book/" + "50x50_" + filename));
 
       return filename;

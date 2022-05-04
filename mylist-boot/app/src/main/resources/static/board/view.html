@@ -16,7 +16,7 @@
 <script type="text/javascript">
 
   // 1) URL에서 쿼리스트링(query string)을 추출한다.
-  var arr = location.href.split("?"); 
+  var arr = location.href.split("?");
   console.log(arr);
 
   if (arr.length == 1) {
@@ -56,9 +56,9 @@
     	  console.log(result.data);
     	  return;
       }
-      
+
       var board = result.data;
-      
+
       xNo.value = board.no;
       xTitle.value = board.title;
       xContent.value = board.content;
@@ -72,9 +72,9 @@
       window.alert("필수 입력 항목이 비어 있습니다.");
       return;
     }
-    
+
     var fd = new FormData(document.forms.namedItem("form1"));
-    
+
     fetch("/board/update", {
     	  method: "POST",
     	  body: new URLSearchParams(fd)
@@ -111,4 +111,3 @@
   };
 
 </script>
-
